@@ -1531,6 +1531,7 @@ async def shutdown_event():
     """Close database connection and shutdown all systems"""
     await inter_agent_comm.stop()
     await orchestrator.shutdown()
+    await performance_optimizer.shutdown()
     await close_db_connection()
     logger.info("NOWHERE Digital API shutdown")
 
