@@ -2071,6 +2071,32 @@ class BackendTester:
         await self.test_insights_optimization_recommendations()
         await self.test_insights_summary()
         
+        print("\n🔒 PHASE 5A TESTING - ENTERPRISE SECURITY, PERFORMANCE & CRM:")
+        print("=" * 70)
+        
+        # Test Enterprise Security Manager (NEW)
+        print("\n🛡️ Enterprise Security Manager:")
+        await self.test_security_create_user()
+        await self.test_security_user_login()
+        await self.test_security_validate_permission()
+        await self.test_security_create_policy()
+        await self.test_security_compliance_report()
+        
+        # Test Performance Optimizer (NEW)
+        print("\n⚡ Performance Optimizer:")
+        await self.test_performance_summary()
+        await self.test_performance_optimize()
+        await self.test_performance_auto_scale_recommendations()
+        await self.test_performance_cache_stats()
+        
+        # Test CRM Integrations Manager (NEW)
+        print("\n🤝 CRM Integrations Manager:")
+        await self.test_crm_setup_integration()
+        await self.test_crm_sync_contacts()
+        await self.test_crm_create_lead()
+        await self.test_crm_analytics()
+        await self.test_crm_webhook()
+        
         # Summary
         print("\n" + "=" * 60)
         print("📊 COMPREHENSIVE PHASE 3 & 4 TEST SUMMARY")
