@@ -33,6 +33,11 @@ from core.white_label_manager import white_label_manager, TenantConfig
 from core.inter_agent_communication import inter_agent_comm, AgentMessage, MessageType
 from core.insights_engine import insights_engine, InsightType
 
+# Import Phase 5 components (Enterprise Security & Performance)
+from core.security_manager import security_manager, UserRole, Permission, ComplianceStandard
+from core.performance_optimizer import performance_optimizer, MetricType, PerformanceMetric
+from integrations.crm_integrations import crm_manager, CRMProvider
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
