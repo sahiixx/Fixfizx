@@ -705,6 +705,256 @@ async def get_analytics_summary():
         logger.error(f"Error getting analytics summary: {e}")
         raise HTTPException(status_code=500, detail="Failed to get analytics summary")
 
+# ================================================================================================
+# AGENT SYSTEM ENDPOINTS - AI-POWERED BUSINESS AUTOMATION
+# ================================================================================================
+
+# Agent Management Endpoints
+@api_router.get("/agents/status", response_model=StandardResponse)
+async def get_agents_status():
+    """Get status of all agents in the system"""
+    try:
+        status = await orchestrator.get_agent_status()
+        return StandardResponse(
+            success=True,
+            message="Agent status retrieved successfully",
+            data=status
+        )
+    except Exception as e:
+        logger.error(f"Error getting agent status: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get agent status")
+
+@api_router.get("/agents/{agent_id}/status", response_model=StandardResponse)
+async def get_agent_status(agent_id: str):
+    """Get status of specific agent"""
+    try:
+        status = await orchestrator.get_agent_status(agent_id)
+        return StandardResponse(
+            success=True,
+            message="Agent status retrieved successfully",
+            data=status
+        )
+    except Exception as e:
+        logger.error(f"Error getting agent status: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get agent status")
+
+@api_router.get("/agents/metrics", response_model=StandardResponse)
+async def get_orchestrator_metrics():
+    """Get orchestrator performance metrics"""
+    try:
+        metrics = orchestrator.get_metrics()
+        return StandardResponse(
+            success=True,
+            message="Orchestrator metrics retrieved successfully",
+            data=metrics
+        )
+    except Exception as e:
+        logger.error(f"Error getting orchestrator metrics: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get metrics")
+
+# Sales Agent Endpoints
+@api_router.post("/agents/sales/qualify-lead", response_model=StandardResponse)
+async def qualify_lead_with_sales_agent(lead_data: Dict[str, Any]):
+    """Qualify a lead using the AI Sales Agent"""
+    try:
+        task_id = await orchestrator.submit_task({
+            'type': 'qualify_lead',
+            'data': lead_data
+        }, agent_type='sales')
+        
+        return StandardResponse(
+            success=True,
+            message="Lead qualification task submitted successfully",
+            data={"task_id": task_id}
+        )
+    except Exception as e:
+        logger.error(f"Error submitting lead qualification task: {e}")
+        raise HTTPException(status_code=500, detail="Failed to qualify lead")
+
+@api_router.get("/agents/sales/pipeline", response_model=StandardResponse)
+async def get_sales_pipeline_analysis():
+    """Get sales pipeline analysis from Sales Agent"""
+    try:
+        task_id = await orchestrator.submit_task({
+            'type': 'analyze_sales_pipeline',
+            'data': {}
+        }, agent_type='sales')
+        
+        return StandardResponse(
+            success=True,
+            message="Pipeline analysis task submitted successfully",
+            data={"task_id": task_id}
+        )
+    except Exception as e:
+        logger.error(f"Error getting pipeline analysis: {e}")
+        raise HTTPException(status_code=500, detail="Failed to analyze sales pipeline")
+
+@api_router.post("/agents/sales/generate-proposal", response_model=StandardResponse)
+async def generate_proposal_with_sales_agent(proposal_data: Dict[str, Any]):
+    """Generate service proposal using AI Sales Agent"""
+    try:
+        task_id = await orchestrator.submit_task({
+            'type': 'generate_proposal',
+            'data': proposal_data
+        }, agent_type='sales')
+        
+        return StandardResponse(
+            success=True,
+            message="Proposal generation task submitted successfully",
+            data={"task_id": task_id}
+        )
+    except Exception as e:
+        logger.error(f"Error generating proposal: {e}")
+        raise HTTPException(status_code=500, detail="Failed to generate proposal")
+
+# Marketing Agent Endpoints
+@api_router.post("/agents/marketing/create-campaign", response_model=StandardResponse)
+async def create_marketing_campaign(campaign_data: Dict[str, Any]):
+    """Create marketing campaign using AI Marketing Agent"""
+    try:
+        task_id = await orchestrator.submit_task({
+            'type': 'create_campaign',
+            'data': campaign_data
+        }, agent_type='marketing')
+        
+        return StandardResponse(
+            success=True,
+            message="Campaign creation task submitted successfully",
+            data={"task_id": task_id}
+        )
+    except Exception as e:
+        logger.error(f"Error creating campaign: {e}")
+        raise HTTPException(status_code=500, detail="Failed to create campaign")
+
+@api_router.post("/agents/marketing/optimize-campaign", response_model=StandardResponse)
+async def optimize_marketing_campaign(optimization_data: Dict[str, Any]):
+    """Optimize marketing campaign using AI Marketing Agent"""
+    try:
+        task_id = await orchestrator.submit_task({
+            'type': 'optimize_campaign',
+            'data': optimization_data
+        }, agent_type='marketing')
+        
+        return StandardResponse(
+            success=True,
+            message="Campaign optimization task submitted successfully",
+            data={"task_id": task_id}
+        )
+    except Exception as e:
+        logger.error(f"Error optimizing campaign: {e}")
+        raise HTTPException(status_code=500, detail="Failed to optimize campaign")
+
+# Content Agent Endpoints
+@api_router.post("/agents/content/generate", response_model=StandardResponse)
+async def generate_content_with_agent(content_data: Dict[str, Any]):
+    """Generate content using AI Content Agent"""
+    try:
+        task_id = await orchestrator.submit_task({
+            'type': 'generate_content',
+            'data': content_data
+        }, agent_type='content')
+        
+        return StandardResponse(
+            success=True,
+            message="Content generation task submitted successfully",
+            data={"task_id": task_id}
+        )
+    except Exception as e:
+        logger.error(f"Error generating content: {e}")
+        raise HTTPException(status_code=500, detail="Failed to generate content")
+
+# Analytics Agent Endpoints  
+@api_router.post("/agents/analytics/analyze", response_model=StandardResponse)
+async def analyze_data_with_agent(analysis_data: Dict[str, Any]):
+    """Analyze data using AI Analytics Agent"""
+    try:
+        task_id = await orchestrator.submit_task({
+            'type': 'analyze_data',
+            'data': analysis_data
+        }, agent_type='analytics')
+        
+        return StandardResponse(
+            success=True,
+            message="Data analysis task submitted successfully", 
+            data={"task_id": task_id}
+        )
+    except Exception as e:
+        logger.error(f"Error analyzing data: {e}")
+        raise HTTPException(status_code=500, detail="Failed to analyze data")
+
+# Task Management Endpoints
+@api_router.get("/agents/tasks/history", response_model=StandardResponse)
+async def get_task_history(
+    agent_id: Optional[str] = None,
+    limit: int = Query(10, ge=1, le=100)
+):
+    """Get task execution history"""
+    try:
+        history = await orchestrator.get_task_history(agent_id, limit)
+        return StandardResponse(
+            success=True,
+            message="Task history retrieved successfully",
+            data={"tasks": history}
+        )
+    except Exception as e:
+        logger.error(f"Error getting task history: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get task history")
+
+# Agent Control Endpoints
+@api_router.post("/agents/{agent_id}/pause", response_model=StandardResponse)
+async def pause_agent(agent_id: str):
+    """Pause a specific agent"""
+    try:
+        success = await orchestrator.pause_agent(agent_id)
+        if success:
+            return StandardResponse(
+                success=True,
+                message=f"Agent {agent_id} paused successfully"
+            )
+        else:
+            raise HTTPException(status_code=404, detail="Agent not found")
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error pausing agent: {e}")
+        raise HTTPException(status_code=500, detail="Failed to pause agent")
+
+@api_router.post("/agents/{agent_id}/resume", response_model=StandardResponse)
+async def resume_agent(agent_id: str):
+    """Resume a specific agent"""
+    try:
+        success = await orchestrator.resume_agent(agent_id)
+        if success:
+            return StandardResponse(
+                success=True,
+                message=f"Agent {agent_id} resumed successfully"
+            )
+        else:
+            raise HTTPException(status_code=404, detail="Agent not found")
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error resuming agent: {e}")
+        raise HTTPException(status_code=500, detail="Failed to resume agent")
+
+@api_router.post("/agents/{agent_id}/reset", response_model=StandardResponse)
+async def reset_agent(agent_id: str):
+    """Reset a specific agent"""
+    try:
+        success = await orchestrator.reset_agent(agent_id)
+        if success:
+            return StandardResponse(
+                success=True,
+                message=f"Agent {agent_id} reset successfully"
+            )
+        else:
+            raise HTTPException(status_code=404, detail="Agent not found")
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error resetting agent: {e}")
+        raise HTTPException(status_code=500, detail="Failed to reset agent")
+
 # Include the API router
 app.include_router(api_router)
 
