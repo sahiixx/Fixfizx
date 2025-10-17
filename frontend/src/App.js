@@ -38,6 +38,8 @@ function App() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/agents" element={<AgentDashboard />} />
+          <Route path="/plugins" element={<PluginMarketplace />} />
+          <Route path="/templates" element={<IndustryTemplates />} />
         </Routes>
         
         {/* Global Chat System */}
