@@ -1210,6 +1210,293 @@ async def create_custom_template(template_data: Dict[str, Any]):
         logger.error(f"Error creating custom template: {e}")
         raise HTTPException(status_code=500, detail="Failed to create custom template")
 
+# ================================================================================================
+# PHASE 3 & 4 - WHITE LABEL, INTER-AGENT COMMUNICATION & SMART INSIGHTS
+# ================================================================================================
+
+# White Label & Multi-Tenancy Endpoints
+@api_router.post("/white-label/create-tenant", response_model=StandardResponse)
+async def create_white_label_tenant(tenant_data: Dict[str, Any]):
+    """Create a new white-label tenant configuration"""
+    try:
+        result = await white_label_manager.create_tenant(tenant_data)
+        
+        if "error" in result:
+            raise HTTPException(status_code=400, detail=result["error"])
+        
+        return StandardResponse(
+            success=True,
+            message="White-label tenant created successfully",
+            data=result
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error creating white-label tenant: {e}")
+        raise HTTPException(status_code=500, detail="Failed to create tenant")
+
+@api_router.get("/white-label/tenants", response_model=StandardResponse)
+async def get_all_tenants(status: Optional[str] = None):
+    """Get list of all white-label tenants"""
+    try:
+        tenants = await white_label_manager.get_all_tenants(status)
+        return StandardResponse(
+            success=True,
+            message="Tenants retrieved successfully",
+            data={"tenants": tenants, "total": len(tenants)}
+        )
+    except Exception as e:
+        logger.error(f"Error getting tenants: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get tenants")
+
+@api_router.get("/white-label/tenant/{tenant_id}/branding", response_model=StandardResponse)
+async def get_tenant_branding(tenant_id: str):
+    """Get tenant-specific branding configuration"""
+    try:
+        branding = await white_label_manager.get_tenant_branding(tenant_id)
+        return StandardResponse(
+            success=True,
+            message="Tenant branding retrieved successfully",
+            data=branding
+        )
+    except Exception as e:
+        logger.error(f"Error getting tenant branding: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get tenant branding")
+
+@api_router.post("/white-label/create-reseller", response_model=StandardResponse)
+async def create_reseller_package(reseller_data: Dict[str, Any]):
+    """Create a reseller package with custom branding"""
+    try:
+        result = await white_label_manager.create_reseller_package(reseller_data)
+        
+        if "error" in result:
+            raise HTTPException(status_code=400, detail=result["error"])
+        
+        return StandardResponse(
+            success=True,
+            message="Reseller package created successfully",
+            data=result
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error creating reseller package: {e}")
+        raise HTTPException(status_code=500, detail="Failed to create reseller package")
+
+# Inter-Agent Communication Endpoints
+@api_router.post("/agents/collaborate", response_model=StandardResponse)
+async def initiate_agent_collaboration(collaboration_request: Dict[str, Any]):
+    """Initiate a collaborative task between multiple agents"""
+    try:
+        collaboration_id = await inter_agent_comm.request_collaboration(collaboration_request)
+        
+        if not collaboration_id:
+            raise HTTPException(status_code=400, detail="Failed to initiate collaboration")
+        
+        return StandardResponse(
+            success=True,
+            message="Agent collaboration initiated successfully",
+            data={"collaboration_id": collaboration_id}
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error initiating collaboration: {e}")
+        raise HTTPException(status_code=500, detail="Failed to initiate collaboration")
+
+@api_router.get("/agents/collaborate/{collaboration_id}", response_model=StandardResponse)
+async def get_collaboration_status(collaboration_id: str):
+    """Get status of an active collaboration"""
+    try:
+        status = await inter_agent_comm.get_collaboration_status(collaboration_id)
+        
+        if not status:
+            raise HTTPException(status_code=404, detail="Collaboration not found")
+        
+        return StandardResponse(
+            success=True,
+            message="Collaboration status retrieved successfully",
+            data=status
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error getting collaboration status: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get collaboration status")
+
+@api_router.post("/agents/delegate-task", response_model=StandardResponse)
+async def delegate_task_between_agents(delegation_request: Dict[str, Any]):
+    """Delegate a task from one agent to another"""
+    try:
+        from_agent_id = delegation_request.get('from_agent_id')
+        to_agent_id = delegation_request.get('to_agent_id')
+        task_data = delegation_request.get('task_data', {})
+        
+        message_id = await inter_agent_comm.delegate_task(from_agent_id, to_agent_id, task_data)
+        
+        if not message_id:
+            raise HTTPException(status_code=400, detail="Failed to delegate task")
+        
+        return StandardResponse(
+            success=True,
+            message="Task delegated successfully",
+            data={"delegation_id": message_id}
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error delegating task: {e}")
+        raise HTTPException(status_code=500, detail="Failed to delegate task")
+
+@api_router.get("/agents/communication/metrics", response_model=StandardResponse)
+async def get_communication_metrics():
+    """Get inter-agent communication system metrics"""
+    try:
+        metrics = inter_agent_comm.get_metrics()
+        return StandardResponse(
+            success=True,
+            message="Communication metrics retrieved successfully",
+            data=metrics
+        )
+    except Exception as e:
+        logger.error(f"Error getting communication metrics: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get communication metrics")
+
+# Smart Insights & Analytics Endpoints
+@api_router.post("/insights/analyze-performance", response_model=StandardResponse)
+async def analyze_system_performance(performance_data: Dict[str, Any]):
+    """Analyze system performance and generate AI insights"""
+    try:
+        insights = await insights_engine.analyze_system_performance(performance_data)
+        
+        return StandardResponse(
+            success=True,
+            message="Performance analysis completed successfully",
+            data={
+                "insights_generated": len(insights),
+                "insights": [
+                    {
+                        "id": insight.insight_id,
+                        "type": insight.type.value,
+                        "severity": insight.severity.value,
+                        "title": insight.title,
+                        "description": insight.description,
+                        "recommendations": insight.recommendations,
+                        "confidence": insight.confidence_score,
+                        "impact": insight.impact_estimate
+                    }
+                    for insight in insights
+                ]
+            }
+        )
+    except Exception as e:
+        logger.error(f"Error analyzing performance: {e}")
+        raise HTTPException(status_code=500, detail="Failed to analyze performance")
+
+@api_router.post("/insights/analyze-agent/{agent_id}", response_model=StandardResponse)
+async def analyze_agent_performance(agent_id: str, agent_metrics: Dict[str, Any]):
+    """Analyze individual agent performance and generate improvement suggestions"""
+    try:
+        insights = await insights_engine.analyze_agent_performance(agent_id, agent_metrics)
+        
+        return StandardResponse(
+            success=True,
+            message="Agent performance analysis completed successfully",
+            data={
+                "agent_id": agent_id,
+                "insights_generated": len(insights),
+                "insights": [
+                    {
+                        "id": insight.insight_id,
+                        "type": insight.type.value,
+                        "severity": insight.severity.value,
+                        "title": insight.title,
+                        "description": insight.description,
+                        "recommendations": insight.recommendations,
+                        "confidence": insight.confidence_score,
+                        "impact": insight.impact_estimate
+                    }
+                    for insight in insights
+                ]
+            }
+        )
+    except Exception as e:
+        logger.error(f"Error analyzing agent performance: {e}")
+        raise HTTPException(status_code=500, detail="Failed to analyze agent performance")
+
+@api_router.post("/insights/detect-anomalies", response_model=StandardResponse)
+async def detect_business_anomalies(business_data: Dict[str, Any]):
+    """Detect anomalies in business metrics and operations"""
+    try:
+        insights = await insights_engine.detect_business_anomalies(business_data)
+        
+        return StandardResponse(
+            success=True,
+            message="Anomaly detection completed successfully",
+            data={
+                "anomalies_detected": len(insights),
+                "insights": [
+                    {
+                        "id": insight.insight_id,
+                        "type": insight.type.value,
+                        "severity": insight.severity.value,
+                        "title": insight.title,
+                        "description": insight.description,
+                        "recommendations": insight.recommendations,
+                        "confidence": insight.confidence_score
+                    }
+                    for insight in insights
+                ]
+            }
+        )
+    except Exception as e:
+        logger.error(f"Error detecting anomalies: {e}")
+        raise HTTPException(status_code=500, detail="Failed to detect anomalies")
+
+@api_router.post("/insights/optimization-recommendations", response_model=StandardResponse)
+async def generate_optimization_recommendations(context_data: Dict[str, Any]):
+    """Generate AI-powered optimization recommendations"""
+    try:
+        insights = await insights_engine.generate_optimization_recommendations(context_data)
+        
+        return StandardResponse(
+            success=True,
+            message="Optimization recommendations generated successfully",
+            data={
+                "recommendations_generated": len(insights),
+                "insights": [
+                    {
+                        "id": insight.insight_id,
+                        "type": insight.type.value,
+                        "severity": insight.severity.value,
+                        "title": insight.title,
+                        "description": insight.description,
+                        "recommendations": insight.recommendations,
+                        "confidence": insight.confidence_score,
+                        "impact": insight.impact_estimate
+                    }
+                    for insight in insights
+                ]
+            }
+        )
+    except Exception as e:
+        logger.error(f"Error generating optimization recommendations: {e}")
+        raise HTTPException(status_code=500, detail="Failed to generate recommendations")
+
+@api_router.get("/insights/summary", response_model=StandardResponse)
+async def get_insights_summary(days: int = Query(7, ge=1, le=90)):
+    """Get summary of recent insights and analytics"""
+    try:
+        summary = await insights_engine.get_insights_summary(days)
+        return StandardResponse(
+            success=True,
+            message="Insights summary retrieved successfully",
+            data=summary
+        )
+    except Exception as e:
+        logger.error(f"Error getting insights summary: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get insights summary")
+
 # Include the API router
 app.include_router(api_router)
 
