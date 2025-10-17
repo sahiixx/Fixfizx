@@ -593,7 +593,7 @@ class SmartInsightsEngine:
     async def _store_insights(self, insights: List[Insight]):
         """Store insights in database"""
         try:
-            db = await get_database()
+            db = get_database()
             
             for insight in insights:
                 await db.insights.insert_one({
