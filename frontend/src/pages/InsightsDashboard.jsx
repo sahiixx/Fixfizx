@@ -358,7 +358,7 @@ const InsightsDashboard = () => {
                         <div className="flex items-center space-x-2">
                           <Badge className={`${getSeverityColor(insight.severity)} font-mono text-xs`}>
                             {getSeverityIcon(insight.severity)}
-                            <span className="ml-1">{insight.severity?.toUpperCase()}</span>
+                            <span className="ml-1">{(insight.severity || 'unknown').toUpperCase()}</span>
                           </Badge>
                           <Badge variant="outline" className="text-matrix-cyan border-matrix-cyan/40 font-mono text-xs">
                             {Math.round(insight.confidence * 100)}% confidence
