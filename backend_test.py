@@ -2581,6 +2581,36 @@ class BackendTester:
         await self.test_crm_analytics()
         await self.test_crm_webhook()
         
+        print("\n💳 PHASE 5B-D TESTING - EXTERNAL INTEGRATIONS:")
+        print("=" * 70)
+        
+        # Test Stripe Payment Integration (NEW)
+        print("\n💰 Stripe Payment Integration:")
+        await self.test_stripe_payment_packages()
+        await self.test_stripe_create_session()
+        await self.test_stripe_payment_status()
+        
+        # Test Twilio SMS Integration (NEW)
+        print("\n📱 Twilio SMS Integration:")
+        await self.test_twilio_send_otp()
+        await self.test_twilio_verify_otp()
+        await self.test_twilio_send_sms()
+        
+        # Test SendGrid Email Integration (NEW)
+        print("\n📧 SendGrid Email Integration:")
+        await self.test_sendgrid_send_email()
+        await self.test_sendgrid_send_notification()
+        
+        # Test Voice AI Integration (NEW)
+        print("\n🎤 Voice AI Integration:")
+        await self.test_voice_ai_session()
+        await self.test_voice_ai_info()
+        
+        # Test Vision AI Integration (NEW)
+        print("\n👁️ Vision AI Integration:")
+        await self.test_vision_ai_analyze()
+        await self.test_vision_ai_formats()
+        
         # Summary
         print("\n" + "=" * 60)
         print("📊 COMPREHENSIVE PHASE 3 & 4 TEST SUMMARY")
