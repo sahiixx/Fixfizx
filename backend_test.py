@@ -751,6 +751,512 @@ class BackendTester:
         except Exception as e:
             self.log_test("Agent Control Functions", False, f"Exception: {str(e)}")
             return False
+
+    # ================================================================================================
+    # PHASE 2 TESTING - OPERATIONS AGENT, PLUGIN SYSTEM, INDUSTRY TEMPLATES
+    # ================================================================================================
+    
+    async def test_operations_automate_workflow(self):
+        """Test POST /api/agents/operations/automate-workflow - Workflow automation"""
+        try:
+            # Dubai business workflow automation data
+            workflow_data = {
+                "workflow_name": "Client Onboarding Automation",
+                "business_context": {
+                    "company": "Dubai Digital Agency",
+                    "industry": "digital_marketing",
+                    "location": "Dubai Media City, UAE"
+                },
+                "workflow_steps": [
+                    "client_data_collection",
+                    "contract_generation",
+                    "payment_processing",
+                    "project_setup",
+                    "team_assignment",
+                    "kickoff_meeting_scheduling"
+                ],
+                "automation_requirements": {
+                    "triggers": ["new_client_signup", "contract_signed"],
+                    "integrations": ["crm", "accounting", "project_management"],
+                    "notifications": ["email", "slack", "sms"]
+                },
+                "expected_outcomes": {
+                    "time_savings": "80%",
+                    "error_reduction": "95%",
+                    "client_satisfaction": "improved"
+                }
+            }
+            
+            async with self.session.post(
+                f"{API_BASE}/agents/operations/automate-workflow",
+                json=workflow_data,
+                headers={"Content-Type": "application/json"}
+            ) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    if data.get("success") and "task_id" in data.get("data", {}):
+                        task_id = data["data"]["task_id"]
+                        self.log_test("Operations Agent - Workflow Automation", True, f"Workflow automation task submitted: {task_id}")
+                        return True
+                    else:
+                        self.log_test("Operations Agent - Workflow Automation", False, "Invalid response structure", data)
+                        return False
+                else:
+                    self.log_test("Operations Agent - Workflow Automation", False, f"HTTP {response.status}", await response.text())
+                    return False
+        except Exception as e:
+            self.log_test("Operations Agent - Workflow Automation", False, f"Exception: {str(e)}")
+            return False
+
+    async def test_operations_process_invoice(self):
+        """Test POST /api/agents/operations/process-invoice - Invoice processing automation"""
+        try:
+            # Dubai business invoice processing data
+            invoice_data = {
+                "invoice_details": {
+                    "invoice_number": "INV-2024-001",
+                    "client_name": "Emirates Business Solutions LLC",
+                    "client_address": "Sheikh Zayed Road, Dubai, UAE",
+                    "amount": "AED 45,000",
+                    "currency": "AED",
+                    "due_date": "2024-02-15",
+                    "services": [
+                        {"description": "Digital Marketing Campaign", "amount": "AED 25,000"},
+                        {"description": "Website Development", "amount": "AED 15,000"},
+                        {"description": "SEO Optimization", "amount": "AED 5,000"}
+                    ]
+                },
+                "processing_requirements": {
+                    "vat_calculation": True,
+                    "vat_rate": "5%",
+                    "payment_terms": "Net 30",
+                    "late_fee": "2% per month",
+                    "preferred_payment_methods": ["bank_transfer", "credit_card", "cheque"]
+                },
+                "automation_settings": {
+                    "send_email": True,
+                    "schedule_reminders": True,
+                    "update_accounting_system": True,
+                    "generate_receipt": True
+                }
+            }
+            
+            async with self.session.post(
+                f"{API_BASE}/agents/operations/process-invoice",
+                json=invoice_data,
+                headers={"Content-Type": "application/json"}
+            ) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    if data.get("success") and "task_id" in data.get("data", {}):
+                        task_id = data["data"]["task_id"]
+                        self.log_test("Operations Agent - Invoice Processing", True, f"Invoice processing task submitted: {task_id}")
+                        return True
+                    else:
+                        self.log_test("Operations Agent - Invoice Processing", False, "Invalid response structure", data)
+                        return False
+                else:
+                    self.log_test("Operations Agent - Invoice Processing", False, f"HTTP {response.status}", await response.text())
+                    return False
+        except Exception as e:
+            self.log_test("Operations Agent - Invoice Processing", False, f"Exception: {str(e)}")
+            return False
+
+    async def test_operations_onboard_client(self):
+        """Test POST /api/agents/operations/onboard-client - Client onboarding automation"""
+        try:
+            # Dubai client onboarding data
+            client_data = {
+                "client_information": {
+                    "company_name": "Al Majid Trading LLC",
+                    "contact_person": "Omar Al Majid",
+                    "email": "omar@almajidtrading.ae",
+                    "phone": "+971-50-555-7890",
+                    "industry": "retail",
+                    "business_type": "LLC",
+                    "location": "Deira, Dubai, UAE",
+                    "trade_license": "CN-1234567",
+                    "vat_number": "100123456700003"
+                },
+                "service_requirements": {
+                    "services_needed": ["digital_marketing", "e-commerce_development", "social_media_management"],
+                    "project_budget": "AED 150,000",
+                    "timeline": "6 months",
+                    "priority_level": "high",
+                    "special_requirements": ["Arabic language support", "UAE market focus"]
+                },
+                "onboarding_preferences": {
+                    "communication_language": "english",
+                    "meeting_preference": "in_person",
+                    "reporting_frequency": "weekly",
+                    "project_management_tool": "asana",
+                    "payment_schedule": "monthly"
+                }
+            }
+            
+            async with self.session.post(
+                f"{API_BASE}/agents/operations/onboard-client",
+                json=client_data,
+                headers={"Content-Type": "application/json"}
+            ) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    if data.get("success") and "task_id" in data.get("data", {}):
+                        task_id = data["data"]["task_id"]
+                        self.log_test("Operations Agent - Client Onboarding", True, f"Client onboarding task submitted: {task_id}")
+                        return True
+                    else:
+                        self.log_test("Operations Agent - Client Onboarding", False, "Invalid response structure", data)
+                        return False
+                else:
+                    self.log_test("Operations Agent - Client Onboarding", False, f"HTTP {response.status}", await response.text())
+                    return False
+        except Exception as e:
+            self.log_test("Operations Agent - Client Onboarding", False, f"Exception: {str(e)}")
+            return False
+
+    async def test_plugins_available(self):
+        """Test GET /api/plugins/available - Plugin discovery"""
+        try:
+            async with self.session.get(f"{API_BASE}/plugins/available") as response:
+                if response.status == 200:
+                    data = await response.json()
+                    if data.get("success") and "data" in data:
+                        plugins_info = data["data"]
+                        # Should contain plugin information
+                        if isinstance(plugins_info, (dict, list)):
+                            self.log_test("Plugin System - Available Plugins", True, "Available plugins retrieved successfully")
+                            return True
+                        else:
+                            self.log_test("Plugin System - Available Plugins", False, "Invalid plugins format", data)
+                            return False
+                    else:
+                        self.log_test("Plugin System - Available Plugins", False, "Invalid response structure", data)
+                        return False
+                else:
+                    self.log_test("Plugin System - Available Plugins", False, f"HTTP {response.status}", await response.text())
+                    return False
+        except Exception as e:
+            self.log_test("Plugin System - Available Plugins", False, f"Exception: {str(e)}")
+            return False
+
+    async def test_plugins_marketplace(self):
+        """Test GET /api/plugins/marketplace - Marketplace integration"""
+        try:
+            async with self.session.get(f"{API_BASE}/plugins/marketplace") as response:
+                if response.status == 200:
+                    data = await response.json()
+                    if data.get("success") and "data" in data:
+                        marketplace_data = data["data"]
+                        # Should contain marketplace information
+                        if isinstance(marketplace_data, (dict, list)):
+                            self.log_test("Plugin System - Marketplace", True, "Marketplace plugins retrieved successfully")
+                            return True
+                        else:
+                            self.log_test("Plugin System - Marketplace", False, "Invalid marketplace format", data)
+                            return False
+                    else:
+                        self.log_test("Plugin System - Marketplace", False, "Invalid response structure", data)
+                        return False
+                else:
+                    self.log_test("Plugin System - Marketplace", False, f"HTTP {response.status}", await response.text())
+                    return False
+        except Exception as e:
+            self.log_test("Plugin System - Marketplace", False, f"Exception: {str(e)}")
+            return False
+
+    async def test_plugins_create_template(self):
+        """Test POST /api/plugins/create-template - Plugin template creation"""
+        try:
+            # Plugin template creation data
+            plugin_info = {
+                "plugin_name": "dubai_business_connector",
+                "description": "Connect with Dubai business services and APIs",
+                "version": "1.0.0",
+                "author": "NOWHERE Digital",
+                "category": "business_integration",
+                "features": [
+                    "dubai_chamber_integration",
+                    "emirates_id_verification",
+                    "trade_license_validation",
+                    "vat_number_verification"
+                ],
+                "requirements": {
+                    "python_version": ">=3.8",
+                    "dependencies": ["requests", "aiohttp", "pydantic"],
+                    "api_keys": ["dubai_chamber_api", "emirates_id_api"]
+                },
+                "configuration": {
+                    "endpoints": {
+                        "chamber_api": "https://api.dubaichamber.com",
+                        "emirates_id_api": "https://api.emiratesid.ae"
+                    },
+                    "timeout": 30,
+                    "retry_attempts": 3
+                }
+            }
+            
+            async with self.session.post(
+                f"{API_BASE}/plugins/create-template",
+                json=plugin_info,
+                headers={"Content-Type": "application/json"}
+            ) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    if data.get("success") and "data" in data:
+                        template_result = data["data"]
+                        self.log_test("Plugin System - Create Template", True, "Plugin template created successfully")
+                        return True
+                    else:
+                        self.log_test("Plugin System - Create Template", False, "Invalid response structure", data)
+                        return False
+                else:
+                    self.log_test("Plugin System - Create Template", False, f"HTTP {response.status}", await response.text())
+                    return False
+        except Exception as e:
+            self.log_test("Plugin System - Create Template", False, f"Exception: {str(e)}")
+            return False
+
+    async def test_plugins_get_info(self):
+        """Test GET /api/plugins/{plugin_name} - Plugin information retrieval"""
+        try:
+            plugin_name = "dubai_business_connector"
+            
+            async with self.session.get(f"{API_BASE}/plugins/{plugin_name}") as response:
+                if response.status == 200:
+                    data = await response.json()
+                    if data.get("success") and "data" in data:
+                        plugin_info = data["data"]
+                        self.log_test("Plugin System - Get Plugin Info", True, f"Plugin info retrieved for {plugin_name}")
+                        return True
+                    else:
+                        self.log_test("Plugin System - Get Plugin Info", False, "Invalid response structure", data)
+                        return False
+                elif response.status == 404:
+                    # Plugin not found is acceptable for this test
+                    self.log_test("Plugin System - Get Plugin Info", True, f"Plugin {plugin_name} not found (expected)")
+                    return True
+                else:
+                    self.log_test("Plugin System - Get Plugin Info", False, f"HTTP {response.status}", await response.text())
+                    return False
+        except Exception as e:
+            self.log_test("Plugin System - Get Plugin Info", False, f"Exception: {str(e)}")
+            return False
+
+    async def test_templates_industries(self):
+        """Test GET /api/templates/industries - Template catalog retrieval"""
+        try:
+            async with self.session.get(f"{API_BASE}/templates/industries") as response:
+                if response.status == 200:
+                    data = await response.json()
+                    if data.get("success") and "data" in data:
+                        templates_data = data["data"]
+                        # Should contain industry templates
+                        if isinstance(templates_data, (dict, list)):
+                            self.log_test("Industry Templates - Get All Templates", True, "Industry templates retrieved successfully")
+                            return True
+                        else:
+                            self.log_test("Industry Templates - Get All Templates", False, "Invalid templates format", data)
+                            return False
+                    else:
+                        self.log_test("Industry Templates - Get All Templates", False, "Invalid response structure", data)
+                        return False
+                else:
+                    self.log_test("Industry Templates - Get All Templates", False, f"HTTP {response.status}", await response.text())
+                    return False
+        except Exception as e:
+            self.log_test("Industry Templates - Get All Templates", False, f"Exception: {str(e)}")
+            return False
+
+    async def test_templates_specific_industry(self):
+        """Test GET /api/templates/industries/{industry} - Specific industry templates"""
+        try:
+            # Test with ecommerce industry
+            industry = "ecommerce"
+            
+            async with self.session.get(f"{API_BASE}/templates/industries/{industry}") as response:
+                if response.status == 200:
+                    data = await response.json()
+                    if data.get("success") and "data" in data:
+                        template_data = data["data"]
+                        self.log_test("Industry Templates - E-commerce Template", True, f"E-commerce template retrieved successfully")
+                        return True
+                    else:
+                        self.log_test("Industry Templates - E-commerce Template", False, "Invalid response structure", data)
+                        return False
+                elif response.status == 404:
+                    self.log_test("Industry Templates - E-commerce Template", False, "E-commerce template not found", await response.text())
+                    return False
+                else:
+                    self.log_test("Industry Templates - E-commerce Template", False, f"HTTP {response.status}", await response.text())
+                    return False
+        except Exception as e:
+            self.log_test("Industry Templates - E-commerce Template", False, f"Exception: {str(e)}")
+            return False
+
+    async def test_templates_saas_industry(self):
+        """Test GET /api/templates/industries/saas - SaaS industry template"""
+        try:
+            industry = "saas"
+            
+            async with self.session.get(f"{API_BASE}/templates/industries/{industry}") as response:
+                if response.status == 200:
+                    data = await response.json()
+                    if data.get("success") and "data" in data:
+                        template_data = data["data"]
+                        self.log_test("Industry Templates - SaaS Template", True, f"SaaS template retrieved successfully")
+                        return True
+                    else:
+                        self.log_test("Industry Templates - SaaS Template", False, "Invalid response structure", data)
+                        return False
+                elif response.status == 404:
+                    self.log_test("Industry Templates - SaaS Template", False, "SaaS template not found", await response.text())
+                    return False
+                else:
+                    self.log_test("Industry Templates - SaaS Template", False, f"HTTP {response.status}", await response.text())
+                    return False
+        except Exception as e:
+            self.log_test("Industry Templates - SaaS Template", False, f"Exception: {str(e)}")
+            return False
+
+    async def test_templates_deploy(self):
+        """Test POST /api/templates/deploy - Template deployment configuration"""
+        try:
+            # Dubai e-commerce deployment request
+            deployment_request = {
+                "industry": "ecommerce",
+                "customizations": {
+                    "business_name": "Dubai Fashion Hub",
+                    "location": "Dubai Mall, UAE",
+                    "target_market": "UAE, GCC",
+                    "languages": ["english", "arabic"],
+                    "currency": "AED",
+                    "payment_methods": ["credit_card", "debit_card", "cash_on_delivery", "bank_transfer"],
+                    "shipping_zones": ["Dubai", "Abu Dhabi", "Sharjah", "Ajman", "Ras Al Khaimah", "Fujairah", "Umm Al Quwain"],
+                    "business_features": [
+                        "multi_language_support",
+                        "vat_calculation",
+                        "emirates_id_integration",
+                        "local_payment_gateways"
+                    ]
+                }
+            }
+            
+            async with self.session.post(
+                f"{API_BASE}/templates/deploy",
+                json=deployment_request,
+                headers={"Content-Type": "application/json"}
+            ) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    if data.get("success") and "data" in data:
+                        deployment_config = data["data"]
+                        self.log_test("Industry Templates - Deploy E-commerce", True, "E-commerce deployment configuration generated")
+                        return True
+                    else:
+                        self.log_test("Industry Templates - Deploy E-commerce", False, "Invalid response structure", data)
+                        return False
+                else:
+                    self.log_test("Industry Templates - Deploy E-commerce", False, f"HTTP {response.status}", await response.text())
+                    return False
+        except Exception as e:
+            self.log_test("Industry Templates - Deploy E-commerce", False, f"Exception: {str(e)}")
+            return False
+
+    async def test_templates_validate(self):
+        """Test POST /api/templates/validate - Template compatibility validation"""
+        try:
+            # SaaS template validation request
+            validation_request = {
+                "industry": "saas",
+                "requirements": {
+                    "target_users": 10000,
+                    "expected_traffic": "high",
+                    "compliance_requirements": ["gdpr", "uae_data_protection"],
+                    "integration_needs": ["payment_gateways", "crm", "analytics", "email_marketing"],
+                    "scalability": "auto_scaling",
+                    "budget_range": "AED 100K - 500K",
+                    "timeline": "3 months"
+                }
+            }
+            
+            async with self.session.post(
+                f"{API_BASE}/templates/validate",
+                json=validation_request,
+                headers={"Content-Type": "application/json"}
+            ) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    if data.get("success") and "data" in data:
+                        validation_result = data["data"]
+                        self.log_test("Industry Templates - Validate SaaS", True, "SaaS template compatibility validated")
+                        return True
+                    else:
+                        self.log_test("Industry Templates - Validate SaaS", False, "Invalid response structure", data)
+                        return False
+                else:
+                    self.log_test("Industry Templates - Validate SaaS", False, f"HTTP {response.status}", await response.text())
+                    return False
+        except Exception as e:
+            self.log_test("Industry Templates - Validate SaaS", False, f"Exception: {str(e)}")
+            return False
+
+    async def test_templates_custom(self):
+        """Test POST /api/templates/custom - Custom template creation"""
+        try:
+            # Custom template for Dubai local service business
+            template_data = {
+                "template_name": "dubai_local_service",
+                "industry": "local_service",
+                "description": "Template for local service businesses in Dubai",
+                "target_market": "Dubai, UAE",
+                "business_model": "B2C Service Provider",
+                "features": {
+                    "booking_system": True,
+                    "location_services": True,
+                    "multi_language": ["english", "arabic"],
+                    "payment_integration": ["credit_card", "cash", "bank_transfer"],
+                    "customer_reviews": True,
+                    "social_media_integration": True,
+                    "mobile_app": True
+                },
+                "services_included": [
+                    "website_development",
+                    "mobile_app_development",
+                    "booking_system_setup",
+                    "payment_gateway_integration",
+                    "seo_optimization",
+                    "social_media_setup"
+                ],
+                "compliance": {
+                    "uae_business_license": True,
+                    "vat_registration": True,
+                    "data_protection": True
+                },
+                "estimated_cost": "AED 75,000 - 150,000",
+                "development_time": "8-12 weeks"
+            }
+            
+            async with self.session.post(
+                f"{API_BASE}/templates/custom",
+                json=template_data,
+                headers={"Content-Type": "application/json"}
+            ) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    if data.get("success") and "data" in data:
+                        custom_result = data["data"]
+                        self.log_test("Industry Templates - Create Custom", True, "Custom local service template created")
+                        return True
+                    else:
+                        self.log_test("Industry Templates - Create Custom", False, "Invalid response structure", data)
+                        return False
+                else:
+                    self.log_test("Industry Templates - Create Custom", False, f"HTTP {response.status}", await response.text())
+                    return False
+        except Exception as e:
+            self.log_test("Industry Templates - Create Custom", False, f"Exception: {str(e)}")
+            return False
     
     async def run_all_tests(self):
         """Run all backend tests"""
