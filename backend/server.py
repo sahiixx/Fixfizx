@@ -959,6 +959,252 @@ async def reset_agent(agent_id: str):
         logger.error(f"Error resetting agent: {e}")
         raise HTTPException(status_code=500, detail="Failed to reset agent")
 
+# Operations Agent Endpoints
+@api_router.post("/agents/operations/automate-workflow", response_model=StandardResponse)
+async def automate_workflow(workflow_data: Dict[str, Any]):
+    """Automate business workflow using Operations Agent"""
+    try:
+        task_id = await orchestrator.submit_task({
+            'type': 'automate_workflow',
+            'data': workflow_data
+        }, agent_type='operations')
+        
+        return StandardResponse(
+            success=True,
+            message="Workflow automation task submitted successfully",
+            data={"task_id": task_id}
+        )
+    except Exception as e:
+        logger.error(f"Error automating workflow: {e}")
+        raise HTTPException(status_code=500, detail="Failed to automate workflow")
+
+@api_router.post("/agents/operations/process-invoice", response_model=StandardResponse)
+async def process_invoice_automation(invoice_data: Dict[str, Any]):
+    """Process invoice using Operations Agent automation"""
+    try:
+        task_id = await orchestrator.submit_task({
+            'type': 'process_invoice',
+            'data': invoice_data
+        }, agent_type='operations')
+        
+        return StandardResponse(
+            success=True,
+            message="Invoice processing task submitted successfully",
+            data={"task_id": task_id}
+        )
+    except Exception as e:
+        logger.error(f"Error processing invoice: {e}")
+        raise HTTPException(status_code=500, detail="Failed to process invoice")
+
+@api_router.post("/agents/operations/onboard-client", response_model=StandardResponse)
+async def automate_client_onboarding(client_data: Dict[str, Any]):
+    """Automate client onboarding using Operations Agent"""
+    try:
+        task_id = await orchestrator.submit_task({
+            'type': 'onboard_client',
+            'data': client_data
+        }, agent_type='operations')
+        
+        return StandardResponse(
+            success=True,
+            message="Client onboarding automation task submitted successfully",
+            data={"task_id": task_id}
+        )
+    except Exception as e:
+        logger.error(f"Error automating client onboarding: {e}")
+        raise HTTPException(status_code=500, detail="Failed to automate client onboarding")
+
+# ================================================================================================
+# PLUGIN SYSTEM ENDPOINTS - EXTENSIBILITY & MARKETPLACE
+# ================================================================================================
+
+@api_router.get("/plugins/available", response_model=StandardResponse)
+async def get_available_plugins():
+    """Get all available plugins"""
+    try:
+        plugins_info = await plugin_manager.get_plugin_info()
+        return StandardResponse(
+            success=True,
+            message="Available plugins retrieved successfully",
+            data=plugins_info
+        )
+    except Exception as e:
+        logger.error(f"Error getting available plugins: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get available plugins")
+
+@api_router.get("/plugins/{plugin_name}", response_model=StandardResponse)
+async def get_plugin_info(plugin_name: str):
+    """Get information about a specific plugin"""
+    try:
+        plugin_info = await plugin_manager.get_plugin_info(plugin_name)
+        return StandardResponse(
+            success=True,
+            message="Plugin information retrieved successfully",
+            data=plugin_info
+        )
+    except Exception as e:
+        logger.error(f"Error getting plugin info: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get plugin information")
+
+@api_router.post("/plugins/{plugin_name}/load", response_model=StandardResponse)
+async def load_plugin(plugin_name: str, config: Dict[str, Any] = None):
+    """Load a specific plugin"""
+    try:
+        success = await plugin_manager.load_plugin(plugin_name, config or {})
+        if success:
+            return StandardResponse(
+                success=True,
+                message=f"Plugin {plugin_name} loaded successfully"
+            )
+        else:
+            raise HTTPException(status_code=400, detail="Failed to load plugin")
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error loading plugin: {e}")
+        raise HTTPException(status_code=500, detail="Failed to load plugin")
+
+@api_router.post("/plugins/{plugin_name}/unload", response_model=StandardResponse)
+async def unload_plugin(plugin_name: str):
+    """Unload a specific plugin"""
+    try:
+        success = await plugin_manager.unload_plugin(plugin_name)
+        if success:
+            return StandardResponse(
+                success=True,
+                message=f"Plugin {plugin_name} unloaded successfully"
+            )
+        else:
+            raise HTTPException(status_code=404, detail="Plugin not loaded")
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error unloading plugin: {e}")
+        raise HTTPException(status_code=500, detail="Failed to unload plugin")
+
+@api_router.post("/plugins/create-template", response_model=StandardResponse)
+async def create_plugin_template(plugin_info: Dict[str, Any]):
+    """Create a new plugin template for development"""
+    try:
+        result = await plugin_manager.create_plugin_template(plugin_info)
+        return StandardResponse(
+            success=True,
+            message="Plugin template created successfully",
+            data=result
+        )
+    except Exception as e:
+        logger.error(f"Error creating plugin template: {e}")
+        raise HTTPException(status_code=500, detail="Failed to create plugin template")
+
+@api_router.get("/plugins/marketplace", response_model=StandardResponse)
+async def get_marketplace_plugins():
+    """Get available plugins from marketplace"""
+    try:
+        marketplace_data = await plugin_manager.get_marketplace_plugins()
+        return StandardResponse(
+            success=True,
+            message="Marketplace plugins retrieved successfully",
+            data=marketplace_data
+        )
+    except Exception as e:
+        logger.error(f"Error getting marketplace plugins: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get marketplace plugins")
+
+# ================================================================================================
+# INDUSTRY TEMPLATES & BLUEPRINTS ENDPOINTS 
+# ================================================================================================
+
+@api_router.get("/templates/industries", response_model=StandardResponse)
+async def get_industry_templates():
+    """Get all available industry templates"""
+    try:
+        templates_data = template_manager.get_all_templates()
+        return StandardResponse(
+            success=True,
+            message="Industry templates retrieved successfully",
+            data=templates_data
+        )
+    except Exception as e:
+        logger.error(f"Error getting industry templates: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get industry templates")
+
+@api_router.get("/templates/industries/{industry}", response_model=StandardResponse)
+async def get_specific_industry_template(industry: str):
+    """Get template for specific industry"""
+    try:
+        industry_enum = IndustryType(industry.lower())
+        template_data = template_manager.get_template(industry_enum)
+        
+        if template_data:
+            return StandardResponse(
+                success=True,
+                message=f"Template for {industry} retrieved successfully",
+                data=template_data
+            )
+        else:
+            raise HTTPException(status_code=404, detail="Industry template not found")
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid industry type")
+    except Exception as e:
+        logger.error(f"Error getting industry template: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get industry template")
+
+@api_router.post("/templates/deploy", response_model=StandardResponse)
+async def deploy_industry_template(deployment_request: Dict[str, Any]):
+    """Deploy an industry template configuration"""
+    try:
+        industry_str = deployment_request.get('industry')
+        customizations = deployment_request.get('customizations', {})
+        
+        industry_enum = IndustryType(industry_str.lower())
+        deployment_config = template_manager.generate_deployment_config(industry_enum, customizations)
+        
+        return StandardResponse(
+            success=True,
+            message=f"Deployment configuration generated for {industry_str}",
+            data=deployment_config
+        )
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid industry type")
+    except Exception as e:
+        logger.error(f"Error deploying template: {e}")
+        raise HTTPException(status_code=500, detail="Failed to deploy template")
+
+@api_router.post("/templates/validate", response_model=StandardResponse)
+async def validate_template_compatibility(validation_request: Dict[str, Any]):
+    """Validate template compatibility with requirements"""
+    try:
+        industry_str = validation_request.get('industry')
+        requirements = validation_request.get('requirements', {})
+        
+        industry_enum = IndustryType(industry_str.lower())
+        validation_result = template_manager.validate_template_compatibility(industry_enum, requirements)
+        
+        return StandardResponse(
+            success=True,
+            message="Template compatibility validation completed",
+            data=validation_result
+        )
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid industry type")
+    except Exception as e:
+        logger.error(f"Error validating template: {e}")
+        raise HTTPException(status_code=500, detail="Failed to validate template")
+
+@api_router.post("/templates/custom", response_model=StandardResponse)
+async def create_custom_template(template_data: Dict[str, Any]):
+    """Create a custom industry template"""
+    try:
+        result = template_manager.create_custom_template(template_data)
+        return StandardResponse(
+            success=True,
+            message="Custom template created successfully",
+            data=result
+        )
+    except Exception as e:
+        logger.error(f"Error creating custom template: {e}")
+        raise HTTPException(status_code=500, detail="Failed to create custom template")
+
 # Include the API router
 app.include_router(api_router)
 
