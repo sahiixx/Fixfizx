@@ -616,7 +616,7 @@ class SmartInsightsEngine:
     async def get_insights_summary(self, days: int = 7) -> Dict[str, Any]:
         """Get summary of recent insights"""
         try:
-            db = await get_database()
+            db = get_database()
             cutoff_date = datetime.now(timezone.utc) - timedelta(days=days)
             
             # Get recent insights
