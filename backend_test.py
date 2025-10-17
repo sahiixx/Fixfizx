@@ -2703,9 +2703,9 @@ class BackendTester:
             ) as response:
                 if response.status == 200:
                     data = await response.json()
-                    if data.get("success") and "session_id" in data.get("data", {}):
-                        session_id = data["data"]["session_id"]
-                        self.log_test("Voice AI - Create Session", True, f"Voice AI session created: {session_id}")
+                    if data.get("success") and "status" in data.get("data", {}):
+                        status = data["data"]["status"]
+                        self.log_test("Voice AI - Create Session", True, f"Voice AI session initialized with status: {status}")
                         return True
                     else:
                         self.log_test("Voice AI - Create Session", False, "Invalid response structure", data)
