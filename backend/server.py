@@ -961,8 +961,13 @@ app.include_router(api_router)
 # Startup and shutdown events
 @app.on_event("startup")
 async def startup_event():
-    """Initialize database connection on startup"""
+    """Initialize database connection and agent orchestrator on startup"""
     await connect_to_db()
+    
+    # Initialize agent orchestrator
+    await orchestrator.initialize()
+    logger.info("Agent orchestrator initialized")
+    
     logger.info("NOWHERE Digital API started successfully")
 
 @app.on_event("shutdown")
