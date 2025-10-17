@@ -35,6 +35,7 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/agents" element={<AgentDashboard />} />
         </Routes>
         
         {/* Global Chat System */}
