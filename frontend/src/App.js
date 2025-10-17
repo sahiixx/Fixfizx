@@ -11,6 +11,7 @@ import AdminDashboard from "./components/AdminDashboard";
 import AgentDashboard from "./pages/AgentDashboard";
 import PluginMarketplace from "./pages/PluginMarketplace";
 import IndustryTemplates from "./pages/IndustryTemplates";
+import InsightsDashboard from "./pages/InsightsDashboard";
 import Navigation from "./components/Navigation";
 import MatrixChatSystem from "./components/MatrixChatSystem";
 
