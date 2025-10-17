@@ -62,6 +62,7 @@ class AgentOrchestrator:
         await self.create_agent("marketing", MarketingAgent)
         await self.create_agent("content", ContentAgent)
         await self.create_agent("analytics", AnalyticsAgent)
+        await self.create_agent("operations", OperationsAgent)
         
         # Start worker tasks
         await self.start_workers()
