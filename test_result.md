@@ -417,14 +417,13 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Phase 5B: Stripe Payment Integration"
-    - "Phase 5C: Twilio SMS & SendGrid Email Integration"
-    - "Phase 5D: Voice AI & Vision AI Integration"
+    - "White Label & Multi-Tenancy System Implementation"
+    - "Inter-Agent Communication System Implementation"
   stuck_tasks:
     - "White Label & Multi-Tenancy System Implementation"
     - "Inter-Agent Communication System Implementation"
   test_all: false
-  test_priority: "phase_5bcd_payments_communications_ai"
+  test_priority: "stuck_tasks_focus"
 
   - task: "CSS Compilation Fix - Border/Background Classes"
     implemented: true
