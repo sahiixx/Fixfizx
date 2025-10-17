@@ -103,7 +103,7 @@ class SalesAgent(BaseAgent):
         
         try:
             # Get AI analysis
-            ai_analysis = await self.ai_service.generate_content(analysis_prompt)
+            ai_analysis = await self.ai_service.generate_content("business_analysis", analysis_prompt)
             
             # Calculate lead score based on criteria
             lead_score = await self._calculate_lead_score(lead_data, ai_analysis)
