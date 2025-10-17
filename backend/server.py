@@ -20,6 +20,10 @@ from models import *
 from services.email_service import email_service
 from services.ai_service import ai_service
 
+# Import agent system
+from agents.agent_orchestrator import orchestrator
+from agents.sales_agent import SalesAgent
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
