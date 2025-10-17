@@ -2465,8 +2465,8 @@ class BackendTester:
                         packages = data["data"]["packages"]
                         # Should contain Starter, Growth, Enterprise packages
                         if len(packages) >= 3:
-                            # Check for AED currency
-                            has_aed = any("AED" in str(pkg.get("price", "")) for pkg in packages)
+                            # Check for AED currency - packages is a dict, not list
+                            has_aed = any(pkg.get("currency", "").lower() == "aed" for pkg in packages.values())
                             if has_aed:
                                 self.log_test("Stripe Payment - Get Packages", True, f"Retrieved {len(packages)} payment packages with AED pricing")
                                 return True
