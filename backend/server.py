@@ -1223,6 +1223,11 @@ async def startup_event():
     await orchestrator.initialize()
     logger.info("Agent orchestrator initialized")
     
+    # Initialize Phase 3 & 4 systems
+    inter_agent_comm.orchestrator = orchestrator  # Set orchestrator reference
+    await inter_agent_comm.start()
+    logger.info("Inter-agent communication system started")
+    
     logger.info("NOWHERE Digital API started successfully")
 
 @app.on_event("shutdown")
