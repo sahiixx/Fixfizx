@@ -26,6 +26,7 @@ const Navigation = () => {
     { name: 'PLATFORM', path: '/platform' },
     { name: 'SERVICES', path: '/services' },
     { name: 'AI_SOLVER', path: '/ai-solver' },
+    { name: 'AGENTS', path: '/agents' },
     { name: 'ABOUT', path: '/about' },
     { name: 'CONTACT', path: '/contact' }
   ];
