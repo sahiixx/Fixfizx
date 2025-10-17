@@ -326,7 +326,7 @@ class SalesAgent(BaseAgent):
         4. Keep it concise and professional
         """
         
-        follow_up_message = await self.ai_service.generate_content(follow_up_prompt)
+        follow_up_message = await self.ai_service.generate_content("email_campaign", follow_up_prompt)
         
         return {
             "message": follow_up_message,
