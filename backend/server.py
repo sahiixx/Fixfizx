@@ -24,6 +24,10 @@ from services.ai_service import ai_service
 from agents.agent_orchestrator import orchestrator
 from agents.sales_agent import SalesAgent
 
+# Import Phase 2 components
+from core.plugin_manager import plugin_manager
+from blueprints.industry_templates import template_manager, IndustryType
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
