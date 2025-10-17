@@ -198,7 +198,7 @@ class SecurityManager:
                 "last_login": None,
                 "active": True,
                 "mfa_enabled": False,
-                "permissions": self.role_permissions.get(UserRole(user_data.get('role', 'viewer')), [])
+                "permissions": [perm.value for perm in self.role_permissions.get(UserRole(user_data.get('role', 'viewer')), [])]
             }
             
             # Store in database
