@@ -172,6 +172,22 @@ class SecurityManager:
         
         logger.info("Enterprise Security Manager initialized")
     
+    def _get_role_permissions(self, role_str: str) -> List[Permission]:
+        """Get permissions for a role string"""
+        try:
+            # Try to convert string to UserRole enum
+            if isinstance(role_str, str):
+                for role in UserRole:
+                    if role.value == role_str:
+                        return self.role_permissions.get(role, [])
+            elif isinstance(role_str, UserRole):
+                return self.role_permissions.get(role_str, [])
+            
+            # Default to viewer permissions
+            return self.role_permissions.get(UserRole.VIEWER, [])
+        except Exception:
+            return self.role_permissions.get(UserRole.VIEWER, [])
+    
     async def create_user(self, user_data: Dict[str, Any]) -> Dict[str, Any]:
         """Create a new user with security validation"""
         try:
