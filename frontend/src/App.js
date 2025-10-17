@@ -41,6 +41,7 @@ function App() {
           <Route path="/agents" element={<AgentDashboard />} />
           <Route path="/plugins" element={<PluginMarketplace />} />
           <Route path="/templates" element={<IndustryTemplates />} />
+          <Route path="/insights" element={<InsightsDashboard />} />
         </Routes>
         
         {/* Global Chat System */}
