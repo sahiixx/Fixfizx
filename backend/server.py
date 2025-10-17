@@ -28,6 +28,11 @@ from agents.sales_agent import SalesAgent
 from core.plugin_manager import plugin_manager
 from blueprints.industry_templates import template_manager, IndustryType
 
+# Import Phase 3 & 4 components
+from core.white_label_manager import white_label_manager, TenantConfig
+from core.inter_agent_communication import inter_agent_comm, AgentMessage, MessageType
+from core.insights_engine import insights_engine, InsightType
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
