@@ -254,7 +254,7 @@ class SalesAgent(BaseAgent):
         """
         
         try:
-            recommendations = await self.ai_service.generate_content(recommendations_prompt)
+            recommendations = await self.ai_service.generate_content("business_analysis", recommendations_prompt)
             # Parse AI response into structured recommendations
             return [
                 {
