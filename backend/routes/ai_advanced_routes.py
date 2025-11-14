@@ -12,7 +12,7 @@ from models import StandardResponse
 
 logger = logging.getLogger(__name__)
 
-router = APIRouter(prefix="/ai/advanced", tags=["AI Advanced"])
+router = APIRouter(prefix="/api/ai/advanced", tags=["AI Advanced"])
 
 # ================================================================================================
 # REQUEST MODELS
