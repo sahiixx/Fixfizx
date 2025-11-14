@@ -1,6 +1,5 @@
 """
-White Label Manager - FIXED VERSION with proper async handling
-Multi-tenancy and branding customization system
+White Label Manager - Multi-tenancy and branding customization system
 Enables resellers and partners to customize the platform with their own branding
 """
 import json
@@ -58,33 +57,10 @@ class TenantConfig:
         self.created_at = tenant_data.get('created_at', datetime.now(timezone.utc).isoformat())
         self.updated_at = tenant_data.get('updated_at', datetime.now(timezone.utc).isoformat())
         self.status = tenant_data.get('status', 'active')
-    
-    def to_dict(self) -> Dict[str, Any]:
-        """Convert to dictionary for serialization"""
-        return {
-            'tenant_id': self.tenant_id,
-            'name': self.name,
-            'domain': self.domain,
-            'subdomain': self.subdomain,
-            'branding': self.branding,
-            'platform_name': self.platform_name,
-            'tagline': self.tagline,
-            'description': self.description,
-            'enabled_features': self.enabled_features,
-            'agent_limits': self.agent_limits,
-            'api_limits': self.api_limits,
-            'contact_info': self.contact_info,
-            'subscription_tier': self.subscription_tier,
-            'billing_info': self.billing_info,
-            'created_at': self.created_at,
-            'updated_at': self.updated_at,
-            'status': self.status
-        }
 
 class WhiteLabelManager:
     """
     Manages white-label configurations and multi-tenancy
-    FIXED VERSION with proper async database operations
     """
     
     def __init__(self):
@@ -119,41 +95,29 @@ class WhiteLabelManager:
             }
         }
         
-        logger.info("White Label Manager initialized (FIXED VERSION)")
+        logger.info("White Label Manager initialized")
     
     async def create_tenant(self, tenant_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Create a new white-label tenant - FIXED VERSION"""
+        """Create a new white-label tenant"""
         try:
             tenant_config = TenantConfig(tenant_data)
             
             # Validate domain/subdomain uniqueness
             domain = tenant_config.domain or f"{tenant_config.subdomain}.nowhere.digital"
-            
-            # Check domain uniqueness in database
-            db = get_database()
-            existing_tenant = await db.tenants.find_one({"config.domain": domain})
-            if existing_tenant:
-                logger.warning(f"Domain already exists: {domain}")
+            if domain in self.domain_mappings:
                 return {"error": "Domain already exists"}
             
-            # Store tenant configuration in memory
+            # Store tenant configuration
             self.tenants[tenant_config.tenant_id] = tenant_config
             self.domain_mappings[domain] = tenant_config.tenant_id
             
-            # Save to database - FIXED: Properly handle async insert_one
-            try:
-                result = await db.tenants.insert_one({
-                    "tenant_id": tenant_config.tenant_id,
-                    "config": tenant_config.to_dict(),
-                    "created_at": tenant_config.created_at
-                })
-                logger.info(f"Tenant saved to database with ID: {result.inserted_id}")
-            except Exception as db_error:
-                logger.error(f"Database insert error: {db_error}")
-                # Rollback in-memory changes
-                del self.tenants[tenant_config.tenant_id]
-                del self.domain_mappings[domain]
-                return {"error": f"Database error: {str(db_error)}"}
+            # Save to database
+            db = get_database()
+            await db.tenants.insert_one({
+                "tenant_id": tenant_config.tenant_id,
+                "config": tenant_data,
+                "created_at": tenant_config.created_at
+            })
             
             # Generate deployment package
             deployment_package = await self._generate_deployment_package(tenant_config)
@@ -169,45 +133,45 @@ class WhiteLabelManager:
             }
             
         except Exception as e:
-            logger.error(f"Error creating tenant: {e}", exc_info=True)
+            logger.error(f"Error creating tenant: {e}")
             return {"error": f"Failed to create tenant: {str(e)}"}
     
     async def get_tenant_config(self, tenant_id: str = None, domain: str = None) -> Optional[TenantConfig]:
-        """Get tenant configuration by ID or domain - FIXED VERSION"""
-        try:
-            if domain and domain in self.domain_mappings:
-                tenant_id = self.domain_mappings[domain]
-            
-            if tenant_id in self.tenants:
-                return self.tenants[tenant_id]
-            
-            # Try loading from database - FIXED: Properly handle async find_one
-            if tenant_id:
-                db = get_database()
-                tenant_doc = await db.tenants.find_one({"tenant_id": tenant_id})
-                if tenant_doc:
-                    config = TenantConfig(tenant_doc.get('config', {}))
-                    self.tenants[tenant_id] = config
-                    # Update domain mapping
-                    if config.domain:
-                        self.domain_mappings[config.domain] = tenant_id
-                    return config
-            
-            return None
-            
-        except Exception as e:
-            logger.error(f"Error getting tenant config: {e}", exc_info=True)
-            return None
+        """Get tenant configuration by ID or domain"""
+        if domain and domain in self.domain_mappings:
+            tenant_id = self.domain_mappings[domain]
+        
+        if tenant_id in self.tenants:
+            return self.tenants[tenant_id]
+        
+        # Try loading from database
+        if tenant_id:
+            db = get_database()
+            tenant_doc = await db.tenants.find_one({"tenant_id": tenant_id})
+            if tenant_doc:
+                config = TenantConfig(tenant_doc.get('config', {}))
+                self.tenants[tenant_id] = config
+                return config
+        
+        return None
     
     async def update_tenant(self, tenant_id: str, updates: Dict[str, Any]) -> Dict[str, Any]:
-        """Update tenant configuration - FIXED VERSION"""
+        """Update tenant configuration"""
         try:
             tenant = await self.get_tenant_config(tenant_id)
             if not tenant:
                 return {"error": "Tenant not found"}
             
             # Update configuration
-            current_config = tenant.to_dict()
+            current_config = {
+                "tenant_id": tenant.tenant_id,
+                "name": tenant.name,
+                "domain": tenant.domain,
+                "branding": tenant.branding,
+                "platform_name": tenant.platform_name,
+                "enabled_features": tenant.enabled_features,
+                # ... other fields
+            }
             current_config.update(updates)
             current_config["updated_at"] = datetime.now(timezone.utc).isoformat()
             
@@ -215,51 +179,42 @@ class WhiteLabelManager:
             updated_tenant = TenantConfig(current_config)
             self.tenants[tenant_id] = updated_tenant
             
-            # Update database - FIXED: Properly handle async update_one
+            # Update database
             db = get_database()
-            result = await db.tenants.update_one(
+            await db.tenants.update_one(
                 {"tenant_id": tenant_id},
                 {"$set": {"config": current_config, "updated_at": current_config["updated_at"]}}
             )
             
-            if result.matched_count == 0:
-                return {"error": "Tenant not found in database"}
-            
-            logger.info(f"Updated tenant: {tenant_id}")
             return {"success": True, "message": "Tenant updated successfully"}
             
         except Exception as e:
-            logger.error(f"Error updating tenant: {e}", exc_info=True)
+            logger.error(f"Error updating tenant: {e}")
             return {"error": f"Failed to update tenant: {str(e)}"}
     
     async def get_tenant_branding(self, tenant_id: str) -> Dict[str, Any]:
-        """Get tenant-specific branding configuration - FIXED VERSION"""
-        try:
-            tenant = await self.get_tenant_config(tenant_id)
-            if not tenant:
-                logger.warning(f"Tenant not found, returning default branding: {tenant_id}")
-                return self._get_default_branding()
-            
-            return {
-                "platform_name": tenant.platform_name,
-                "tagline": tenant.tagline,
-                "logo_url": tenant.logo_url,
-                "colors": {
-                    "primary": tenant.primary_color,
-                    "secondary": tenant.secondary_color,
-                    "background": tenant.background_color
-                },
-                "font_family": tenant.font_family,
-                "contact_info": {
-                    "support_email": tenant.support_email,
-                    "sales_email": tenant.sales_email,
-                    "phone": tenant.phone,
-                    "address": tenant.address
-                }
-            }
-        except Exception as e:
-            logger.error(f"Error getting tenant branding: {e}", exc_info=True)
+        """Get tenant-specific branding configuration"""
+        tenant = await self.get_tenant_config(tenant_id)
+        if not tenant:
             return self._get_default_branding()
+        
+        return {
+            "platform_name": tenant.platform_name,
+            "tagline": tenant.tagline,
+            "logo_url": tenant.logo_url,
+            "colors": {
+                "primary": tenant.primary_color,
+                "secondary": tenant.secondary_color,
+                "background": tenant.background_color
+            },
+            "font_family": tenant.font_family,
+            "contact_info": {
+                "support_email": tenant.support_email,
+                "sales_email": tenant.sales_email,
+                "phone": tenant.phone,
+                "address": tenant.address
+            }
+        }
     
     async def get_tenant_features(self, tenant_id: str) -> Dict[str, Any]:
         """Get tenant-specific feature configuration"""
@@ -291,7 +246,7 @@ class WhiteLabelManager:
         return feature in tier_config["features"] or feature in tenant.enabled_features
     
     async def get_all_tenants(self, status: str = None) -> List[Dict[str, Any]]:
-        """Get list of all tenants - FIXED VERSION"""
+        """Get list of all tenants"""
         try:
             db = get_database()
             query = {}
@@ -299,9 +254,7 @@ class WhiteLabelManager:
                 query["config.status"] = status
             
             tenants = []
-            # FIXED: Properly handle async cursor iteration
-            cursor = db.tenants.find(query)
-            async for tenant_doc in cursor:
+            async for tenant_doc in db.tenants.find(query):
                 config = tenant_doc.get('config', {})
                 tenants.append({
                     "tenant_id": config.get('tenant_id'),
@@ -312,30 +265,19 @@ class WhiteLabelManager:
                     "created_at": config.get('created_at')
                 })
             
-            logger.info(f"Retrieved {len(tenants)} tenants")
             return tenants
             
         except Exception as e:
-            logger.error(f"Error getting tenants: {e}", exc_info=True)
+            logger.error(f"Error getting tenants: {e}")
             return []
     
     async def create_reseller_package(self, reseller_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Create a reseller package with custom branding and features - FIXED VERSION"""
+        """Create a reseller package with custom branding and features"""
         try:
-            # Check if domain already exists
-            domain = reseller_data.get('domain', '')
-            if not domain:
-                return {"error": "Domain is required"}
-            
-            db = get_database()
-            existing = await db.tenants.find_one({"config.domain": domain})
-            if existing:
-                return {"error": "Domain already exists"}
-            
             # Create base tenant configuration for reseller
             tenant_data = {
                 "name": reseller_data.get('company_name', ''),
-                "domain": domain,
+                "domain": reseller_data.get('domain', ''),
                 "platform_name": reseller_data.get('platform_name', 'AI Business Platform'),
                 "tagline": reseller_data.get('tagline', 'AI-Powered Business Automation'),
                 "branding": reseller_data.get('branding', {}),
@@ -354,7 +296,7 @@ class WhiteLabelManager:
             # Generate reseller-specific resources
             reseller_package = {
                 "tenant_id": tenant_result["tenant_id"],
-                "reseller_dashboard_url": f"https://{domain}/reseller",
+                "reseller_dashboard_url": f"https://{tenant_data['domain']}/reseller",
                 "api_credentials": {
                     "api_key": f"pk_reseller_{tenant_result['tenant_id'][:8]}",
                     "secret_key": f"sk_reseller_{uuid.uuid4().hex[:16]}"
@@ -379,7 +321,7 @@ class WhiteLabelManager:
             }
             
         except Exception as e:
-            logger.error(f"Error creating reseller package: {e}", exc_info=True)
+            logger.error(f"Error creating reseller package: {e}")
             return {"error": f"Failed to create reseller package: {str(e)}"}
     
     def _get_default_branding(self) -> Dict[str, Any]:
