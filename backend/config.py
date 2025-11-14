@@ -36,7 +36,7 @@ class Settings(BaseSettings):
     # CORS
     cors_origins: List[str] = [
         "http://localhost:3000",
-        "https://ai-business-os-1.preview.emergentagent.com"
+        "https://fix-it-6.preview.emergentagent.com"
     ]
     
     # API Settings
