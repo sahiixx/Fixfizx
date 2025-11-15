@@ -57,12 +57,12 @@ const HomePage = () => {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-6 sm:space-y-8 animate-fadeInLeft">
             <div className="space-y-4">
-              <Badge className="bg-gradient-to-r from-matrix-green/20 to-matrix-cyan/20 text-matrix-green border-matrix-green/40 font-body animate-scaleIn">
+              <Badge className="bg-gradient-to-r from-matrix-green/20 to-matrix-cyan/20 text-matrix-green border-matrix-green/40 font-body animate-scaleIn text-xs sm:text-sm">
                 🚀 #1 Digital Marketing Agency in Dubai
               </Badge>
               
-              <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold font-heading leading-tight sm:leading-tight animate-fadeInUp">
-                <span className="text-matrix-green block mb-1 sm:mb-0">
+              <h1 className="text-2xl sm:text-3xl lg:text-5xl font-bold font-heading leading-tight animate-fadeInUp">
+                <span className="text-matrix-green block mb-1">
                   DIGITAL
                 </span>
                 <span className="text-white block">
@@ -71,27 +71,27 @@ const HomePage = () => {
               </h1>
             </div>
 
-            <p className="text-base sm:text-lg lg:text-xl text-matrix-green/80 font-body leading-relaxed animate-fadeInUp" style={{animationDelay: '0.2s'}}>
+            <p className="text-sm sm:text-base lg:text-lg text-matrix-green/80 font-body leading-relaxed animate-fadeInUp" style={{animationDelay: '0.2s'}}>
               Transform your business with AI-powered digital marketing solutions. 
               <span className="text-matrix-cyan font-semibold"> 500+ successful projects</span> in Dubai & UAE.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 animate-fadeInUp" style={{animationDelay: '0.4s'}}>
+            <div className="flex flex-col sm:flex-row gap-3 animate-fadeInUp" style={{animationDelay: '0.4s'}}>
               <Link to="/ai-solver">
-                <Button className="btn-matrix hover-lift font-heading px-8 py-4 text-lg">
+                <Button className="btn-matrix hover-lift font-heading px-6 py-3 text-sm sm:text-base">
                   🧠 START YOUR PROJECT
-                  <ArrowRight className="ml-2 w-5 h-5" />
+                  <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
               </Link>
               
               <Link to="/platform">
-                <Button variant="outline" className="border-matrix-green text-matrix-green hover:bg-matrix-green/10 hover-scale font-body font-bold px-8 py-4 text-lg">
+                <Button variant="outline" className="border-matrix-green text-matrix-green hover:bg-matrix-green/10 hover-scale font-body font-bold px-6 py-3 text-sm sm:text-base">
                   📊 VIEW PORTFOLIO
                 </Button>
               </Link>
             </div>
 
-            <div className="flex items-center space-x-8 text-sm font-body animate-fadeInUp" style={{animationDelay: '0.6s'}}>
+            <div className="flex items-center space-x-6 text-xs sm:text-sm font-body animate-fadeInUp" style={{animationDelay: '0.6s'}}>
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-matrix-green rounded-full animate-pulse"></div>
                 <span className="text-matrix-green/80">Free Consultation</span>
