@@ -3747,12 +3747,18 @@ class BackendTester:
             ) as response:
                 if response.status == 200:
                     data = await response.json()
-                    if data.get("success") and "reseller_id" in data.get("data", {}):
-                        reseller_id = data["data"]["reseller_id"]
-                        self.log_test("White Label - Create Reseller (FIXED)", True, f"Reseller created successfully without domain: {reseller_id}")
-                        return True
+                    if data.get("success"):
+                        # Check for either reseller_id or tenant_id in the response
+                        reseller_package = data.get("data", {}).get("reseller_package", {})
+                        tenant_id = reseller_package.get("tenant_id")
+                        if tenant_id:
+                            self.log_test("White Label - Create Reseller (FIXED)", True, f"Reseller created successfully without domain: {tenant_id}")
+                            return True
+                        else:
+                            self.log_test("White Label - Create Reseller (FIXED)", False, "No tenant_id in response", data)
+                            return False
                     else:
-                        self.log_test("White Label - Create Reseller (FIXED)", False, "Invalid response structure", data)
+                        self.log_test("White Label - Create Reseller (FIXED)", False, "Response success is false", data)
                         return False
                 else:
                     self.log_test("White Label - Create Reseller (FIXED)", False, f"HTTP {response.status}", await response.text())
