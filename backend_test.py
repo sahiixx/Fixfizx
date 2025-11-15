@@ -2792,6 +2792,400 @@ class BackendTester:
         except Exception as e:
             self.log_test("Vision AI - Get Formats", False, f"Exception: {str(e)}")
             return False
+
+    # ================================================================================================
+    # ADVANCED AI ENDPOINTS TESTING - LATEST 2025 MODELS (GPT-4o, Claude 3.5, Gemini 2.0)
+    # ================================================================================================
+    
+    async def test_advanced_ai_models(self):
+        """Test GET /api/ai/advanced/models - Get available AI models"""
+        try:
+            async with self.session.get(f"{API_BASE}/ai/advanced/models") as response:
+                if response.status == 200:
+                    data = await response.json()
+                    if data.get("success") and "data" in data:
+                        models_data = data["data"]
+                        # Should contain latest models
+                        if "models" in models_data and "latest_updates" in models_data:
+                            latest_updates = models_data["latest_updates"]
+                            # Check for 2025 models
+                            expected_models = ["gpt-4o", "o1", "o1-mini", "claude-3-5-sonnet-20250219", "gemini-2.0-flash-exp"]
+                            found_models = [model for model in expected_models if model in latest_updates]
+                            if len(found_models) >= 3:  # At least 3 of the latest models
+                                self.log_test("Advanced AI - Get Models", True, f"Latest AI models available: {', '.join(found_models)}")
+                                return True
+                            else:
+                                self.log_test("Advanced AI - Get Models", False, f"Missing latest models. Found: {found_models}", data)
+                                return False
+                        else:
+                            self.log_test("Advanced AI - Get Models", False, "Invalid models data structure", data)
+                            return False
+                    else:
+                        self.log_test("Advanced AI - Get Models", False, "Invalid response structure", data)
+                        return False
+                else:
+                    self.log_test("Advanced AI - Get Models", False, f"HTTP {response.status}", await response.text())
+                    return False
+        except Exception as e:
+            self.log_test("Advanced AI - Get Models", False, f"Exception: {str(e)}")
+            return False
+
+    async def test_advanced_ai_reasoning(self):
+        """Test POST /api/ai/advanced/reasoning - Advanced reasoning with o1/o3-mini"""
+        try:
+            reasoning_data = {
+                "prompt": "Analyze the best digital marketing strategy for a Dubai-based luxury real estate company targeting high-net-worth individuals. Consider cultural factors, local regulations, and competitive landscape.",
+                "task_type": "strategic_analysis",
+                "context": {
+                    "industry": "luxury_real_estate",
+                    "location": "Dubai, UAE",
+                    "target_audience": "HNWI",
+                    "budget": "AED 500K - 1M/month"
+                }
+            }
+            
+            async with self.session.post(
+                f"{API_BASE}/ai/advanced/reasoning",
+                json=reasoning_data,
+                headers={"Content-Type": "application/json"}
+            ) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    if data.get("success") and "data" in data:
+                        reasoning_result = data["data"]
+                        # Should contain reasoning analysis
+                        if reasoning_result.get("success") and "analysis" in reasoning_result:
+                            analysis = reasoning_result["analysis"]
+                            if len(analysis) > 100:  # Substantial reasoning content
+                                self.log_test("Advanced AI - Reasoning Analysis", True, "Advanced reasoning completed with comprehensive analysis")
+                                return True
+                            else:
+                                self.log_test("Advanced AI - Reasoning Analysis", False, "Reasoning analysis too short", data)
+                                return False
+                        else:
+                            self.log_test("Advanced AI - Reasoning Analysis", False, "No reasoning analysis in response", data)
+                            return False
+                    else:
+                        self.log_test("Advanced AI - Reasoning Analysis", False, "Invalid response structure", data)
+                        return False
+                else:
+                    self.log_test("Advanced AI - Reasoning Analysis", False, f"HTTP {response.status}", await response.text())
+                    return False
+        except Exception as e:
+            self.log_test("Advanced AI - Reasoning Analysis", False, f"Exception: {str(e)}")
+            return False
+
+    async def test_advanced_ai_vision(self):
+        """Test POST /api/ai/advanced/vision - Advanced vision analysis with GPT-4o"""
+        try:
+            # 1x1 red pixel test image in base64
+            vision_data = {
+                "image_data": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+                "prompt": "Analyze this image and describe what you see. If it's a simple test image, explain its technical properties.",
+                "detail_level": "high"
+            }
+            
+            async with self.session.post(
+                f"{API_BASE}/ai/advanced/vision",
+                json=vision_data,
+                headers={"Content-Type": "application/json"}
+            ) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    if data.get("success") and "data" in data:
+                        vision_result = data["data"]
+                        # Should contain vision analysis
+                        if vision_result.get("success") and "analysis" in vision_result:
+                            analysis = vision_result["analysis"]
+                            if len(analysis) > 50:  # Substantial vision analysis
+                                self.log_test("Advanced AI - Vision Analysis", True, "Advanced vision analysis completed successfully")
+                                return True
+                            else:
+                                self.log_test("Advanced AI - Vision Analysis", False, "Vision analysis too short", data)
+                                return False
+                        else:
+                            self.log_test("Advanced AI - Vision Analysis", False, "No vision analysis in response", data)
+                            return False
+                    else:
+                        self.log_test("Advanced AI - Vision Analysis", False, "Invalid response structure", data)
+                        return False
+                else:
+                    self.log_test("Advanced AI - Vision Analysis", False, f"HTTP {response.status}", await response.text())
+                    return False
+        except Exception as e:
+            self.log_test("Advanced AI - Vision Analysis", False, f"Exception: {str(e)}")
+            return False
+
+    async def test_advanced_ai_code_generation(self):
+        """Test POST /api/ai/advanced/code-generation - Code generation with Claude 3.5"""
+        try:
+            code_data = {
+                "task_description": "Create a Python function that validates UAE phone numbers and formats them correctly. Should handle both mobile (+971 5x) and landline (+971 4x) numbers.",
+                "language": "python",
+                "framework": None,
+                "requirements": [
+                    "Input validation",
+                    "Format standardization", 
+                    "Error handling",
+                    "Type hints",
+                    "Unit tests"
+                ]
+            }
+            
+            async with self.session.post(
+                f"{API_BASE}/ai/advanced/code-generation",
+                json=code_data,
+                headers={"Content-Type": "application/json"}
+            ) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    if data.get("success") and "data" in data:
+                        code_result = data["data"]
+                        # Should contain generated code
+                        if code_result.get("success") and "code" in code_result:
+                            code = code_result["code"]
+                            if "def " in code and "+971" in code and len(code) > 200:  # Substantial code
+                                self.log_test("Advanced AI - Code Generation", True, "Advanced code generation completed with UAE phone validation")
+                                return True
+                            else:
+                                self.log_test("Advanced AI - Code Generation", False, "Generated code insufficient or incorrect", data)
+                                return False
+                        else:
+                            self.log_test("Advanced AI - Code Generation", False, "No code in response", data)
+                            return False
+                    else:
+                        self.log_test("Advanced AI - Code Generation", False, "Invalid response structure", data)
+                        return False
+                else:
+                    self.log_test("Advanced AI - Code Generation", False, f"HTTP {response.status}", await response.text())
+                    return False
+        except Exception as e:
+            self.log_test("Advanced AI - Code Generation", False, f"Exception: {str(e)}")
+            return False
+
+    async def test_advanced_ai_dubai_market_analysis(self):
+        """Test POST /api/ai/advanced/dubai-market-analysis - Dubai market analysis"""
+        try:
+            market_data = {
+                "industry": "fintech",
+                "analysis_type": "comprehensive",
+                "specific_questions": [
+                    "What are the key regulatory requirements for fintech startups in Dubai?",
+                    "Who are the main competitors in the UAE digital payment space?",
+                    "What are the growth opportunities in Islamic fintech?",
+                    "How does Dubai's Vision 2071 impact fintech development?"
+                ]
+            }
+            
+            async with self.session.post(
+                f"{API_BASE}/ai/advanced/dubai-market-analysis",
+                json=market_data,
+                headers={"Content-Type": "application/json"}
+            ) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    if data.get("success") and "data" in data:
+                        market_result = data["data"]
+                        # Should contain comprehensive market analysis
+                        if market_result.get("success") and "analysis" in market_result:
+                            analysis = market_result["analysis"]
+                            # Check for Dubai/UAE specific content
+                            uae_keywords = ["Dubai", "UAE", "Emirates", "DIFC", "ADGM", "Central Bank", "Vision 2071"]
+                            found_keywords = [kw for kw in uae_keywords if kw.lower() in analysis.lower()]
+                            if len(analysis) > 500 and len(found_keywords) >= 3:
+                                self.log_test("Advanced AI - Dubai Market Analysis", True, f"Comprehensive Dubai fintech analysis with UAE-specific insights: {', '.join(found_keywords)}")
+                                return True
+                            else:
+                                self.log_test("Advanced AI - Dubai Market Analysis", False, f"Analysis lacks UAE specificity. Found: {found_keywords}", data)
+                                return False
+                        else:
+                            self.log_test("Advanced AI - Dubai Market Analysis", False, "No market analysis in response", data)
+                            return False
+                    else:
+                        self.log_test("Advanced AI - Dubai Market Analysis", False, "Invalid response structure", data)
+                        return False
+                else:
+                    self.log_test("Advanced AI - Dubai Market Analysis", False, f"HTTP {response.status}", await response.text())
+                    return False
+        except Exception as e:
+            self.log_test("Advanced AI - Dubai Market Analysis", False, f"Exception: {str(e)}")
+            return False
+
+    async def test_advanced_ai_multimodal(self):
+        """Test POST /api/ai/advanced/multimodal - Multimodal analysis with Gemini 2.0"""
+        try:
+            multimodal_data = {
+                "text": "Analyze this business scenario: A Dubai restaurant wants to expand their delivery service during Ramadan season.",
+                "images": ["iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="],  # Test image
+                "audio": None,
+                "task": "comprehensive_business_analysis"
+            }
+            
+            async with self.session.post(
+                f"{API_BASE}/ai/advanced/multimodal",
+                json=multimodal_data,
+                headers={"Content-Type": "application/json"}
+            ) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    if data.get("success") and "data" in data:
+                        multimodal_result = data["data"]
+                        # Should contain multimodal analysis
+                        if multimodal_result.get("success") and "analysis" in multimodal_result:
+                            analysis = multimodal_result["analysis"]
+                            # Check for business analysis content
+                            business_keywords = ["restaurant", "delivery", "Ramadan", "Dubai", "business", "strategy"]
+                            found_keywords = [kw for kw in business_keywords if kw.lower() in analysis.lower()]
+                            if len(analysis) > 200 and len(found_keywords) >= 3:
+                                self.log_test("Advanced AI - Multimodal Analysis", True, f"Multimodal business analysis completed: {', '.join(found_keywords)}")
+                                return True
+                            else:
+                                self.log_test("Advanced AI - Multimodal Analysis", False, f"Analysis lacks business context. Found: {found_keywords}", data)
+                                return False
+                        else:
+                            self.log_test("Advanced AI - Multimodal Analysis", False, "No multimodal analysis in response", data)
+                            return False
+                    else:
+                        self.log_test("Advanced AI - Multimodal Analysis", False, "Invalid response structure", data)
+                        return False
+                else:
+                    self.log_test("Advanced AI - Multimodal Analysis", False, f"HTTP {response.status}", await response.text())
+                    return False
+        except Exception as e:
+            self.log_test("Advanced AI - Multimodal Analysis", False, f"Exception: {str(e)}")
+            return False
+
+    async def test_advanced_ai_enhanced_chat(self):
+        """Test POST /api/ai/advanced/enhanced-chat - Enhanced chat with intelligent model selection"""
+        try:
+            chat_data = {
+                "message": "I'm planning to start a tech startup in Dubai Internet City. What are the key steps, regulatory requirements, and funding opportunities available in 2024-2025?",
+                "session_id": "test_session_advanced_chat",
+                "model": None,  # Let it auto-select
+                "context": {
+                    "user_type": "entrepreneur",
+                    "location": "Dubai, UAE",
+                    "industry": "technology",
+                    "stage": "planning"
+                }
+            }
+            
+            async with self.session.post(
+                f"{API_BASE}/ai/advanced/enhanced-chat",
+                json=chat_data,
+                headers={"Content-Type": "application/json"}
+            ) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    if data.get("success") and "data" in data:
+                        chat_result = data["data"]
+                        # Should contain chat response
+                        if "response" in chat_result and "session_id" in chat_result:
+                            response_text = chat_result["response"]
+                            # Check for Dubai startup specific content
+                            startup_keywords = ["Dubai Internet City", "startup", "regulatory", "funding", "UAE", "license", "visa"]
+                            found_keywords = [kw for kw in startup_keywords if kw.lower() in response_text.lower()]
+                            if len(response_text) > 300 and len(found_keywords) >= 4:
+                                self.log_test("Advanced AI - Enhanced Chat", True, f"Enhanced chat with Dubai startup guidance: {', '.join(found_keywords)}")
+                                return True
+                            else:
+                                self.log_test("Advanced AI - Enhanced Chat", False, f"Chat response lacks startup specificity. Found: {found_keywords}", data)
+                                return False
+                        else:
+                            self.log_test("Advanced AI - Enhanced Chat", False, "No chat response in data", data)
+                            return False
+                    else:
+                        self.log_test("Advanced AI - Enhanced Chat", False, "Invalid response structure", data)
+                        return False
+                else:
+                    self.log_test("Advanced AI - Enhanced Chat", False, f"HTTP {response.status}", await response.text())
+                    return False
+        except Exception as e:
+            self.log_test("Advanced AI - Enhanced Chat", False, f"Exception: {str(e)}")
+            return False
+
+    async def test_advanced_ai_capabilities(self):
+        """Test GET /api/ai/advanced/capabilities - Get AI capabilities overview"""
+        try:
+            async with self.session.get(f"{API_BASE}/ai/advanced/capabilities") as response:
+                if response.status == 200:
+                    data = await response.json()
+                    if data.get("success") and "data" in data:
+                        capabilities_data = data["data"]
+                        # Should contain comprehensive capabilities info
+                        required_sections = ["core_capabilities", "advanced_features", "performance", "pricing_optimization"]
+                        found_sections = [section for section in required_sections if section in capabilities_data]
+                        
+                        if len(found_sections) >= 3:
+                            # Check for specific capabilities
+                            core_caps = capabilities_data.get("core_capabilities", {})
+                            expected_caps = ["reasoning", "coding", "vision", "multimodal", "dubai_market_intelligence"]
+                            found_caps = [cap for cap in expected_caps if cap in core_caps]
+                            
+                            if len(found_caps) >= 4:
+                                self.log_test("Advanced AI - Get Capabilities", True, f"Comprehensive AI capabilities: {', '.join(found_caps)}")
+                                return True
+                            else:
+                                self.log_test("Advanced AI - Get Capabilities", False, f"Missing core capabilities. Found: {found_caps}", data)
+                                return False
+                        else:
+                            self.log_test("Advanced AI - Get Capabilities", False, f"Missing capability sections. Found: {found_sections}", data)
+                            return False
+                    else:
+                        self.log_test("Advanced AI - Get Capabilities", False, "Invalid response structure", data)
+                        return False
+                else:
+                    self.log_test("Advanced AI - Get Capabilities", False, f"HTTP {response.status}", await response.text())
+                    return False
+        except Exception as e:
+            self.log_test("Advanced AI - Get Capabilities", False, f"Exception: {str(e)}")
+            return False
+
+    async def test_advanced_ai_status(self):
+        """Test GET /api/ai/advanced/status - Get AI system status"""
+        try:
+            async with self.session.get(f"{API_BASE}/ai/advanced/status") as response:
+                if response.status == 200:
+                    data = await response.json()
+                    if data.get("success") and "data" in data:
+                        status_data = data["data"]
+                        # Should contain system status
+                        if "status" in status_data and "active_models" in status_data and "features" in status_data:
+                            status = status_data["status"]
+                            active_models = status_data["active_models"]
+                            features = status_data["features"]
+                            
+                            # Check for operational status
+                            if status == "operational":
+                                # Check for latest models
+                                latest_models = ["gpt-4o", "claude-3-5-sonnet-20250219", "gemini-2.0-flash-exp"]
+                                operational_models = [model for model in latest_models if active_models.get(model) == "operational"]
+                                
+                                # Check for key features
+                                key_features = ["reasoning", "vision", "code_generation", "multimodal", "dubai_market_analysis"]
+                                active_features = [feature for feature in key_features if features.get(feature) is True]
+                                
+                                if len(operational_models) >= 2 and len(active_features) >= 4:
+                                    self.log_test("Advanced AI - System Status", True, f"AI system operational with models: {', '.join(operational_models)} and features: {', '.join(active_features)}")
+                                    return True
+                                else:
+                                    self.log_test("Advanced AI - System Status", False, f"Insufficient operational components. Models: {operational_models}, Features: {active_features}", data)
+                                    return False
+                            else:
+                                self.log_test("Advanced AI - System Status", False, f"System not operational: {status}", data)
+                                return False
+                        else:
+                            self.log_test("Advanced AI - System Status", False, "Missing status information", data)
+                            return False
+                    else:
+                        self.log_test("Advanced AI - System Status", False, "Invalid response structure", data)
+                        return False
+                else:
+                    self.log_test("Advanced AI - System Status", False, f"HTTP {response.status}", await response.text())
+                    return False
+        except Exception as e:
+            self.log_test("Advanced AI - System Status", False, f"Exception: {str(e)}")
+            return False
     
     async def run_all_tests(self):
         """Run all backend tests"""
