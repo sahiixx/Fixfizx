@@ -47,11 +47,11 @@ function App() {
         {/* Global Chat System */}
         <MatrixChatSystem />
         
-        {/* Debug info - remove in production */}
-        {process.env.NODE_ENV === "development" && (
-          <div style={{ position: "fixed", bottom: "10px", right: "10px", background: "#000", color: "#00ff00", padding: "10px", fontSize: "12px", fontFamily: "monospace", zIndex: 9999 }}>
+        {/* Debug info - only in local development */}
+        {process.env.NODE_ENV === "development" && window.location.hostname === "localhost" && (
+          <div style={{ position: "fixed", bottom: "10px", right: "10px", background: "rgba(0,0,0,0.9)", color: "#00ff00", padding: "8px 12px", fontSize: "11px", fontFamily: "monospace", zIndex: 9999, border: "1px solid #00ff00", borderRadius: "4px" }}>
             <div>Backend: {process.env.REACT_APP_BACKEND_URL}</div>
-            <div>Status: {message || "Loading..."}</div>
+            <div>Status: {message ? "✅ " + message : "⏳ Connecting..."}</div>
           </div>
         )}
       </BrowserRouter>
