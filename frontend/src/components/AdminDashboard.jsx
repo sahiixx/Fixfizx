@@ -131,7 +131,7 @@ const AdminDashboard = ({ className = "" }) => {
             <Shield className="w-8 h-8 text-matrix-green matrix-text-glow" />
             <div>
               <h1 className="text-3xl font-bold font-mono matrix-text-glow">ADMIN_MATRIX</h1>
-              <p className="text-matrix-green/60 font-mono">NOWHERE_DIGITAL_CONTROL_PANEL</p>
+              <p className="text-matrix-green/60 font-mono">NOWHERE.AI_CONTROL_PANEL</p>
             </div>
           </div>
           <div className="flex gap-3">
