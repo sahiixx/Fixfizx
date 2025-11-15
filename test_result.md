@@ -423,10 +423,8 @@ metadata:
 
 test_plan:
   current_focus:
-    - "AI Solver Form Visibility Issue"
     - "Frontend Console Errors Cleanup"
-  stuck_tasks:
-    - "AI Solver Form Visibility Issue"
+  stuck_tasks: []
   test_all: true
   test_priority: "critical_first"
 
