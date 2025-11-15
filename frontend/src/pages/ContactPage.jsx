@@ -72,7 +72,7 @@ const ContactPage = () => {
               READY_TO_JACK_IN
             </span>
             <br />
-            <span className="text-white">TO_THE_MATRIX?</span>
+            <span className="text-matrix-green">TO_THE_MATRIX?</span>
           </h1>
           
           <p className="text-xl text-matrix-green/80 max-w-4xl mx-auto font-mono leading-relaxed mb-8">
