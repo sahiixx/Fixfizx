@@ -10,7 +10,7 @@ const MatrixChatSystem = () => {
     {
       id: 1,
       type: 'bot',
-      message: '🌐 SYSTEM_INITIALIZED\n> Welcome to NOWHERE Digital AI Assistant\n> How can I help you dominate the digital matrix today?',
+      message: '🤖 SYSTEM_INITIALIZED\n> Welcome to NOWHERE.AI Assistant\n> How can I help you dominate the digital matrix today?',
       timestamp: new Date(),
       typing: false
     }
