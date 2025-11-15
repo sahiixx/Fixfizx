@@ -86,7 +86,7 @@ class SendGridIntegration:
                 <div style="margin: 20px 0;">
                     {data.get('details', '')}
                 </div>
-                <p>Best regards,<br>NOWHERE Digital Team</p>
+                <p>Best regards,<br>NOWHERE.AI Team</p>
             </body>
         </html>
         """
