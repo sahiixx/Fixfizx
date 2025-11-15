@@ -3424,7 +3424,7 @@ class BackendTester:
                     data = await response.json()
                     if data.get("success") and "models" in data.get("data", {}):
                         models = data["data"]["models"]
-                        if isinstance(models, list) and len(models) > 0:
+                        if isinstance(models, dict) and len(models) > 0:  # Models is a dict, not list
                             self.log_test("Advanced AI - Get Models", True, f"Retrieved {len(models)} AI models")
                             return True
                         else:
