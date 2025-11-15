@@ -9,7 +9,7 @@ import {
   Zap,
   Shield,
   Users,
-  Trending,
+  TrendingUp,
   Plus,
   Settings
 } from 'lucide-react';
