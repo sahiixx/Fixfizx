@@ -116,12 +116,11 @@ class UpgradedAIService:
             # Configure with latest model
             chat.with_model(provider, model)
             
-            # Configure parameters using with_params
-            params = {
-                "max_tokens": min(max_tokens, model_config.get("max_tokens", 4096)),
-                "temperature": temperature
-            }
-            chat.with_params(params)
+            # Configure parameters using with_params (keyword arguments)
+            chat.with_params(
+                max_tokens=min(max_tokens, model_config.get("max_tokens", 4096)),
+                temperature=temperature
+            )
             
             return chat
             
