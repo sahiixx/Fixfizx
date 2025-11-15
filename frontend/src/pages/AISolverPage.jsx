@@ -24,7 +24,7 @@ const AISolverPage = () => {
               INTELLIGENT
             </span>
             <br />
-            <span className="text-white">PROBLEM_SOLVER</span>
+            <span className="text-matrix-green">PROBLEM_SOLVER</span>
           </h1>
           
           <p className="text-xl text-matrix-green/80 max-w-4xl mx-auto font-mono leading-relaxed mb-8">
