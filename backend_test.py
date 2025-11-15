@@ -3608,7 +3608,7 @@ class BackendTester:
         """Test POST /api/ai/advanced/code-generation - Simple Python function generation"""
         try:
             code_data = {
-                "description": "Create a Python function that calculates VAT for UAE businesses. The function should take an amount and return the amount with 5% VAT added.",
+                "task_description": "Create a Python function that calculates VAT for UAE businesses. The function should take an amount and return the amount with 5% VAT added.",
                 "language": "python",
                 "requirements": [
                     "Function should be named 'calculate_uae_vat'",
