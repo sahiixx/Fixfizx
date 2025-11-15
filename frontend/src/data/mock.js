@@ -420,7 +420,7 @@ export const testimonials = [
     id: 1,
     name: "Ahmed Al-Rashid",
     company: "Dubai Luxury Hotels",
-    text: "NOWHERE Digital transformed our online presence completely. Our bookings increased by 300% during Ramadan season!",
+    text: "NOWHERE.AI transformed our online presence completely. Our bookings increased by 300% during Ramadan season!",
     rating: 5
   },
   {
