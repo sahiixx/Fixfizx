@@ -3493,6 +3493,7 @@ class BackendTester:
         try:
             chat_data = {
                 "message": "I'm planning to open a luxury restaurant in Dubai Marina. What are the key considerations for digital marketing strategy in the UAE market?",
+                "session_id": "test_session_123",  # Required parameter
                 "context": {
                     "business_type": "restaurant",
                     "location": "Dubai Marina, UAE",
