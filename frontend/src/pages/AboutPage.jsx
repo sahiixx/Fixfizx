@@ -342,7 +342,7 @@ const AboutPage = () => {
             <h2 className="text-3xl lg:text-4xl font-bold mb-6 font-mono">
               <span className="text-matrix-green">READY_TO_JOIN</span>
               <br />
-              <span className="text-white">OUR_SUCCESS_STORIES?</span>
+              <span className="text-matrix-green">OUR_SUCCESS_STORIES?</span>
             </h2>
             
             <p className="text-xl text-matrix-green/80 mb-8 font-mono">
