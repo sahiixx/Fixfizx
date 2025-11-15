@@ -193,7 +193,7 @@ const ContactPage = () => {
                   INITIATE_DIGITAL
                 </span>
                 <br />
-                <span className="text-white">TRANSFORMATION</span>
+                <span className="text-matrix-green">TRANSFORMATION</span>
               </h2>
               
               <TerminalWindow title="CONTACT_PROTOCOLS.exe" className="mb-8">
