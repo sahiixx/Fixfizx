@@ -117,7 +117,7 @@ const MatrixChatSystem = () => {
         {
           id: Date.now() + 2,
           type: 'bot',
-          message: '> CONNECTION_ERROR\n> I am currently offline. Please contact us directly at info@nowheredigital.ae or +971 XX XXX XXXX',
+          message: '> CONNECTION_ERROR\n> I am currently offline. Please contact us directly at info@nowhere.ai or +971567148469',
           timestamp: new Date()
         }
       ]);
