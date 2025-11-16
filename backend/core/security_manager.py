@@ -441,7 +441,7 @@ class SecurityManager:
             if tenant_id:
                 query["tenant_id"] = tenant_id
             
-            audit_events = await db.audit_logs.find(query).to_list(length=None)
+            audit_events = await db.audit_logs.find(query).limit(1000).to_list(length=1000)
             
             # Analyze compliance metrics
             total_events = len(audit_events)
