@@ -624,7 +624,7 @@ class SmartInsightsEngine:
                 "created_at": {"$gte": cutoff_date.isoformat()}
             })
             
-            insights = await insights_cursor.to_list(length=None)
+            insights = await insights_cursor.limit(500).to_list(length=500)
             
             # Summarize by type and severity
             summary = {
