@@ -33,12 +33,11 @@ class Settings(BaseSettings):
     jwt_algorithm: str = "HS256"
     jwt_expiration: int = 24 * 60 * 60  # 24 hours
     
-    # CORS - Updated to include production domain
-    cors_origins: List[str] = [
-        "http://localhost:3000",
-        "https://fix-it-6.preview.emergentagent.com",
-        "https://fix-it-6.emergent.host"  # Production domain
-    ]
+    # CORS - Read from environment variable or use defaults
+    cors_origins: List[str] = os.getenv(
+        "CORS_ORIGINS",
+        "http://localhost:3000,https://fix-it-6.preview.emergentagent.com,https://fix-it-6.emergent.host"
+    ).split(",")
     
     # API Settings
     api_prefix: str = "/api"
