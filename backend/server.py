@@ -157,8 +157,23 @@ app.add_middleware(AnalyticsMiddleware)
 
 # Health check endpoint
 @api_router.get("/health")
-async def health_check():
-    """Health check endpoint"""
+async def health_check(detailed: bool = False):
+    """
+    Health check endpoint
+    
+    Args:
+        detailed: If True, return comprehensive system status
+    
+    Returns:
+        Basic or detailed health status
+    """
+    if OPTIMIZATIONS_ENABLED:
+        try:
+            return await get_health_status(detailed=detailed)
+        except Exception as e:
+            logger.error(f"Enhanced health check failed: {e}")
+    
+    # Fallback to basic health check
     return {"status": "healthy", "timestamp": datetime.utcnow(), "service": "nowhere-digital-api"}
 
 # Contact Form Endpoints
