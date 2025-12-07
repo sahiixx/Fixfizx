@@ -2118,6 +2118,18 @@ async def startup_event():
     """Initialize database connection and agent orchestrator on startup"""
     await connect_to_db()
     
+    # Create database indexes for performance
+    if OPTIMIZATIONS_ENABLED:
+        try:
+            from database_indexes import create_all_indexes
+            result = await create_all_indexes()
+            if result.get("success"):
+                logger.info("✅ Database indexes created successfully")
+            else:
+                logger.warning(f"⚠️ Database index creation had issues: {result.get('error')}")
+        except Exception as e:
+            logger.warning(f"⚠️ Could not create database indexes: {e}")
+    
     # Initialize agent orchestrator
     await orchestrator.initialize()
     logger.info("Agent orchestrator initialized")
@@ -2131,7 +2143,16 @@ async def startup_event():
     await performance_optimizer.initialize()
     logger.info("Performance optimization system initialized")
     
-    logger.info("NOWHERE Digital API started successfully")
+    # Start cache cleanup background task
+    if OPTIMIZATIONS_ENABLED:
+        try:
+            from cache_manager import cache_cleanup_task
+            asyncio.create_task(cache_cleanup_task())
+            logger.info("✅ Cache cleanup background task started")
+        except Exception as e:
+            logger.warning(f"⚠️ Could not start cache cleanup task: {e}")
+    
+    logger.info("🚀 NOWHERE Digital API started successfully with optimizations")
 
 @app.on_event("shutdown")
 async def shutdown_event():
