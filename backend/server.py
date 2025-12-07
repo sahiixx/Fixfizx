@@ -45,7 +45,15 @@ from integrations.sendgrid_integration import sendgrid_integration
 from integrations.voice_ai_integration import voice_ai_integration
 from integrations.vision_ai_integration import vision_ai_integration
 
+# Configure logging first (before other imports)
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
 # Import optimizations
+OPTIMIZATIONS_ENABLED = False
 try:
     from cache_manager import cache_manager, cached
     from error_handlers import register_error_handlers
@@ -54,16 +62,10 @@ try:
     from request_tracker import RequestIDMiddleware
     from health_check import get_health_status
     OPTIMIZATIONS_ENABLED = True
+    logger.info("✅ All optimization modules loaded successfully")
 except ImportError as e:
-    logger.warning(f"Optimization modules not found: {e}, using defaults")
+    logger.warning(f"⚠️ Optimization modules not found: {e}, using defaults")
     OPTIMIZATIONS_ENABLED = False
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
 
 # Create FastAPI app
 app = FastAPI(
