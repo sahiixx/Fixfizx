@@ -61,6 +61,7 @@ try:
     from rate_limiter import RateLimitMiddleware
     from request_tracker import RequestIDMiddleware
     from health_check import get_health_status
+    from security_headers import SecurityHeadersMiddleware, get_security_headers_config
     OPTIMIZATIONS_ENABLED = True
     logger.info("✅ All optimization modules loaded successfully")
 except ImportError as e:
