@@ -125,6 +125,16 @@ if OPTIMIZATIONS_ENABLED:
     except Exception as e:
         logger.warning(f"Failed to add Rate Limiting middleware: {e}")
 
+# Add Security Headers middleware
+if OPTIMIZATIONS_ENABLED:
+    try:
+        environment = settings.environment if hasattr(settings, 'environment') else 'production'
+        security_config = get_security_headers_config(environment)
+        app.add_middleware(SecurityHeadersMiddleware, config=security_config)
+        logger.info("✅ Security headers enabled")
+    except Exception as e:
+        logger.warning(f"Failed to add Security Headers middleware: {e}")
+
 # Analytics middleware
 class AnalyticsMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
