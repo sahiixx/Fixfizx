@@ -423,7 +423,9 @@ metadata:
 
 test_plan:
   current_focus:
+    - "Comprehensive E2E Testing - All Systems"
     - "Frontend Console Errors Cleanup"
+    - "Production Deployment Preparation"
   stuck_tasks: []
   test_all: true
   test_priority: "critical_first"
