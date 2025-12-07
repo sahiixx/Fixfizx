@@ -111,6 +111,29 @@ async def check_indexes():
         logger.error(f"❌ Error checking indexes: {e}", exc_info=True)
         return {"success": False, "error": str(e)}
 
+async def main():
+    """Main function to create indexes"""
+    import os
+    import sys
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    
+    # Import after path is set
+    from database import get_database, client
+    
+    # Ensure connection is established
+    try:
+        await client.admin.command('ping')
+        logger.info("✅ Database connection established")
+    except Exception as e:
+        logger.error(f"❌ Database connection failed: {e}")
+        return
+    
+    result = await create_all_indexes()
+    if result["success"]:
+        logger.info("✅ Database indexes setup complete")
+    else:
+        logger.error(f"❌ Failed to create indexes: {result.get('error')}")
+
 if __name__ == "__main__":
     # Run directly to create indexes
-    asyncio.run(create_all_indexes())
+    asyncio.run(main())
