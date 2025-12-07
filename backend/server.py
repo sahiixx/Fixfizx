@@ -76,6 +76,14 @@ security = HTTPBearer()
 # Create API router
 api_router = APIRouter(prefix=settings.api_prefix)
 
+# Register error handlers
+if OPTIMIZATIONS_ENABLED:
+    try:
+        register_error_handlers(app)
+        logger.info("✅ Error handlers registered")
+    except Exception as e:
+        logger.warning(f"Failed to register error handlers: {e}")
+
 # CORS middleware
 app.add_middleware(
     CORSMiddleware,
@@ -84,6 +92,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Add GZip compression middleware
+from fastapi.middleware.gzip import GZipMiddleware
+app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 # Analytics middleware
 class AnalyticsMiddleware(BaseHTTPMiddleware):
