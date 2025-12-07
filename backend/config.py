@@ -36,7 +36,7 @@ class Settings(BaseSettings):
     # CORS - Read from environment variable or use defaults
     cors_origins: List[str] = os.getenv(
         "CORS_ORIGINS",
-        "http://localhost:3000,https://fix-it-6.preview.emergentagent.com,https://fix-it-6.emergent.host"
+        "http://localhost:3000,https://repo-pipeline.preview.emergentagent.com,https://fix-it-6.emergent.host"
     ).split(",")
     
     # API Settings

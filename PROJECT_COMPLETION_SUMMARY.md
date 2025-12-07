@@ -224,7 +224,7 @@
 ### Infrastructure:
 - **Deployment**: Kubernetes
 - **Environment**: Emergent.sh
-- **Preview**: https://fix-it-6.preview.emergentagent.com
+- **Preview**: https://repo-pipeline.preview.emergentagent.com
 - **Production**: https://fix-it-6.emergent.host
 
 ---
@@ -293,7 +293,7 @@
 ## 🚀 Deployment Information
 
 ### Production URLs:
-- **Preview**: https://fix-it-6.preview.emergentagent.com
+- **Preview**: https://repo-pipeline.preview.emergentagent.com
 - **Production**: https://fix-it-6.emergent.host
 - **API**: https://fix-it-6.emergent.host/api
 
