@@ -120,8 +120,10 @@ echo -e "\n${BLUE}[3/10] Checking Database...${NC}"
 if pgrep -x "mongod" > /dev/null; then
     check_pass "MongoDB is running"
     
-    # Try to connect
-    if mongo --eval "db.adminCommand('ping')" --quiet 2>/dev/null; then
+    # Try to connect using mongosh (modern MongoDB shell)
+    if mongosh --eval "db.adminCommand('ping')" --quiet 2>/dev/null | grep -q "ok: 1"; then
+        check_pass "MongoDB is accessible"
+    elif mongo --eval "db.adminCommand('ping')" --quiet 2>/dev/null; then
         check_pass "MongoDB is accessible"
     else
         check_warn "Could not verify MongoDB connection"
