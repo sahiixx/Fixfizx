@@ -70,10 +70,11 @@ async def get_available_models():
                 "fast_model": upgraded_ai_service.fast_model,
                 "latest_updates": {
                     "gpt-4o": "Latest GPT-4 Optimized (2025) - Best reasoning & multimodal",
-                    "o1": "Advanced reasoning model for complex problems",
-                    "o1-mini": "Fast reasoning model for quick analysis",
-                    "claude-3-5-sonnet-20250219": "Latest Claude (Feb 2025) - Best for coding, 200K context",
-                    "gemini-2.0-flash-exp": "Latest Gemini with 1M tokens - Multimodal, real-time"
+                    "o1": "Advanced reasoning model for complex problems (temperature fixed at 1.0)",
+                    "o1-mini": "Fast reasoning model for quick analysis (temperature fixed at 1.0)",
+                    "claude-3-5-sonnet-20241022": "Stable Claude 3.5 Sonnet - Best for coding, 200K context",
+                    "claude-3-5-sonnet-20241022-v2": "Latest Claude 3.5 Sonnet v2 - Improved reasoning",
+                    "gemini-2.0-flash": "Latest Gemini 2.0 with 1M tokens - Multimodal, real-time"
                 }
             }
         )
