@@ -73,6 +73,7 @@ const Navigation = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center space-x-4 animate-fadeInRight" style={{animationDelay: '0.4s'}}>
+            <LanguageSwitcher />
             <Link to="/ai-solver">
               <Button className="btn-matrix hover-lift font-heading px-6 py-2 text-sm">
                 🧠 AI_ANALYSIS
@@ -81,12 +82,15 @@ const Navigation = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden text-matrix-green hover:text-matrix-bright-cyan transition-all duration-300 hover-scale p-2"
-          >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          <div className="md:hidden flex items-center space-x-2">
+            <LanguageSwitcher />
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="text-matrix-green hover:text-matrix-bright-cyan transition-all duration-300 hover-scale p-2"
+            >
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation Menu */}
