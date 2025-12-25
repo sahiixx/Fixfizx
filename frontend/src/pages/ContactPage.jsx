@@ -28,7 +28,7 @@ const ContactPage = () => {
   const handleContactSubmit = async (e) => {
     e.preventDefault();
     
-    try {
+    const submitPromise = (async () => {
       const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:8001";
       const response = await fetch(`${backendUrl}/api/contact`, {
         method: 'POST',
@@ -38,22 +38,30 @@ const ContactPage = () => {
         body: JSON.stringify(formData)
       });
 
-      if (response.ok) {
-        alert('SUCCESS! Your message has been transmitted to our digital command center. We will contact you within 24 hours.');
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          service: '',
-          message: ''
-        });
-      } else {
-        throw new Error('Failed to submit');
+      if (!response.ok) {
+        throw new Error('Failed to submit contact form');
       }
-    } catch (error) {
+      
+      return await response.json();
+    })();
+
+    notify.promise(submitPromise, {
+      pending: '📡 Transmitting message to command center...',
+      success: '✅ SUCCESS! Message received. We\'ll contact you within 24 hours.',
+      error: '❌ CONNECTION ERROR. Please check your connection and try again.'
+    });
+
+    submitPromise.then(() => {
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        service: '',
+        message: ''
+      });
+    }).catch((error) => {
       console.error('Error submitting contact form:', error);
-      alert('CONNECTION ERROR. Please check your internet connection and try again.');
-    }
+    });
   };
 
   return (
