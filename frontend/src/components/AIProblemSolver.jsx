@@ -78,15 +78,18 @@ const AIProblemSolver = ({ className = "" }) => {
   ];
 
   const analyzeUserProblem = async () => {
-    if (!userInput.trim()) return;
+    if (!userInput.trim()) {
+      notify.warning('⚠️ Please describe your business challenge first');
+      return;
+    }
     
     setIsAnalyzing(true);
     
-    // Get backend URL from environment
     const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:8001";
     
     try {
-      // Call the backend API for AI analysis
+      notify.info('🤖 AI Analysis in progress...');
+      
       const response = await fetch(`${backendUrl}/api/ai/analyze-problem`, {
         method: 'POST',
         headers: {
@@ -100,7 +103,7 @@ const AIProblemSolver = ({ className = "" }) => {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(`HTTP error! status: {response.status}`);
       }
 
       const result = await response.json();
@@ -113,7 +116,7 @@ const AIProblemSolver = ({ className = "" }) => {
           aiAnalysis: analysisData.ai_analysis,
           marketInsights: analysisData.market_insights,
           strategyProposal: analysisData.strategy_proposal,
-          recommendedSolutions: getRecommendedSolutions(userInput), // Keep existing logic for UI demos
+          recommendedSolutions: getRecommendedSolutions(userInput),
           estimatedROI: analysisData.estimated_roi,
           implementationTime: analysisData.implementation_time,
           budgetRange: analysisData.budget_range,
@@ -121,13 +124,14 @@ const AIProblemSolver = ({ className = "" }) => {
         };
         
         setProblemAnalysis(analysis);
+        notify.success('✅ AI Analysis Complete! Scroll down to see insights.');
       } else {
         throw new Error(result.message || 'Analysis failed');
       }
     } catch (error) {
       console.error('Error analyzing problem:', error);
+      notify.error('⚠️ Using offline analysis mode');
       
-      // Fallback to mock analysis if API fails
       const analysis = {
         userProblem: userInput,
         aiAnalysis: `I'm experiencing connectivity issues with our AI analysis service. However, based on your input "${userInput}", this appears to be a significant digital transformation challenge that would benefit from our comprehensive AI-powered solutions.`,
