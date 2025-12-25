@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { LanguageProvider } from "./contexts/LanguageContext";
 import HomePage from "./pages/HomePage";
 import PlatformPage from "./pages/PlatformPage";
 import ServicesPage from "./pages/ServicesPage";
@@ -27,25 +30,40 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Navigation />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/platform" element={<PlatformPage />} />
-          <Route path="/services" element={<ServicesPage />} />
-          <Route path="/ai-solver" element={<AISolverPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/agents" element={<AgentDashboard />} />
-          <Route path="/plugins" element={<PluginMarketplace />} />
-          <Route path="/templates" element={<IndustryTemplates />} />
-          <Route path="/insights" element={<InsightsDashboard />} />
-        </Routes>
-        
-        {/* Global Chat System */}
-        <MatrixChatSystem />
+    <LanguageProvider>
+      <div className="App">
+        <BrowserRouter>
+          <Navigation />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/platform" element={<PlatformPage />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/ai-solver" element={<AISolverPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/agents" element={<AgentDashboard />} />
+            <Route path="/plugins" element={<PluginMarketplace />} />
+            <Route path="/templates" element={<IndustryTemplates />} />
+            <Route path="/insights" element={<InsightsDashboard />} />
+          </Routes>
+          
+          {/* Global Chat System */}
+          <MatrixChatSystem />
+          
+          {/* Toast Notifications */}
+          <ToastContainer
+            position="top-right"
+            autoClose={4000}
+            hideProgressBar={false}
+            newestOnTop
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+          />
         
         {/* Debug info - only show on localhost */}
         {(window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") && (
