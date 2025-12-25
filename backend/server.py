@@ -2198,6 +2198,14 @@ try:
 except Exception as e:
     logger.warning(f"Advanced AI routes not loaded: {e}")
 
+# Include i18n Routes (Multi-language Support)
+try:
+    from routes.i18n_routes import router as i18n_router
+    app.include_router(i18n_router)
+    logger.info("✅ i18n routes loaded successfully (Arabic + English)")
+except Exception as e:
+    logger.warning(f"i18n routes not loaded: {e}")
+
 # Startup and shutdown events
 @app.on_event("startup")
 async def startup_event():
