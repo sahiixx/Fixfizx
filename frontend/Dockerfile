@@ -4,7 +4,7 @@
 # Multi-stage build for optimized production image
 
 # Stage 1: Builder
-FROM node:18-alpine as builder
+FROM node:20-alpine as builder
 
 # Set working directory
 WORKDIR /app
@@ -13,7 +13,7 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 
 # Install dependencies
-RUN yarn install --frozen-lockfile
+RUN yarn install
 
 # Copy application code
 COPY . .
