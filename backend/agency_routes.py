@@ -27,7 +27,7 @@ except ImportError:
     APIRouter = None
     BaseModel = None
 
-from sovereign_swarm import SafetyCouncil, RBACGuard, Permission, BudgetController
+from sovereign_swarm import SafetyCouncil, RBACGuard, RBACPermission, BudgetController
 
 if APIRouter is None:
     # Stub router for environments without FastAPI
