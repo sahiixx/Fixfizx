@@ -185,3 +185,14 @@ frontend/node_modules/.cache/default-development/0.pack
 # Environment files
 *.env
 *.env.*
+# Auto-generated / noisy
+*.log
+logs/*.log
+backend/*.log
+test-output/
+*.db
+backend/10266
+backend/data/*.db
+__pycache__/
+*.pyc
+.env.local
