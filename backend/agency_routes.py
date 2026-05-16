@@ -1,180 +1,168 @@
-"""Fixfizx Agency Routes — Connects NOWHERE.AI to the SAHIIXX ecosystem.
-
-Adds /api/agency/* endpoints to Fixfizx's FastAPI backend that:
-- Accept missions and dispatch them to agency-agents via A2A
-- Query agent status and swarm metrics
-- Run safety scans on user input before processing
-- Track costs per mission via BudgetController
-
-Mount this router in server.py:
-    from agency_routes import agency_router
-    app.include_router(agency_router, prefix="/api/agency")
 """
-import sys
+Fixfizx Agency Routes — Production integration with agency-agents + ghost systems.
+
+Provides:
+- /api/agency/status — Swarm + Hermes status
+- /api/agency/mission — Real estate missions
+- /api/agency/ghost/* — Ghost agent management (5 systems)
+"""
 import os
-import time
-import asyncio
+import sys
 from typing import Dict, List, Optional
 
-# Add paths
-sys.path.insert(0, "/mnt/c/Users/Sahil Khan/Downloads")
-sys.path.insert(0, "/home/sahiix/sahiixx-bus")
+sys.path.insert(0, "/home/sahiix/agency-agents")
+sys.path.insert(0, "/home/sahiix/sovereign-swarm-v2")
+sys.path.insert(0, "/home/sahiix/Fixfizx/backend")
 
-try:
-    from fastapi import APIRouter, HTTPException
-    from pydantic import BaseModel
-except ImportError:
-    APIRouter = None
-    BaseModel = None
+from fastapi import APIRouter, HTTPException, BackgroundTasks
+from pydantic import BaseModel
 
-from sovereign_swarm import SafetyCouncil, RBACGuard, RBACPermission, BudgetController
+from agents.real_estate_bridge import get_bridge, get_hermes, RealEstateBridge, HermesBridge
+from agents.ghost_controller import get_ghost_controller, GhostController
 
-if APIRouter is None:
-    # Stub router for environments without FastAPI
-    class _StubRouter:
-        def get(self, path, **kwargs):
-            def decorator(f): return f
-            return decorator
-        def post(self, path, **kwargs):
-            def decorator(f): return f
-            return decorator
-    agency_router = _StubRouter()
-else:
-    agency_router = APIRouter(prefix="/agency", tags=["agency"])
+agency_router = APIRouter()
 
-# Shared instances
-_safety = SafetyCouncil()
-_budget = BudgetController(session_limit=100.0, daily_limit=500.0)
 
+# ── Request Models ──────────────────────────────────────────────────────────
 
 class MissionRequest(BaseModel):
-    description: str
-    preset: Optional[str] = None
-    agents: Optional[List[str]] = None
+    mission: str
+    scope: Optional[str] = "full"
+    requester_id: Optional[str] = "fixfizx_api"
 
 
-class TaskRequest(BaseModel):
-    agent_id: str
-    task: str
-    skills: Optional[List[str]] = None
+class GhostRequest(BaseModel):
+    system: str = "locksmith"  # locksmith, electrical, plumbing, roofing, towing
+    action: str = "status"     # status, process_lead, process_all, quote
+    lead: Optional[Dict] = None
 
 
-class ScanRequest(BaseModel):
-    text: str
-    system_load: float = 0.0
+class SwarmDispatchRequest(BaseModel):
+    action: str = "mission"
+    payload: Dict
+    channel: str = "agency"
 
 
-if APIRouter is not None:
+# ── Status ──────────────────────────────────────────────────────────────────
 
-    @agency_router.get("/status")
-    async def get_agency_status():
-        """Get agency-agents and sovereign-swarm status."""
-        budget = await _budget.remaining()
-        return {
-            "safety": _safety.report() if hasattr(_safety, 'report') else {},
-            "budget": budget,
-            "services": {
-                "agency_agents": "http://localhost:8100",
-                "friday_os": "http://localhost:8000",
-                "goose_aios": "http://localhost:8001",
-                "nowhere_ai": "http://localhost:8002",
-            },
-        }
+@agency_router.get("/status")
+async def get_agency_status():
+    bridge = get_bridge()
+    hermes = get_hermes()
+    ghosts = get_ghost_controller()
+    return {
+        "swarm": bridge.status(),
+        "hermes": hermes.report(),
+        "ghosts": ghosts.status(),
+        "integration": "production",
+    }
 
-    @agency_router.post("/mission")
-    async def submit_mission(request: MissionRequest):
-        """Submit a mission to agency-agents via A2A."""
-        # Safety scan first
-        scan = _safety.scan(request.description)
-        if scan["blocked"]:
-            raise HTTPException(status_code=400, detail={
-                "error": "blocked_by_safety",
-                "rule": scan["rule"],
-                "confidence": scan["confidence"],
-            })
 
-        # Charge budget
-        estimated_cost = 0.05  # $0.05 per mission
-        accepted = await _budget.charge(f"mission_{int(time.time())}", estimated_cost)
-        if not accepted:
-            raise HTTPException(status_code=429, detail="budget_exceeded")
+@agency_router.get("/hermes")
+async def get_hermes_status():
+    hermes = get_hermes()
+    return hermes.report()
 
-        # Forward to agency-agents
-        try:
-            from sahiixx_bus.bridge import AgencyBridge
-            bridge = AgencyBridge()
-            result = await bridge.submit_task(
-                "orchestrator",
-                request.description,
-                skills=request.agents,
-            )
-            return {"status": "dispatched", "agency_response": result}
-        except Exception as e:
-            raise HTTPException(status_code=502, detail=f"agency_unavailable: {str(e)}")
 
-    @agency_router.post("/task")
-    async def submit_task(request: TaskRequest):
-        """Dispatch a task to a specific agency agent."""
-        scan = _safety.scan(request.task)
-        if scan["blocked"]:
-            raise HTTPException(status_code=400, detail={
-                "error": "blocked_by_safety",
-                "rule": scan["rule"],
-            })
+# ── Real Estate Missions ────────────────────────────────────────────────────
 
-        try:
-            from sahiixx_bus.bridge import AgencyBridge
-            bridge = AgencyBridge()
-            result = await bridge.submit_task(
-                request.agent_id,
-                request.task,
-                skills=request.skills,
-            )
-            return {"status": "dispatched", "result": result}
-        except Exception as e:
-            raise HTTPException(status_code=502, detail=f"agency_unavailable: {str(e)}")
-
-    @agency_router.post("/scan")
-    async def safety_scan(request: ScanRequest):
-        """Run a safety scan on user input."""
-        result = _safety.scan(request.text, request.system_load)
+@agency_router.post("/mission")
+async def submit_mission(request: MissionRequest):
+    bridge = get_bridge()
+    try:
+        result = await bridge.run_mission(
+            mission=request.mission,
+            scope=request.scope,
+            requester_id=request.requester_id,
+        )
         return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail={"error": str(e)})
 
-    @agency_router.get("/agents")
-    async def list_agents():
-        """List available agency agents and their capabilities."""
-        try:
-            from sahiixx_bus.bridge import AgencyBridge
-            bridge = AgencyBridge()
-            agents = await bridge.discover_agents()
-            return {"agents": agents}
-        except Exception as e:
-            raise HTTPException(status_code=502, detail=f"agency_unavailable: {str(e)}")
 
-    @agency_router.post("/dubai-market-analysis")
-    async def dubai_market_analysis(request: dict):
-        """Analyze Dubai real estate market using agency-agents + Fixfizx data."""
-        query = request.get("query", "")
-        scan = _safety.scan(query)
-        if scan["blocked"]:
-            raise HTTPException(status_code=400, detail={"error": "blocked_by_safety", "rule": scan["rule"]})
+# ── Ghost Agent Routes ─────────────────────────────────────────────────────
 
-        try:
-            from sahiixx_bus.bridge import AgencyBridge, FixfizxBridge
-            agency = AgencyBridge()
-            fixfizx = FixfizxBridge()
+@agency_router.post("/ghost")
+async def ghost_dispatch(request: GhostRequest):
+    """Dispatch to any ghost agent system."""
+    ghosts = get_ghost_controller()
+    try:
+        result = await ghosts._dispatch(request.dict())
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail={"error": str(e)})
 
-            # Route market analysis to both
-            agency_result = await agency.submit_task(
-                "agency_realestate_0",
-                f"Dubai market analysis: {query}",
-                skills=["search", "lead"],
-            )
-            fixfizx_result = await fixfizx.dubai_market_analysis(query)
 
-            return {
-                "agency_analysis": agency_result,
-                "platform_data": fixfizx_result,
-            }
-        except Exception as e:
-            raise HTTPException(status_code=502, detail=f"service_unavailable: {str(e)}")
+@agency_router.get("/ghost/{system}/status")
+async def ghost_status(system: str):
+    """Get status of a specific ghost system."""
+    ghosts = get_ghost_controller()
+    if system not in ghosts.agents:
+        raise HTTPException(status_code=404, detail=f"Unknown ghost system: {system}")
+    return ghosts.agents[system].status()
+
+
+@agency_router.get("/ghost/{system}/leads")
+async def ghost_leads(system: str):
+    """Get all leads for a ghost system."""
+    ghosts = get_ghost_controller()
+    if system not in ghosts.agents:
+        raise HTTPException(status_code=404, detail=f"Unknown ghost system: {system}")
+    agent = ghosts.agents[system]
+    return {"leads": agent._load_leads()}
+
+
+@agency_router.post("/ghost/{system}/quote")
+async def ghost_quote(system: str, lead: Dict):
+    """Generate a quote for a lead."""
+    ghosts = get_ghost_controller()
+    if system not in ghosts.agents:
+        raise HTTPException(status_code=404, detail=f"Unknown ghost system: {system}")
+    agent = ghosts.agents[system]
+    return {"quote": agent._generate_quote(lead)}
+
+
+@agency_router.post("/ghost/{system}/process")
+async def ghost_process(system: str):
+    """Process all leads for a ghost system."""
+    ghosts = get_ghost_controller()
+    if system not in ghosts.agents:
+        raise HTTPException(status_code=404, detail=f"Unknown ghost system: {system}")
+    agent = ghosts.agents[system]
+    results = await agent.process_all_leads()
+    return {"processed": len(results), "results": results}
+
+
+# ── Swarm Dispatch ──────────────────────────────────────────────────────────
+
+@agency_router.post("/swarm")
+async def dispatch_swarm(request: SwarmDispatchRequest):
+    hermes = get_hermes()
+    try:
+        result = await hermes.hermes.send(
+            request.channel,
+            request.payload,
+            sender="fixfizx_api",
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail={"error": str(e)})
+
+
+# ── Background Tasks ────────────────────────────────────────────────────────
+
+@agency_router.post("/mission/async")
+async def submit_mission_async(
+    request: MissionRequest,
+    background_tasks: BackgroundTasks,
+):
+    bridge = get_bridge()
+    async def _run():
+        result = await bridge.run_mission(
+            mission=request.mission,
+            scope=request.scope,
+            requester_id=request.requester_id,
+        )
+        print(f"[ASYNC MISSION COMPLETE] {result}")
+    background_tasks.add_task(_run)
+    return {"status": "dispatched", "mission": request.mission}

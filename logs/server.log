@@ -1,0 +1,25 @@
+INFO:     Started server process [15083]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:9001 (Press CTRL+C to quit)
+INFO:     127.0.0.1:46718 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46728 - "GET /api/agency/status HTTP/1.1" 200 OK
+INFO:     217.165.113.92:0 - "GET / HTTP/1.1" 200 OK
+INFO:     5.195.224.161:0 - "POST /api/agency/ghost/plumbing/quote HTTP/1.1" 422 Unprocessable Entity
+INFO:     5.195.224.161:0 - "GET /health HTTP/1.1" 200 OK
+INFO:     5.195.224.161:0 - "GET /api/agency/status HTTP/1.1" 200 OK
+INFO:     5.195.224.161:0 - "POST /api/agency/ghost/plumbing/quote HTTP/1.1" 200 OK
+INFO:     217.165.113.92:0 - "GET /api/agency/status HTTP/1.1" 200 OK
+INFO:     217.165.113.92:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     217.165.113.92:0 - "GET / HTTP/1.1" 200 OK
+INFO:     5.195.224.161:0 - "GET / HTTP/1.1" 200 OK
+INFO:     5.195.224.161:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     5.195.224.161:0 - "GET / HTTP/1.1" 200 OK
+INFO:     5.195.224.161:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     5.195.224.161:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     5.195.224.161:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     2a06:98c0:3600::103:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     2a06:98c0:3600::103:0 - "GET / HTTP/1.1" 200 OK
+INFO:     2a06:98c0:3600::103:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     20.191.45.212:0 - "GET / HTTP/1.1" 200 OK
+INFO:     20.191.45.212:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found

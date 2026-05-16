@@ -1,0 +1,99 @@
+{
+  "name": "Locksmith Ghost \u2014 Aria",
+  "voice": {
+    "provider": "11labs",
+    "voiceId": "aria",
+    "settings": {
+      "stability": 0.5,
+      "similarityBoost": 0.75
+    }
+  },
+  "model": {
+    "provider": "openai",
+    "model": "gpt-4",
+    "temperature": 0.7
+  },
+  "firstMessage": "Thank you for calling [Business Name] Locksmith. I'm Aria, your virtual assistant. Are you calling for a lockout, key replacement, or security upgrade?",
+  "endCallMessage": "Thank you for choosing [Business Name]. Help is on the way!",
+  "functions": [
+    {
+      "name": "bookAppointment",
+      "description": "Book a locksmith visit",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "customerName": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "serviceType": {
+            "enum": [
+              "lockout",
+              "key_replacement",
+              "security_upgrade",
+              "repair"
+            ]
+          },
+          "urgency": {
+            "enum": [
+              "emergency",
+              "same_day",
+              "scheduled"
+            ]
+          },
+          "propertyType": {
+            "enum": [
+              "residential",
+              "commercial",
+              "automotive"
+            ]
+          }
+        },
+        "required": [
+          "customerName",
+          "phone",
+          "address",
+          "serviceType",
+          "urgency"
+        ]
+      }
+    },
+    {
+      "name": "sendTextSummary",
+      "description": "Send job details to locksmith via SMS",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "technicianPhone": {
+            "type": "string"
+          },
+          "customerName": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "issue": {
+            "type": "string"
+          },
+          "urgency": {
+            "type": "string"
+          },
+          "appointmentTime": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  ],
+  "serverUrl": "https://your-server.com/vapi/webhook/locksmith",
+  "analysisPlan": {
+    "summaryPrompt": "Summarize the locksmith call. What service was needed? Was it booked?",
+    "structuredDataPrompt": "Extract: customer_name, phone, address, service_type, urgency, property_type, booked (true/false)"
+  }
+}

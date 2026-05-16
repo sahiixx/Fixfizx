@@ -2198,6 +2198,14 @@ try:
 except Exception as e:
     logger.warning(f"Advanced AI routes not loaded: {e}")
 
+# Include Agency Routes (agency-agents swarm integration)
+try:
+    from agency_routes import agency_router
+    app.include_router(agency_router)
+    logger.info("✅ Agency routes loaded successfully (real estate swarm)")
+except Exception as e:
+    logger.warning(f"Agency routes not loaded: {e}")
+
 # Startup and shutdown events
 @app.on_event("startup")
 async def startup_event():

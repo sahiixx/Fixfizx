@@ -1,0 +1,94 @@
+{
+  "name": "Towing Ghost \u2014 Aria",
+  "voice": {
+    "provider": "11labs",
+    "voiceId": "aria",
+    "settings": {
+      "stability": 0.5,
+      "similarityBoost": 0.75
+    }
+  },
+  "model": {
+    "provider": "openai",
+    "model": "gpt-4",
+    "temperature": 0.7
+  },
+  "firstMessage": "Thank you for calling [Business Name] Towing. I'm Aria, your virtual assistant. What's your location and vehicle type? Is this a breakdown or accident?",
+  "endCallMessage": "Help is on the way! Stay safe and we'll be there soon.",
+  "functions": [
+    {
+      "name": "dispatchTow",
+      "description": "Dispatch tow truck",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "customerName": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "vehicleType": {
+            "enum": [
+              "car",
+              "suv",
+              "truck",
+              "motorcycle",
+              "van"
+            ]
+          },
+          "issue": {
+            "enum": [
+              "breakdown",
+              "accident",
+              "flat_tire",
+              "locked_out",
+              "out_of_fuel"
+            ]
+          },
+          "destination": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "customerName",
+          "phone",
+          "location",
+          "vehicleType",
+          "issue"
+        ]
+      }
+    },
+    {
+      "name": "sendTextSummary",
+      "description": "Send dispatch details to driver",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "driverPhone": {
+            "type": "string"
+          },
+          "customerName": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "vehicleType": {
+            "type": "string"
+          },
+          "issue": {
+            "type": "string"
+          },
+          "destination": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  ],
+  "serverUrl": "https://your-server.com/vapi/webhook/towing"
+}

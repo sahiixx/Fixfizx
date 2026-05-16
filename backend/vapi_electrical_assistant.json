@@ -1,0 +1,100 @@
+{
+  "name": "Electrical Ghost \u2014 Aria",
+  "voice": {
+    "provider": "11labs",
+    "voiceId": "aria",
+    "settings": {
+      "stability": 0.5,
+      "similarityBoost": 0.75
+    }
+  },
+  "model": {
+    "provider": "openai",
+    "model": "gpt-4",
+    "temperature": 0.7
+  },
+  "firstMessage": "Thank you for calling [Business Name] Electrical. I'm Aria, your virtual assistant. Are you experiencing a power outage, need new installations, or have an electrical emergency?",
+  "endCallMessage": "Thank you for calling [Business Name]. Your electrical issue will be resolved promptly!",
+  "functions": [
+    {
+      "name": "bookAppointment",
+      "description": "Book electrical service visit",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "customerName": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "serviceType": {
+            "enum": [
+              "power_outage",
+              "installation",
+              "repair",
+              "inspection",
+              "emergency"
+            ]
+          },
+          "urgency": {
+            "enum": [
+              "emergency",
+              "same_day",
+              "scheduled"
+            ]
+          },
+          "propertyType": {
+            "enum": [
+              "residential",
+              "commercial",
+              "industrial"
+            ]
+          }
+        },
+        "required": [
+          "customerName",
+          "phone",
+          "address",
+          "serviceType",
+          "urgency"
+        ]
+      }
+    },
+    {
+      "name": "sendTextSummary",
+      "description": "Send job details to electrician",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "technicianPhone": {
+            "type": "string"
+          },
+          "customerName": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "issue": {
+            "type": "string"
+          },
+          "urgency": {
+            "type": "string"
+          },
+          "appointmentTime": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  ],
+  "serverUrl": "https://your-server.com/vapi/webhook/electrical",
+  "analysisPlan": {
+    "summaryPrompt": "Summarize the electrical call. What was the issue? Was it booked?",
+    "structuredDataPrompt": "Extract: customer_name, phone, address, issue_type, urgency, property_type, booked"
+  }
+}
