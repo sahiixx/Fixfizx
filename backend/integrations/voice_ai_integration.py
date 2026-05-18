@@ -4,7 +4,7 @@ OpenAI Voice AI Integration - Speech-to-Text and Text-to-Speech
 import logging
 import os
 from typing import Dict, Any
-from emergentintegrations.llm.openai import OpenAIChatRealtime
+# from emergentintegrations.llm.openai import OpenAIChatRealtime  # DISABLED
 
 logger = logging.getLogger(__name__)
 
@@ -16,7 +16,7 @@ class VoiceAIIntegration:
     def get_realtime_client(self):
         """Get OpenAI Realtime client for voice chat"""
         if not self.realtime_chat:
-            self.realtime_chat = OpenAIChatRealtime(api_key=self.api_key)
+            self.realtime_chat = None  # DISABLED
         return self.realtime_chat
     
     async def create_voice_session(self) -> Dict[str, Any]:

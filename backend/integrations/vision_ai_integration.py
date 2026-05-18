@@ -5,7 +5,7 @@ import logging
 import os
 import base64
 from typing import Dict, Any, Optional
-from emergentintegrations.llm.chat import LlmChat, UserMessage, ImageContent, FileContentWithMimeType
+# from emergentintegrations.llm.chat import LlmChat, UserMessage, ImageContent, FileContentWithMimeType  # DISABLED
 from datetime import datetime, timezone
 
 logger = logging.getLogger(__name__)

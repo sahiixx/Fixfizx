@@ -24,3 +24,1068 @@ INFO:     2a06:98c0:3600::103:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
 INFO:     20.191.45.212:0 - "GET / HTTP/1.1" 200 OK
 INFO:     20.191.45.212:0 - "GET /favicon.ico HTTP/1.1" 404 Not Found
 INFO:     127.0.0.1:48478 - "GET / HTTP/1.1" 200 OK
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/usr/lib/python3/dist-packages/uvicorn/__main__.py", line 4, in <module>
+    uvicorn.main()
+  File "/usr/lib/python3/dist-packages/click/core.py", line 1157, in __call__
+    return self.main(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/click/core.py", line 1078, in main
+    rv = self.invoke(ctx)
+         ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/click/core.py", line 1434, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/click/core.py", line 783, in invoke
+    return __callback(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/uvicorn/main.py", line 418, in main
+    run(
+  File "/usr/lib/python3/dist-packages/uvicorn/main.py", line 587, in run
+    server.run()
+  File "/usr/lib/python3/dist-packages/uvicorn/server.py", line 62, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "uvloop/loop.pyx", line 1516, in uvloop.loop.Loop.run_until_complete
+  File "/usr/lib/python3/dist-packages/uvicorn/server.py", line 69, in serve
+    config.load()
+  File "/usr/lib/python3/dist-packages/uvicorn/config.py", line 458, in load
+    self.loaded_app = import_from_string(self.app)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/uvicorn/importer.py", line 24, in import_from_string
+    raise exc from None
+  File "/usr/lib/python3/dist-packages/uvicorn/importer.py", line 21, in import_from_string
+    module = importlib.import_module(module_str)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/home/sahiix/Fixfizx/backend/server.py", line 45, in <module>
+    from integrations.voice_ai_integration import voice_ai_integration
+  File "/home/sahiix/Fixfizx/backend/integrations/voice_ai_integration.py", line 7, in <module>
+    from emergentintegrations.llm.openai import OpenAIChatRealtime
+ModuleNotFoundError: No module named 'emergentintegrations.llm.openai'
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/usr/lib/python3/dist-packages/uvicorn/__main__.py", line 4, in <module>
+    uvicorn.main()
+  File "/usr/lib/python3/dist-packages/click/core.py", line 1157, in __call__
+    return self.main(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/click/core.py", line 1078, in main
+    rv = self.invoke(ctx)
+         ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/click/core.py", line 1434, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/click/core.py", line 783, in invoke
+    return __callback(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/uvicorn/main.py", line 418, in main
+    run(
+  File "/usr/lib/python3/dist-packages/uvicorn/main.py", line 587, in run
+    server.run()
+  File "/usr/lib/python3/dist-packages/uvicorn/server.py", line 62, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "uvloop/loop.pyx", line 1516, in uvloop.loop.Loop.run_until_complete
+  File "/usr/lib/python3/dist-packages/uvicorn/server.py", line 69, in serve
+    config.load()
+  File "/usr/lib/python3/dist-packages/uvicorn/config.py", line 458, in load
+    self.loaded_app = import_from_string(self.app)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/uvicorn/importer.py", line 21, in import_from_string
+    module = importlib.import_module(module_str)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/home/sahiix/Fixfizx/backend/server.py", line 46, in <module>
+    from integrations.vision_ai_integration import vision_ai_integration
+  File "/home/sahiix/Fixfizx/backend/integrations/vision_ai_integration.py", line 8, in <module>
+    from emergentintegrations.llm.chat import LlmChat, UserMessage, ImageContent, FileContentWithMimeType
+ImportError: cannot import name 'ImageContent' from 'emergentintegrations.llm.chat' (/home/sahiix/Fixfizx/backend/emergentintegrations/llm/chat.py)
+2026-05-18 15:45:54,269 - server - INFO - ✅ All optimization modules loaded successfully
+2026-05-18 15:45:54,269 - error_handlers - INFO - ✅ Error handlers registered
+2026-05-18 15:45:54,269 - server - INFO - ✅ Error handlers registered
+2026-05-18 15:45:54,277 - server - INFO - ✅ Request ID tracking enabled
+2026-05-18 15:45:54,277 - server - INFO - ✅ Rate limiting enabled (60/min, 1000/hour)
+2026-05-18 15:45:54,277 - server - INFO - ✅ Security headers enabled
+2026-05-18 15:45:54,277 - server - INFO - ✅ Metrics tracking enabled
+2026-05-18 15:45:54,653 - services.ai_service_upgraded - INFO - 🚀 Upgraded AI Service initialized with latest 2025 models (API key configured: True)
+2026-05-18 15:45:54,667 - server - INFO - ✅ Advanced AI routes loaded successfully (GPT-4o, Claude 3.5, Gemini 2.0)
+2026-05-18 15:45:54,931 - server - INFO - ✅ Agency routes loaded successfully (real estate swarm)
+INFO:     Started server process [13594]
+INFO:     Waiting for application startup.
+2026-05-18 15:45:54,935 - request_tracker - INFO - ✅ Request ID tracking initialized
+2026-05-18 15:45:54,935 - rate_limiter - INFO - ✅ Rate limiter initialized: 60/min, 1000/hour
+2026-05-18 15:45:54,935 - security_headers - INFO - ✅ Security headers middleware initialized
+2026-05-18 15:45:54,935 - metrics_middleware - INFO - ✅ Metrics middleware initialized
+2026-05-18 15:46:27,957 - database - ERROR - Failed to connect to MongoDB: localhost:27017: timed out (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 6a0afbf2ff37e3c0b9edc590, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('localhost:27017: timed out (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+ERROR:    Traceback (most recent call last):
+  File "/home/sahiix/.local/lib/python3.12/site-packages/starlette/routing.py", line 638, in lifespan
+    async with self.lifespan_context(app) as maybe_state:
+  File "/usr/lib/python3.12/contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/fastapi/routing.py", line 216, in merged_lifespan
+    async with original_context(app) as maybe_original_state:
+  File "/usr/lib/python3.12/contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/fastapi/routing.py", line 216, in merged_lifespan
+    async with original_context(app) as maybe_original_state:
+  File "/usr/lib/python3.12/contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/fastapi/routing.py", line 216, in merged_lifespan
+    async with original_context(app) as maybe_original_state:
+  File "/home/sahiix/.local/lib/python3.12/site-packages/fastapi/routing.py", line 241, in __aenter__
+    await self._router._startup()
+  File "/home/sahiix/.local/lib/python3.12/site-packages/fastapi/routing.py", line 4884, in _startup
+    await handler()
+  File "/home/sahiix/Fixfizx/backend/server.py", line 2213, in startup_event
+    await connect_to_db()
+  File "/home/sahiix/Fixfizx/backend/database.py", line 21, in connect_to_db
+    await db.client.admin.command('ping')
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/pymongo/_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/pymongo/synchronous/database.py", line 953, in command
+    return self._client._retryable_read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 2076, in _retryable_read
+    return self._retry_internal(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/pymongo/_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 2038, in _retry_internal
+    ).run()
+      ^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 2811, in run
+    res = self._read() if self._is_read else self._write()
+          ^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 3027, in _read
+    self._server = self._get_server()
+                   ^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 2975, in _get_server
+    return self._client._select_server(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 1851, in _select_server
+    server = topology.select_server(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/pymongo/synchronous/topology.py", line 428, in select_server
+    server = self._select_server(
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/pymongo/synchronous/topology.py", line 402, in _select_server
+    servers = self.select_servers(
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/pymongo/synchronous/topology.py", line 298, in select_servers
+    server_descriptions = self._select_servers_loop(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/pymongo/synchronous/topology.py", line 359, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+pymongo.errors.ServerSelectionTimeoutError: localhost:27017: timed out (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 6a0afbf2ff37e3c0b9edc590, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('localhost:27017: timed out (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+
+ERROR:    Application startup failed. Exiting.
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/usr/lib/python3/dist-packages/uvicorn/__main__.py", line 4, in <module>
+    uvicorn.main()
+  File "/usr/lib/python3/dist-packages/click/core.py", line 1157, in __call__
+    return self.main(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/click/core.py", line 1078, in main
+    rv = self.invoke(ctx)
+         ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/click/core.py", line 1434, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/click/core.py", line 783, in invoke
+    return __callback(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/uvicorn/main.py", line 418, in main
+    run(
+  File "/usr/lib/python3/dist-packages/uvicorn/main.py", line 587, in run
+    server.run()
+  File "/usr/lib/python3/dist-packages/uvicorn/server.py", line 62, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "uvloop/loop.pyx", line 1516, in uvloop.loop.Loop.run_until_complete
+  File "/usr/lib/python3/dist-packages/uvicorn/server.py", line 69, in serve
+    config.load()
+  File "/usr/lib/python3/dist-packages/uvicorn/config.py", line 458, in load
+    self.loaded_app = import_from_string(self.app)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/uvicorn/importer.py", line 21, in import_from_string
+    module = importlib.import_module(module_str)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/home/sahiix/Fixfizx/backend/server.py", line 18, in <module>
+    from database import connect_to_db, close_db_connection, get_database
+ImportError: cannot import name 'close_db_connection' from 'database' (/home/sahiix/Fixfizx/backend/database.py)
+2026-05-18 15:49:34,228 - server - INFO - ✅ All optimization modules loaded successfully
+2026-05-18 15:49:34,228 - error_handlers - INFO - ✅ Error handlers registered
+2026-05-18 15:49:34,228 - server - INFO - ✅ Error handlers registered
+2026-05-18 15:49:34,229 - server - INFO - ✅ Request ID tracking enabled
+2026-05-18 15:49:34,230 - server - INFO - ✅ Rate limiting enabled (60/min, 1000/hour)
+2026-05-18 15:49:34,230 - server - INFO - ✅ Security headers enabled
+2026-05-18 15:49:34,230 - server - INFO - ✅ Metrics tracking enabled
+2026-05-18 15:49:34,369 - services.ai_service_upgraded - INFO - 🚀 Upgraded AI Service initialized with latest 2025 models (API key configured: True)
+2026-05-18 15:49:34,394 - server - INFO - ✅ Advanced AI routes loaded successfully (GPT-4o, Claude 3.5, Gemini 2.0)
+2026-05-18 15:49:34,472 - server - INFO - ✅ Agency routes loaded successfully (real estate swarm)
+INFO:     Started server process [14555]
+INFO:     Waiting for application startup.
+2026-05-18 15:49:34,473 - request_tracker - INFO - ✅ Request ID tracking initialized
+2026-05-18 15:49:34,474 - rate_limiter - INFO - ✅ Rate limiter initialized: 60/min, 1000/hour
+2026-05-18 15:49:34,474 - security_headers - INFO - ✅ Security headers middleware initialized
+2026-05-18 15:49:34,474 - metrics_middleware - INFO - ✅ Metrics middleware initialized
+2026-05-18 15:49:34,513 - database_indexes - ERROR - ❌ Error creating indexes: 'Database' object has no attribute 'contacts'
+Traceback (most recent call last):
+  File "/home/sahiix/Fixfizx/backend/database_indexes.py", line 17, in create_all_indexes
+    await db.contacts.create_index([("email", 1)], unique=True)
+          ^^^^^^^^^^^
+AttributeError: 'Database' object has no attribute 'contacts'. Did you mean: 'connect'?
+2026-05-18 15:49:34,514 - server - WARNING - ⚠️ Database index creation had issues: 'Database' object has no attribute 'contacts'
+2026-05-18 15:49:34,514 - agent_orchestrator - INFO - Initializing Agent Orchestrator...
+2026-05-18 15:49:34,514 - agent_orchestrator - INFO - Created sales agent: 89644263-1554-4e18-8cfe-3cedc11cfad5
+2026-05-18 15:49:34,515 - agent_orchestrator - INFO - Created marketing agent: 34a00bc8-cca6-4349-9c69-36f9ed690e45
+2026-05-18 15:49:34,515 - agent_orchestrator - INFO - Created content agent: 10ff2078-cd75-4bc1-a1b6-714ef9c6bf90
+2026-05-18 15:49:34,515 - agent_orchestrator - INFO - Created analytics agent: 5ffa7ab9-d609-45da-8f47-96d96c780c47
+2026-05-18 15:49:34,515 - agent_orchestrator - INFO - Created operations agent: 64e265bd-b1a8-4394-8f40-37850933ab3f
+2026-05-18 15:49:34,515 - agent_orchestrator - INFO - Started 4 worker tasks
+2026-05-18 15:49:34,515 - agent_orchestrator - INFO - Agent Orchestrator initialized successfully
+2026-05-18 15:49:34,515 - server - INFO - Agent orchestrator initialized
+2026-05-18 15:49:34,515 - core.inter_agent_communication - INFO - Inter-Agent Communication system started
+2026-05-18 15:49:34,515 - server - INFO - Inter-agent communication system started
+2026-05-18 15:49:34,515 - core.performance_optimizer - INFO - Cache manager initialized (in-memory mode)
+2026-05-18 15:49:34,515 - core.performance_optimizer - INFO - Performance optimization system started
+2026-05-18 15:49:34,515 - server - INFO - Performance optimization system initialized
+2026-05-18 15:49:34,515 - server - INFO - ✅ Cache cleanup background task started
+2026-05-18 15:49:34,515 - server - INFO - 🚀 NOWHERE Digital API started successfully with optimizations
+2026-05-18 15:49:34,515 - agent_orchestrator - INFO - Worker worker-0 started
+2026-05-18 15:49:34,515 - agent_orchestrator - INFO - Worker worker-1 started
+2026-05-18 15:49:34,515 - agent_orchestrator - INFO - Worker worker-2 started
+2026-05-18 15:49:34,515 - agent_orchestrator - INFO - Worker worker-3 started
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2026-05-18 15:50:45,214 - server - ERROR - Error tracking page view: 'Database' object has no attribute 'analytics'
+2026-05-18 15:50:45,215 - request_tracker - INFO - Request started
+2026-05-18 15:50:45,215 - request_tracker - INFO - Request completed
+2026-05-18 15:50:45,219 - server - INFO - GET /api/agency/status - 404 - 0.005s
+SQLite database initialized at /tmp/fixfizx.db
+INFO:     127.0.0.1:47256 - "GET /api/agency/status HTTP/1.1" 404 Not Found
+2026-05-18 15:50:49,358 - server - ERROR - Error tracking page view: 'Database' object has no attribute 'analytics'
+2026-05-18 15:50:49,359 - request_tracker - INFO - Request started
+2026-05-18 15:50:49,362 - request_tracker - INFO - Request completed
+2026-05-18 15:50:49,362 - server - INFO - GET / - 200 - 0.004s
+INFO:     127.0.0.1:47260 - "GET / HTTP/1.1" 200 OK
+2026-05-18 15:50:59,710 - server - ERROR - Error tracking page view: 'Database' object has no attribute 'analytics'
+2026-05-18 15:50:59,711 - request_tracker - INFO - Request started
+2026-05-18 15:50:59,711 - health_check - ERROR - Basic health check failed: 'NoneType' object has no attribute 'admin'
+2026-05-18 15:50:59,712 - request_tracker - INFO - Request completed
+2026-05-18 15:50:59,712 - server - INFO - GET /api/health - 200 - 0.002s
+INFO:     127.0.0.1:47478 - "GET /api/health HTTP/1.1" 200 OK
+2026-05-18 15:51:17,321 - core.performance_optimizer - ERROR - Failed to store metric: 'Database' object has no attribute 'performance_metrics'
+2026-05-18 15:51:17,321 - core.performance_optimizer - ERROR - Failed to store metric: 'Database' object has no attribute 'performance_metrics'
+2026-05-18 15:51:19,098 - server - INFO - ✅ All optimization modules loaded successfully
+2026-05-18 15:51:19,099 - error_handlers - INFO - ✅ Error handlers registered
+2026-05-18 15:51:19,099 - server - INFO - ✅ Error handlers registered
+2026-05-18 15:51:19,100 - server - INFO - ✅ Request ID tracking enabled
+2026-05-18 15:51:19,100 - server - INFO - ✅ Rate limiting enabled (60/min, 1000/hour)
+2026-05-18 15:51:19,100 - server - INFO - ✅ Security headers enabled
+2026-05-18 15:51:19,100 - server - INFO - ✅ Metrics tracking enabled
+2026-05-18 15:51:19,346 - services.ai_service_upgraded - INFO - 🚀 Upgraded AI Service initialized with latest 2025 models (API key configured: True)
+2026-05-18 15:51:19,368 - server - INFO - ✅ Advanced AI routes loaded successfully (GPT-4o, Claude 3.5, Gemini 2.0)
+2026-05-18 15:51:19,458 - server - INFO - ✅ Agency routes loaded successfully (real estate swarm)
+INFO:     Started server process [14952]
+INFO:     Waiting for application startup.
+2026-05-18 15:51:19,459 - request_tracker - INFO - ✅ Request ID tracking initialized
+2026-05-18 15:51:19,460 - rate_limiter - INFO - ✅ Rate limiter initialized: 60/min, 1000/hour
+2026-05-18 15:51:19,460 - security_headers - INFO - ✅ Security headers middleware initialized
+2026-05-18 15:51:19,460 - metrics_middleware - INFO - ✅ Metrics middleware initialized
+2026-05-18 15:51:19,461 - database_indexes - ERROR - ❌ Error creating indexes: 'Database' object has no attribute 'contacts'
+Traceback (most recent call last):
+  File "/home/sahiix/Fixfizx/backend/database_indexes.py", line 17, in create_all_indexes
+    await db.contacts.create_index([("email", 1)], unique=True)
+          ^^^^^^^^^^^
+AttributeError: 'Database' object has no attribute 'contacts'. Did you mean: 'connect'?
+2026-05-18 15:51:19,462 - server - WARNING - ⚠️ Database index creation had issues: 'Database' object has no attribute 'contacts'
+2026-05-18 15:51:19,462 - agent_orchestrator - INFO - Initializing Agent Orchestrator...
+2026-05-18 15:51:19,462 - agent_orchestrator - INFO - Created sales agent: eeabe99a-17f0-4d9c-9720-158e4551b659
+2026-05-18 15:51:19,462 - agent_orchestrator - INFO - Created marketing agent: d29b1e80-e4e2-4af3-837b-c41a80000fde
+2026-05-18 15:51:19,462 - agent_orchestrator - INFO - Created content agent: fc1d724e-4ae8-4552-ab8a-ad24205d412d
+2026-05-18 15:51:19,462 - agent_orchestrator - INFO - Created analytics agent: 89640dda-3614-47dd-a6e7-0ce469721e8e
+2026-05-18 15:51:19,462 - agent_orchestrator - INFO - Created operations agent: 5bdd172c-9eff-42f4-9f4c-634d171727a2
+2026-05-18 15:51:19,462 - agent_orchestrator - INFO - Started 4 worker tasks
+2026-05-18 15:51:19,462 - agent_orchestrator - INFO - Agent Orchestrator initialized successfully
+2026-05-18 15:51:19,462 - server - INFO - Agent orchestrator initialized
+2026-05-18 15:51:19,462 - core.inter_agent_communication - INFO - Inter-Agent Communication system started
+2026-05-18 15:51:19,462 - server - INFO - Inter-agent communication system started
+2026-05-18 15:51:19,462 - core.performance_optimizer - INFO - Cache manager initialized (in-memory mode)
+2026-05-18 15:51:19,462 - core.performance_optimizer - INFO - Performance optimization system started
+2026-05-18 15:51:19,462 - server - INFO - Performance optimization system initialized
+2026-05-18 15:51:19,462 - server - INFO - ✅ Cache cleanup background task started
+2026-05-18 15:51:19,462 - server - INFO - 🚀 NOWHERE Digital API started successfully with optimizations
+2026-05-18 15:51:19,462 - agent_orchestrator - INFO - Worker worker-0 started
+2026-05-18 15:51:19,462 - agent_orchestrator - INFO - Worker worker-1 started
+2026-05-18 15:51:19,462 - agent_orchestrator - INFO - Worker worker-2 started
+2026-05-18 15:51:19,462 - agent_orchestrator - INFO - Worker worker-3 started
+INFO:     Application startup complete.
+ERROR:    [Errno 98] error while attempting to bind on address ('0.0.0.0', 8000): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-18 15:51:20,468 - core.inter_agent_communication - INFO - Inter-Agent Communication system stopped
+2026-05-18 15:51:20,468 - agent_orchestrator - INFO - Shutting down Agent Orchestrator...
+2026-05-18 15:51:20,468 - agent.sales_agent - INFO - Agent Sales Agent paused
+2026-05-18 15:51:20,468 - agent.marketing_agent - INFO - Agent Marketing Agent paused
+2026-05-18 15:51:20,468 - agent.content_agent - INFO - Agent Content Agent paused
+2026-05-18 15:51:20,468 - agent.analytics_agent - INFO - Agent Analytics Agent paused
+2026-05-18 15:51:20,468 - agent.operations_agent - INFO - Agent Operations Agent paused
+2026-05-18 15:51:20,468 - agent_orchestrator - INFO - All workers stopped
+2026-05-18 15:51:20,468 - agent_orchestrator - INFO - Agent Orchestrator shutdown complete
+2026-05-18 15:51:20,468 - server - INFO - NOWHERE Digital API shutdown
+INFO:     Application shutdown complete.
+SQLite database initialized at /tmp/fixfizx.db
+Database connection closed
+2026-05-18 15:51:49,469 - server - ERROR - Error tracking page view: 'Database' object has no attribute 'analytics'
+2026-05-18 15:51:49,470 - request_tracker - INFO - Request started
+2026-05-18 15:51:49,470 - health_check - ERROR - Basic health check failed: 'NoneType' object has no attribute 'admin'
+2026-05-18 15:51:49,470 - request_tracker - INFO - Request completed
+2026-05-18 15:51:49,471 - server - INFO - GET /api/health - 200 - 0.002s
+INFO:     127.0.0.1:48406 - "GET /api/health HTTP/1.1" 200 OK
+2026-05-18 15:53:00,352 - server - ERROR - Error tracking page view: 'Database' object has no attribute 'analytics'
+2026-05-18 15:53:00,353 - request_tracker - INFO - Request started
+2026-05-18 15:53:00,354 - request_tracker - INFO - Request completed
+2026-05-18 15:53:00,354 - server - INFO - GET / - 200 - 0.003s
+INFO:     127.0.0.1:48500 - "GET / HTTP/1.1" 200 OK
+2026-05-18 15:54:31,340 - server - INFO - ✅ All optimization modules loaded successfully
+2026-05-18 15:54:31,341 - error_handlers - INFO - ✅ Error handlers registered
+2026-05-18 15:54:31,342 - server - INFO - ✅ Error handlers registered
+2026-05-18 15:54:31,345 - server - INFO - ✅ Request ID tracking enabled
+2026-05-18 15:54:31,345 - server - INFO - ✅ Rate limiting enabled (60/min, 1000/hour)
+2026-05-18 15:54:31,345 - server - INFO - ✅ Security headers enabled
+2026-05-18 15:54:31,345 - server - INFO - ✅ Metrics tracking enabled
+2026-05-18 15:54:31,596 - services.ai_service_upgraded - INFO - 🚀 Upgraded AI Service initialized with latest 2025 models (API key configured: True)
+2026-05-18 15:54:31,617 - server - INFO - ✅ Advanced AI routes loaded successfully (GPT-4o, Claude 3.5, Gemini 2.0)
+2026-05-18 15:54:31,708 - server - INFO - ✅ Agency routes loaded successfully (real estate swarm)
+INFO:     Started server process [15779]
+INFO:     Waiting for application startup.
+2026-05-18 15:54:31,710 - request_tracker - INFO - ✅ Request ID tracking initialized
+2026-05-18 15:54:31,710 - rate_limiter - INFO - ✅ Rate limiter initialized: 60/min, 1000/hour
+2026-05-18 15:54:31,710 - security_headers - INFO - ✅ Security headers middleware initialized
+2026-05-18 15:54:31,710 - metrics_middleware - INFO - ✅ Metrics middleware initialized
+2026-05-18 15:54:31,991 - database_indexes - ERROR - ❌ Error creating indexes: 'Database' object has no attribute 'contacts'
+Traceback (most recent call last):
+  File "/home/sahiix/Fixfizx/backend/database_indexes.py", line 17, in create_all_indexes
+    await db.contacts.create_index([("email", 1)], unique=True)
+          ^^^^^^^^^^^
+AttributeError: 'Database' object has no attribute 'contacts'. Did you mean: 'connect'?
+2026-05-18 15:54:31,992 - server - WARNING - ⚠️ Database index creation had issues: 'Database' object has no attribute 'contacts'
+2026-05-18 15:54:31,993 - agent_orchestrator - INFO - Initializing Agent Orchestrator...
+2026-05-18 15:54:31,993 - agent_orchestrator - INFO - Created sales agent: f9c95f6a-7bb5-40e3-a3ab-ab3292ab51f7
+2026-05-18 15:54:31,993 - agent_orchestrator - INFO - Created marketing agent: 896e365a-bf2a-400c-bb84-fa4ec8b88dc8
+2026-05-18 15:54:31,993 - agent_orchestrator - INFO - Created content agent: 7a1884ce-0ad4-489f-a5e2-aef2415409b8
+2026-05-18 15:54:31,993 - agent_orchestrator - INFO - Created analytics agent: e37efb6f-37e3-4548-96b6-f79908ef846a
+2026-05-18 15:54:31,993 - agent_orchestrator - INFO - Created operations agent: b90075d1-2a3b-433b-bca3-04b4530899d1
+2026-05-18 15:54:31,993 - agent_orchestrator - INFO - Started 4 worker tasks
+2026-05-18 15:54:31,993 - agent_orchestrator - INFO - Agent Orchestrator initialized successfully
+2026-05-18 15:54:31,993 - server - INFO - Agent orchestrator initialized
+2026-05-18 15:54:31,993 - core.inter_agent_communication - INFO - Inter-Agent Communication system started
+2026-05-18 15:54:31,993 - server - INFO - Inter-agent communication system started
+2026-05-18 15:54:31,993 - core.performance_optimizer - INFO - Cache manager initialized (in-memory mode)
+2026-05-18 15:54:31,993 - core.performance_optimizer - INFO - Performance optimization system started
+2026-05-18 15:54:31,993 - server - INFO - Performance optimization system initialized
+2026-05-18 15:54:31,993 - server - INFO - ✅ Cache cleanup background task started
+2026-05-18 15:54:31,993 - server - INFO - 🚀 NOWHERE Digital API started successfully with optimizations
+2026-05-18 15:54:31,993 - agent_orchestrator - INFO - Worker worker-0 started
+2026-05-18 15:54:31,993 - agent_orchestrator - INFO - Worker worker-1 started
+2026-05-18 15:54:31,993 - agent_orchestrator - INFO - Worker worker-2 started
+2026-05-18 15:54:31,993 - agent_orchestrator - INFO - Worker worker-3 started
+INFO:     Application startup complete.
+ERROR:    [Errno 98] error while attempting to bind on address ('0.0.0.0', 8000): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-18 15:54:32,999 - core.inter_agent_communication - INFO - Inter-Agent Communication system stopped
+2026-05-18 15:54:32,999 - agent_orchestrator - INFO - Shutting down Agent Orchestrator...
+2026-05-18 15:54:32,999 - agent.sales_agent - INFO - Agent Sales Agent paused
+2026-05-18 15:54:32,999 - agent.marketing_agent - INFO - Agent Marketing Agent paused
+2026-05-18 15:54:32,999 - agent.content_agent - INFO - Agent Content Agent paused
+2026-05-18 15:54:32,999 - agent.analytics_agent - INFO - Agent Analytics Agent paused
+2026-05-18 15:54:33,000 - agent.operations_agent - INFO - Agent Operations Agent paused
+2026-05-18 15:54:33,000 - agent_orchestrator - INFO - All workers stopped
+2026-05-18 15:54:33,000 - agent_orchestrator - INFO - Agent Orchestrator shutdown complete
+2026-05-18 15:54:33,000 - server - INFO - NOWHERE Digital API shutdown
+INFO:     Application shutdown complete.
+SQLite database initialized at /tmp/fixfizx.db
+Database connection closed
+2026-05-18 15:54:56,848 - server - ERROR - Error tracking page view: 'Database' object has no attribute 'analytics'
+2026-05-18 15:54:56,849 - request_tracker - INFO - Request started
+2026-05-18 15:54:56,849 - health_check - ERROR - Basic health check failed: 'NoneType' object has no attribute 'admin'
+2026-05-18 15:54:56,850 - request_tracker - INFO - Request completed
+2026-05-18 15:54:56,851 - server - INFO - GET /api/health - 200 - 0.002s
+INFO:     127.0.0.1:46682 - "GET /api/health HTTP/1.1" 200 OK
+2026-05-18 15:55:01,946 - cache_manager - INFO - Cache cleanup: 0 expired entries removed
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/usr/lib/python3/dist-packages/uvicorn/__main__.py", line 4, in <module>
+    uvicorn.main()
+  File "/usr/lib/python3/dist-packages/click/core.py", line 1157, in __call__
+    return self.main(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/click/core.py", line 1078, in main
+    rv = self.invoke(ctx)
+         ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/click/core.py", line 1434, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/click/core.py", line 783, in invoke
+    return __callback(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/uvicorn/main.py", line 418, in main
+    run(
+  File "/usr/lib/python3/dist-packages/uvicorn/main.py", line 587, in run
+    server.run()
+  File "/usr/lib/python3/dist-packages/uvicorn/server.py", line 62, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "uvloop/loop.pyx", line 1516, in uvloop.loop.Loop.run_until_complete
+  File "/usr/lib/python3/dist-packages/uvicorn/server.py", line 69, in serve
+    config.load()
+  File "/usr/lib/python3/dist-packages/uvicorn/config.py", line 458, in load
+    self.loaded_app = import_from_string(self.app)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/uvicorn/importer.py", line 21, in import_from_string
+    module = importlib.import_module(module_str)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/home/sahiix/Fixfizx/backend/server.py", line 63, in <module>
+    from health_check import get_health_status
+  File "/home/sahiix/Fixfizx/backend/health_check.py", line 50
+    except Exception as e:
+                          ^
+IndentationError: unindent does not match any outer indentation level
+2026-05-18 15:57:12,768 - server - ERROR - Error tracking page view: 'Database' object has no attribute 'analytics'
+2026-05-18 15:57:12,769 - request_tracker - INFO - Request started
+2026-05-18 15:57:12,770 - health_check - ERROR - Basic health check failed: 'NoneType' object has no attribute 'admin'
+2026-05-18 15:57:12,770 - request_tracker - INFO - Request completed
+2026-05-18 15:57:12,771 - server - INFO - GET /api/health - 200 - 0.002s
+INFO:     127.0.0.1:44686 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-05-18 15:58:50,465 - core.inter_agent_communication - INFO - Inter-Agent Communication system stopped
+2026-05-18 15:58:50,465 - agent_orchestrator - INFO - Shutting down Agent Orchestrator...
+2026-05-18 15:58:50,465 - agent.sales_agent - INFO - Agent Sales Agent paused
+2026-05-18 15:58:50,465 - agent.marketing_agent - INFO - Agent Marketing Agent paused
+2026-05-18 15:58:50,465 - agent.content_agent - INFO - Agent Content Agent paused
+2026-05-18 15:58:50,465 - agent.analytics_agent - INFO - Agent Analytics Agent paused
+2026-05-18 15:58:50,465 - agent.operations_agent - INFO - Agent Operations Agent paused
+2026-05-18 15:58:50,466 - agent_orchestrator - INFO - All workers stopped
+2026-05-18 15:58:50,466 - agent_orchestrator - INFO - Agent Orchestrator shutdown complete
+2026-05-18 15:58:50,466 - server - INFO - NOWHERE Digital API shutdown
+INFO:     Application shutdown complete.
+INFO:     Finished server process [14555]
+Database connection closed
+2026-05-18 16:02:00,564 - server - INFO - ✅ All optimization modules loaded successfully
+2026-05-18 16:02:00,564 - error_handlers - INFO - ✅ Error handlers registered
+2026-05-18 16:02:00,564 - server - INFO - ✅ Error handlers registered
+2026-05-18 16:02:00,565 - server - INFO - ✅ Request ID tracking enabled
+2026-05-18 16:02:00,566 - server - INFO - ✅ Rate limiting enabled (60/min, 1000/hour)
+2026-05-18 16:02:00,566 - server - INFO - ✅ Security headers enabled
+2026-05-18 16:02:00,566 - server - INFO - ✅ Metrics tracking enabled
+2026-05-18 16:02:00,811 - services.ai_service_upgraded - INFO - 🚀 Upgraded AI Service initialized with latest 2025 models (API key configured: True)
+2026-05-18 16:02:00,834 - server - INFO - ✅ Advanced AI routes loaded successfully (GPT-4o, Claude 3.5, Gemini 2.0)
+2026-05-18 16:02:00,910 - server - INFO - ✅ Agency routes loaded successfully (real estate swarm)
+INFO:     Started server process [17535]
+INFO:     Waiting for application startup.
+2026-05-18 16:02:00,915 - request_tracker - INFO - ✅ Request ID tracking initialized
+2026-05-18 16:02:00,915 - rate_limiter - INFO - ✅ Rate limiter initialized: 60/min, 1000/hour
+2026-05-18 16:02:00,915 - security_headers - INFO - ✅ Security headers middleware initialized
+2026-05-18 16:02:00,915 - metrics_middleware - INFO - ✅ Metrics middleware initialized
+2026-05-18 16:02:33,869 - database - ERROR - Failed to connect to MongoDB: localhost:27017: timed out (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 6a0affb89623cd250577b23a, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('localhost:27017: timed out (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+ERROR:    Traceback (most recent call last):
+  File "/home/sahiix/.local/lib/python3.12/site-packages/starlette/routing.py", line 638, in lifespan
+    async with self.lifespan_context(app) as maybe_state:
+  File "/usr/lib/python3.12/contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/fastapi/routing.py", line 216, in merged_lifespan
+    async with original_context(app) as maybe_original_state:
+  File "/usr/lib/python3.12/contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/fastapi/routing.py", line 216, in merged_lifespan
+    async with original_context(app) as maybe_original_state:
+  File "/usr/lib/python3.12/contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/fastapi/routing.py", line 216, in merged_lifespan
+    async with original_context(app) as maybe_original_state:
+  File "/home/sahiix/.local/lib/python3.12/site-packages/fastapi/routing.py", line 241, in __aenter__
+    await self._router._startup()
+  File "/home/sahiix/.local/lib/python3.12/site-packages/fastapi/routing.py", line 4884, in _startup
+    await handler()
+  File "/home/sahiix/Fixfizx/backend/server.py", line 2213, in startup_event
+    await connect_to_db()
+  File "/home/sahiix/Fixfizx/backend/database.py", line 21, in connect_to_db
+    await db.client.admin.command('ping')
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/pymongo/_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/pymongo/synchronous/database.py", line 953, in command
+    return self._client._retryable_read(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 2076, in _retryable_read
+    return self._retry_internal(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/pymongo/_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 2038, in _retry_internal
+    ).run()
+      ^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 2811, in run
+    res = self._read() if self._is_read else self._write()
+          ^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 3027, in _read
+    self._server = self._get_server()
+                   ^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 2975, in _get_server
+    return self._client._select_server(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 1851, in _select_server
+    server = topology.select_server(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/pymongo/synchronous/topology.py", line 428, in select_server
+    server = self._select_server(
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/pymongo/synchronous/topology.py", line 402, in _select_server
+    servers = self.select_servers(
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/pymongo/synchronous/topology.py", line 298, in select_servers
+    server_descriptions = self._select_servers_loop(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sahiix/.local/lib/python3.12/site-packages/pymongo/synchronous/topology.py", line 359, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+pymongo.errors.ServerSelectionTimeoutError: localhost:27017: timed out (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 6a0affb89623cd250577b23a, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=NetworkTimeout('localhost:27017: timed out (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+
+ERROR:    Application startup failed. Exiting.
+2026-05-18 16:05:15,330 - server - INFO - ✅ All optimization modules loaded successfully
+2026-05-18 16:05:15,330 - error_handlers - INFO - ✅ Error handlers registered
+2026-05-18 16:05:15,330 - server - INFO - ✅ Error handlers registered
+2026-05-18 16:05:15,332 - server - INFO - ✅ Request ID tracking enabled
+2026-05-18 16:05:15,332 - server - INFO - ✅ Rate limiting enabled (60/min, 1000/hour)
+2026-05-18 16:05:15,332 - server - INFO - ✅ Security headers enabled
+2026-05-18 16:05:15,332 - server - INFO - ✅ Metrics tracking enabled
+2026-05-18 16:05:15,602 - services.ai_service_upgraded - INFO - 🚀 Upgraded AI Service initialized with latest 2025 models (API key configured: True)
+2026-05-18 16:05:15,622 - server - INFO - ✅ Advanced AI routes loaded successfully (GPT-4o, Claude 3.5, Gemini 2.0)
+2026-05-18 16:05:15,702 - server - INFO - ✅ Agency routes loaded successfully (real estate swarm)
+INFO:     Started server process [18186]
+INFO:     Waiting for application startup.
+2026-05-18 16:05:15,706 - request_tracker - INFO - ✅ Request ID tracking initialized
+2026-05-18 16:05:15,706 - rate_limiter - INFO - ✅ Rate limiter initialized: 60/min, 1000/hour
+2026-05-18 16:05:15,706 - security_headers - INFO - ✅ Security headers middleware initialized
+2026-05-18 16:05:15,706 - metrics_middleware - INFO - ✅ Metrics middleware initialized
+2026-05-18 16:05:15,706 - database - INFO - Connected to Mock Database (MongoDB bypassed)
+2026-05-18 16:05:15,709 - database_indexes - ERROR - ❌ Error creating indexes: 'MockDB' object has no attribute 'contacts'
+Traceback (most recent call last):
+  File "/home/sahiix/Fixfizx/backend/database_indexes.py", line 17, in create_all_indexes
+    await db.contacts.create_index([("email", 1)], unique=True)
+          ^^^^^^^^^^^
+AttributeError: 'MockDB' object has no attribute 'contacts'
+2026-05-18 16:05:15,710 - server - WARNING - ⚠️ Database index creation had issues: 'MockDB' object has no attribute 'contacts'
+2026-05-18 16:05:15,710 - agent_orchestrator - INFO - Initializing Agent Orchestrator...
+2026-05-18 16:05:15,710 - agent_orchestrator - INFO - Created sales agent: baca6fff-9020-4f03-8c89-98ec0a68a1ee
+2026-05-18 16:05:15,710 - agent_orchestrator - INFO - Created marketing agent: ea9e37a1-86a1-488d-9694-634ea40f541b
+2026-05-18 16:05:15,710 - agent_orchestrator - INFO - Created content agent: fe9fcf4c-9b96-4185-a6ff-7b329ef74383
+2026-05-18 16:05:15,710 - agent_orchestrator - INFO - Created analytics agent: 871687ba-0bc5-4599-98c3-461cb5d2e349
+2026-05-18 16:05:15,710 - agent_orchestrator - INFO - Created operations agent: 51f4d3fc-2253-443b-9cdd-6a803901ffe2
+2026-05-18 16:05:15,710 - agent_orchestrator - INFO - Started 4 worker tasks
+2026-05-18 16:05:15,710 - agent_orchestrator - INFO - Agent Orchestrator initialized successfully
+2026-05-18 16:05:15,710 - server - INFO - Agent orchestrator initialized
+2026-05-18 16:05:15,710 - core.inter_agent_communication - INFO - Inter-Agent Communication system started
+2026-05-18 16:05:15,710 - server - INFO - Inter-agent communication system started
+2026-05-18 16:05:15,710 - core.performance_optimizer - INFO - Cache manager initialized (in-memory mode)
+2026-05-18 16:05:15,710 - core.performance_optimizer - INFO - Performance optimization system started
+2026-05-18 16:05:15,710 - server - INFO - Performance optimization system initialized
+2026-05-18 16:05:15,710 - server - INFO - ✅ Cache cleanup background task started
+2026-05-18 16:05:15,710 - server - INFO - 🚀 NOWHERE Digital API started successfully with optimizations
+2026-05-18 16:05:15,710 - agent_orchestrator - INFO - Worker worker-0 started
+2026-05-18 16:05:15,710 - agent_orchestrator - INFO - Worker worker-1 started
+2026-05-18 16:05:15,710 - agent_orchestrator - INFO - Worker worker-2 started
+2026-05-18 16:05:15,710 - agent_orchestrator - INFO - Worker worker-3 started
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2026-05-18 16:06:12,465 - server - ERROR - Error tracking page view: 'MockDB' object has no attribute 'analytics'
+2026-05-18 16:06:12,466 - request_tracker - INFO - Request started
+2026-05-18 16:06:12,468 - health_check - ERROR - Basic health check failed: object dict can't be used in 'await' expression
+2026-05-18 16:06:12,468 - request_tracker - INFO - Request completed
+2026-05-18 16:06:12,469 - server - INFO - GET /api/health - 200 - 0.004s
+INFO:     127.0.0.1:47268 - "GET /api/health HTTP/1.1" 200 OK
+2026-05-18 16:07:39,688 - server - INFO - ✅ All optimization modules loaded successfully
+2026-05-18 16:07:39,688 - error_handlers - INFO - ✅ Error handlers registered
+2026-05-18 16:07:39,688 - server - INFO - ✅ Error handlers registered
+2026-05-18 16:07:39,690 - server - INFO - ✅ Request ID tracking enabled
+2026-05-18 16:07:39,690 - server - INFO - ✅ Rate limiting enabled (60/min, 1000/hour)
+2026-05-18 16:07:39,690 - server - INFO - ✅ Security headers enabled
+2026-05-18 16:07:39,690 - server - INFO - ✅ Metrics tracking enabled
+2026-05-18 16:07:39,868 - services.ai_service_upgraded - INFO - 🚀 Upgraded AI Service initialized with latest 2025 models (API key configured: True)
+2026-05-18 16:07:39,885 - server - INFO - ✅ Advanced AI routes loaded successfully (GPT-4o, Claude 3.5, Gemini 2.0)
+2026-05-18 16:07:40,001 - server - INFO - ✅ Agency routes loaded successfully (real estate swarm)
+INFO:     Started server process [18718]
+INFO:     Waiting for application startup.
+2026-05-18 16:07:40,002 - request_tracker - INFO - ✅ Request ID tracking initialized
+2026-05-18 16:07:40,002 - rate_limiter - INFO - ✅ Rate limiter initialized: 60/min, 1000/hour
+2026-05-18 16:07:40,002 - security_headers - INFO - ✅ Security headers middleware initialized
+2026-05-18 16:07:40,002 - metrics_middleware - INFO - ✅ Metrics middleware initialized
+2026-05-18 16:07:40,003 - database - INFO - Connected to Mock Database (MongoDB bypassed)
+2026-05-18 16:07:40,003 - database_indexes - ERROR - ❌ Error creating indexes: 'MockDB' object has no attribute 'contacts'
+Traceback (most recent call last):
+  File "/home/sahiix/Fixfizx/backend/database_indexes.py", line 17, in create_all_indexes
+    await db.contacts.create_index([("email", 1)], unique=True)
+          ^^^^^^^^^^^
+AttributeError: 'MockDB' object has no attribute 'contacts'
+2026-05-18 16:07:40,005 - server - WARNING - ⚠️ Database index creation had issues: 'MockDB' object has no attribute 'contacts'
+2026-05-18 16:07:40,005 - agent_orchestrator - INFO - Initializing Agent Orchestrator...
+2026-05-18 16:07:40,005 - agent_orchestrator - INFO - Created sales agent: e8c9de9d-e577-4016-b739-eb67c2f6a11f
+2026-05-18 16:07:40,005 - agent_orchestrator - INFO - Created marketing agent: 391865d4-05f2-4b59-86cd-f79aa7ecd963
+2026-05-18 16:07:40,005 - agent_orchestrator - INFO - Created content agent: dd611b63-e7e4-42a1-9dfe-ea135942ec68
+2026-05-18 16:07:40,005 - agent_orchestrator - INFO - Created analytics agent: 5eee5f09-ea7e-4fa0-b978-8b3ffb562d7c
+2026-05-18 16:07:40,005 - agent_orchestrator - INFO - Created operations agent: e4ec64fc-845f-41fd-a442-d6710966160f
+2026-05-18 16:07:40,005 - agent_orchestrator - INFO - Started 4 worker tasks
+2026-05-18 16:07:40,005 - agent_orchestrator - INFO - Agent Orchestrator initialized successfully
+2026-05-18 16:07:40,005 - server - INFO - Agent orchestrator initialized
+2026-05-18 16:07:40,005 - core.inter_agent_communication - INFO - Inter-Agent Communication system started
+2026-05-18 16:07:40,006 - server - INFO - Inter-agent communication system started
+2026-05-18 16:07:40,006 - core.performance_optimizer - INFO - Cache manager initialized (in-memory mode)
+2026-05-18 16:07:40,006 - core.performance_optimizer - INFO - Performance optimization system started
+2026-05-18 16:07:40,006 - server - INFO - Performance optimization system initialized
+2026-05-18 16:07:40,006 - server - INFO - ✅ Cache cleanup background task started
+2026-05-18 16:07:40,006 - server - INFO - 🚀 NOWHERE Digital API started successfully with optimizations
+2026-05-18 16:07:40,006 - agent_orchestrator - INFO - Worker worker-0 started
+2026-05-18 16:07:40,006 - agent_orchestrator - INFO - Worker worker-1 started
+2026-05-18 16:07:40,006 - agent_orchestrator - INFO - Worker worker-2 started
+2026-05-18 16:07:40,006 - agent_orchestrator - INFO - Worker worker-3 started
+2026-05-18 16:07:41,007 - core.performance_optimizer - ERROR - Failed to store metric: 'MockDB' object has no attribute 'performance_metrics'
+2026-05-18 16:07:41,007 - core.performance_optimizer - ERROR - Failed to store metric: 'MockDB' object has no attribute 'performance_metrics'
+INFO:     Application startup complete.
+ERROR:    [Errno 98] error while attempting to bind on address ('0.0.0.0', 8000): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-18 16:07:41,011 - core.inter_agent_communication - INFO - Inter-Agent Communication system stopped
+2026-05-18 16:07:41,011 - agent_orchestrator - INFO - Shutting down Agent Orchestrator...
+2026-05-18 16:07:41,011 - agent.sales_agent - INFO - Agent Sales Agent paused
+2026-05-18 16:07:41,011 - agent.marketing_agent - INFO - Agent Marketing Agent paused
+2026-05-18 16:07:41,011 - agent.content_agent - INFO - Agent Content Agent paused
+2026-05-18 16:07:41,011 - agent.analytics_agent - INFO - Agent Analytics Agent paused
+2026-05-18 16:07:41,011 - agent.operations_agent - INFO - Agent Operations Agent paused
+2026-05-18 16:07:41,012 - agent_orchestrator - INFO - All workers stopped
+2026-05-18 16:07:41,012 - agent_orchestrator - INFO - Agent Orchestrator shutdown complete
+2026-05-18 16:07:41,012 - server - INFO - NOWHERE Digital API shutdown
+INFO:     Application shutdown complete.
+2026-05-18 16:07:56,457 - server - ERROR - Error tracking page view: 'MockDB' object has no attribute 'analytics'
+2026-05-18 16:07:56,457 - request_tracker - INFO - Request started
+2026-05-18 16:07:56,458 - health_check - ERROR - Basic health check failed: object dict can't be used in 'await' expression
+2026-05-18 16:07:56,458 - request_tracker - INFO - Request completed
+2026-05-18 16:07:56,458 - server - INFO - GET /api/health - 200 - 0.002s
+INFO:     127.0.0.1:45368 - "GET /api/health HTTP/1.1" 200 OK
+2026-05-18 16:08:03,471 - core.performance_optimizer - ERROR - Failed to store metric: 'MockDB' object has no attribute 'performance_metrics'
+2026-05-18 16:08:03,471 - core.performance_optimizer - ERROR - Failed to store metric: 'MockDB' object has no attribute 'performance_metrics'
+2026-05-18 16:10:43,163 - cache_manager - INFO - Cache cleanup: 0 expired entries removed
+2026-05-18 16:11:11,584 - server - INFO - ✅ All optimization modules loaded successfully
+2026-05-18 16:11:11,585 - error_handlers - INFO - ✅ Error handlers registered
+2026-05-18 16:11:11,585 - server - INFO - ✅ Error handlers registered
+2026-05-18 16:11:11,587 - server - INFO - ✅ Request ID tracking enabled
+2026-05-18 16:11:11,587 - server - INFO - ✅ Rate limiting enabled (60/min, 1000/hour)
+2026-05-18 16:11:11,587 - server - INFO - ✅ Security headers enabled
+2026-05-18 16:11:11,587 - server - INFO - ✅ Metrics tracking enabled
+2026-05-18 16:11:11,796 - services.ai_service_upgraded - INFO - 🚀 Upgraded AI Service initialized with latest 2025 models (API key configured: True)
+2026-05-18 16:11:11,813 - server - INFO - ✅ Advanced AI routes loaded successfully (GPT-4o, Claude 3.5, Gemini 2.0)
+2026-05-18 16:11:11,886 - server - INFO - ✅ Agency routes loaded successfully (real estate swarm)
+INFO:     Started server process [19523]
+INFO:     Waiting for application startup.
+2026-05-18 16:11:11,887 - request_tracker - INFO - ✅ Request ID tracking initialized
+2026-05-18 16:11:11,887 - rate_limiter - INFO - ✅ Rate limiter initialized: 60/min, 1000/hour
+2026-05-18 16:11:11,887 - security_headers - INFO - ✅ Security headers middleware initialized
+2026-05-18 16:11:11,887 - metrics_middleware - INFO - ✅ Metrics middleware initialized
+2026-05-18 16:11:11,887 - database - INFO - Connected to Mock Database (MongoDB bypassed)
+2026-05-18 16:11:11,891 - database_indexes - INFO - ✅ Contacts collection indexes created
+2026-05-18 16:11:11,891 - database_indexes - INFO - ✅ Analytics collection indexes created
+2026-05-18 16:11:11,891 - database_indexes - INFO - ✅ Tenants collection indexes created
+2026-05-18 16:11:11,891 - database_indexes - INFO - ✅ Chat sessions collection indexes created
+2026-05-18 16:11:11,891 - database_indexes - INFO - ✅ Agent tasks collection indexes created
+2026-05-18 16:11:11,891 - database_indexes - INFO - ✅ Audit logs collection indexes created
+2026-05-18 16:11:11,891 - database_indexes - INFO - ✅ Performance metrics collection indexes created
+2026-05-18 16:11:11,891 - database_indexes - INFO - 🎉 All database indexes created successfully
+2026-05-18 16:11:11,891 - server - INFO - ✅ Database indexes created successfully
+2026-05-18 16:11:11,891 - agent_orchestrator - INFO - Initializing Agent Orchestrator...
+2026-05-18 16:11:11,891 - agent_orchestrator - INFO - Created sales agent: 20b1099f-ea0f-4502-bf07-365385fbe0b8
+2026-05-18 16:11:11,891 - agent_orchestrator - INFO - Created marketing agent: d009020e-5ea1-4892-adfe-778bb50abbd8
+2026-05-18 16:11:11,891 - agent_orchestrator - INFO - Created content agent: 8e7c412a-a27c-440e-824f-fb8831190a29
+2026-05-18 16:11:11,891 - agent_orchestrator - INFO - Created analytics agent: 7467265b-827e-46ae-a854-0566ff65f1c7
+2026-05-18 16:11:11,891 - agent_orchestrator - INFO - Created operations agent: 3b994937-bc26-4107-a14d-4bc9661e4cac
+2026-05-18 16:11:11,891 - agent_orchestrator - INFO - Started 4 worker tasks
+2026-05-18 16:11:11,891 - agent_orchestrator - INFO - Agent Orchestrator initialized successfully
+2026-05-18 16:11:11,892 - server - INFO - Agent orchestrator initialized
+2026-05-18 16:11:11,892 - core.inter_agent_communication - INFO - Inter-Agent Communication system started
+2026-05-18 16:11:11,892 - server - INFO - Inter-agent communication system started
+2026-05-18 16:11:11,892 - core.performance_optimizer - INFO - Cache manager initialized (in-memory mode)
+2026-05-18 16:11:11,892 - core.performance_optimizer - INFO - Performance optimization system started
+2026-05-18 16:11:11,892 - server - INFO - Performance optimization system initialized
+2026-05-18 16:11:11,892 - server - INFO - ✅ Cache cleanup background task started
+2026-05-18 16:11:11,892 - server - INFO - 🚀 NOWHERE Digital API started successfully with optimizations
+2026-05-18 16:11:11,892 - agent_orchestrator - INFO - Worker worker-0 started
+2026-05-18 16:11:11,892 - agent_orchestrator - INFO - Worker worker-1 started
+2026-05-18 16:11:11,892 - agent_orchestrator - INFO - Worker worker-2 started
+2026-05-18 16:11:11,892 - agent_orchestrator - INFO - Worker worker-3 started
+2026-05-18 16:11:12,893 - core.performance_optimizer - ERROR - Failed to store metric: 'MockDB' object has no attribute 'performance_metrics'
+2026-05-18 16:11:12,893 - core.performance_optimizer - ERROR - Failed to store metric: 'MockDB' object has no attribute 'performance_metrics'
+INFO:     Application startup complete.
+ERROR:    [Errno 98] error while attempting to bind on address ('0.0.0.0', 8000): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-18 16:11:12,897 - core.inter_agent_communication - INFO - Inter-Agent Communication system stopped
+2026-05-18 16:11:12,897 - agent_orchestrator - INFO - Shutting down Agent Orchestrator...
+2026-05-18 16:11:12,897 - agent.sales_agent - INFO - Agent Sales Agent paused
+2026-05-18 16:11:12,897 - agent.marketing_agent - INFO - Agent Marketing Agent paused
+2026-05-18 16:11:12,897 - agent.content_agent - INFO - Agent Content Agent paused
+2026-05-18 16:11:12,897 - agent.analytics_agent - INFO - Agent Analytics Agent paused
+2026-05-18 16:11:12,897 - agent.operations_agent - INFO - Agent Operations Agent paused
+2026-05-18 16:11:12,897 - agent_orchestrator - INFO - All workers stopped
+2026-05-18 16:11:12,897 - agent_orchestrator - INFO - Agent Orchestrator shutdown complete
+2026-05-18 16:11:12,897 - server - INFO - NOWHERE Digital API shutdown
+INFO:     Application shutdown complete.
+2026-05-18 16:11:27,093 - server - ERROR - Error tracking page view: 'MockDB' object has no attribute 'analytics'
+2026-05-18 16:11:27,094 - request_tracker - INFO - Request started
+2026-05-18 16:11:27,094 - health_check - ERROR - Basic health check failed: object dict can't be used in 'await' expression
+2026-05-18 16:11:27,094 - request_tracker - INFO - Request completed
+2026-05-18 16:11:27,095 - server - INFO - GET /api/health - 200 - 0.001s
+INFO:     127.0.0.1:48218 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-05-18 16:11:38,222 - core.inter_agent_communication - INFO - Inter-Agent Communication system stopped
+2026-05-18 16:11:38,222 - agent_orchestrator - INFO - Shutting down Agent Orchestrator...
+2026-05-18 16:11:38,222 - agent.sales_agent - INFO - Agent Sales Agent paused
+2026-05-18 16:11:38,222 - agent.marketing_agent - INFO - Agent Marketing Agent paused
+2026-05-18 16:11:38,222 - agent.content_agent - INFO - Agent Content Agent paused
+2026-05-18 16:11:38,222 - agent.analytics_agent - INFO - Agent Analytics Agent paused
+2026-05-18 16:11:38,222 - agent.operations_agent - INFO - Agent Operations Agent paused
+2026-05-18 16:11:38,222 - agent_orchestrator - INFO - All workers stopped
+2026-05-18 16:11:38,222 - agent_orchestrator - INFO - Agent Orchestrator shutdown complete
+ERROR:    Traceback (most recent call last):
+  File "/home/sahiix/.local/lib/python3.12/site-packages/starlette/routing.py", line 638, in lifespan
+    async with self.lifespan_context(app) as maybe_state:
+  File "/usr/lib/python3.12/contextlib.py", line 217, in __aexit__
+    await anext(self.gen)
+  File "/home/sahiix/.local/lib/python3.12/site-packages/fastapi/routing.py", line 216, in merged_lifespan
+    async with original_context(app) as maybe_original_state:
+  File "/usr/lib/python3.12/contextlib.py", line 217, in __aexit__
+    await anext(self.gen)
+  File "/home/sahiix/.local/lib/python3.12/site-packages/fastapi/routing.py", line 216, in merged_lifespan
+    async with original_context(app) as maybe_original_state:
+  File "/usr/lib/python3.12/contextlib.py", line 217, in __aexit__
+    await anext(self.gen)
+  File "/home/sahiix/.local/lib/python3.12/site-packages/fastapi/routing.py", line 216, in merged_lifespan
+    async with original_context(app) as maybe_original_state:
+  File "/home/sahiix/.local/lib/python3.12/site-packages/fastapi/routing.py", line 244, in __aexit__
+    await self._router._shutdown()
+  File "/home/sahiix/.local/lib/python3.12/site-packages/fastapi/routing.py", line 4900, in _shutdown
+    await handler()
+  File "/home/sahiix/Fixfizx/backend/server.py", line 2257, in shutdown_event
+    await close_db_connection()
+  File "/home/sahiix/Fixfizx/backend/database.py", line 40, in close_db_connection
+    pass
+AttributeError: 'MockClient' object has no attribute 'close'
+
+ERROR:    Application shutdown failed. Exiting.
+INFO:     Finished server process [18186]
+2026-05-18 16:15:04,173 - server - INFO - ✅ All optimization modules loaded successfully
+2026-05-18 16:15:04,173 - error_handlers - INFO - ✅ Error handlers registered
+2026-05-18 16:15:04,173 - server - INFO - ✅ Error handlers registered
+2026-05-18 16:15:04,174 - server - INFO - ✅ Request ID tracking enabled
+2026-05-18 16:15:04,174 - server - INFO - ✅ Rate limiting enabled (60/min, 1000/hour)
+2026-05-18 16:15:04,174 - server - INFO - ✅ Security headers enabled
+2026-05-18 16:15:04,174 - server - INFO - ✅ Metrics tracking enabled
+2026-05-18 16:15:04,321 - services.ai_service_upgraded - INFO - 🚀 Upgraded AI Service initialized with latest 2025 models (API key configured: True)
+2026-05-18 16:15:04,334 - server - INFO - ✅ Advanced AI routes loaded successfully (GPT-4o, Claude 3.5, Gemini 2.0)
+2026-05-18 16:15:04,414 - server - INFO - ✅ Agency routes loaded successfully (real estate swarm)
+INFO:     Started server process [20422]
+INFO:     Waiting for application startup.
+2026-05-18 16:15:04,416 - request_tracker - INFO - ✅ Request ID tracking initialized
+2026-05-18 16:15:04,416 - rate_limiter - INFO - ✅ Rate limiter initialized: 60/min, 1000/hour
+2026-05-18 16:15:04,416 - security_headers - INFO - ✅ Security headers middleware initialized
+2026-05-18 16:15:04,416 - metrics_middleware - INFO - ✅ Metrics middleware initialized
+2026-05-18 16:15:04,416 - database - INFO - Connected to Mock Database (MongoDB bypassed)
+2026-05-18 16:15:04,416 - database_indexes - INFO - ✅ Contacts collection indexes created
+2026-05-18 16:15:04,416 - database_indexes - INFO - ✅ Analytics collection indexes created
+2026-05-18 16:15:04,416 - database_indexes - INFO - ✅ Tenants collection indexes created
+2026-05-18 16:15:04,416 - database_indexes - INFO - ✅ Chat sessions collection indexes created
+2026-05-18 16:15:04,416 - database_indexes - INFO - ✅ Agent tasks collection indexes created
+2026-05-18 16:15:04,416 - database_indexes - INFO - ✅ Audit logs collection indexes created
+2026-05-18 16:15:04,416 - database_indexes - INFO - ✅ Performance metrics collection indexes created
+2026-05-18 16:15:04,416 - database_indexes - INFO - 🎉 All database indexes created successfully
+2026-05-18 16:15:04,416 - server - INFO - ✅ Database indexes created successfully
+2026-05-18 16:15:04,417 - agent_orchestrator - INFO - Initializing Agent Orchestrator...
+2026-05-18 16:15:04,417 - agent_orchestrator - INFO - Created sales agent: beaf20ad-06ef-4182-82d4-e133e1882f2e
+2026-05-18 16:15:04,417 - agent_orchestrator - INFO - Created marketing agent: ca7bda31-4295-463b-a70a-0950392a2920
+2026-05-18 16:15:04,417 - agent_orchestrator - INFO - Created content agent: 6bb60c33-f59e-4e8e-ba61-d91fb03cc51a
+2026-05-18 16:15:04,417 - agent_orchestrator - INFO - Created analytics agent: cc5dfadf-2b85-4bc5-9acd-0ca6d564e26e
+2026-05-18 16:15:04,417 - agent_orchestrator - INFO - Created operations agent: 1429ed3c-ad99-4fe2-9b01-76618e326857
+2026-05-18 16:15:04,417 - agent_orchestrator - INFO - Started 4 worker tasks
+2026-05-18 16:15:04,417 - agent_orchestrator - INFO - Agent Orchestrator initialized successfully
+2026-05-18 16:15:04,417 - server - INFO - Agent orchestrator initialized
+2026-05-18 16:15:04,417 - core.inter_agent_communication - INFO - Inter-Agent Communication system started
+2026-05-18 16:15:04,417 - server - INFO - Inter-agent communication system started
+2026-05-18 16:15:04,417 - core.performance_optimizer - INFO - Cache manager initialized (in-memory mode)
+2026-05-18 16:15:04,417 - core.performance_optimizer - INFO - Performance optimization system started
+2026-05-18 16:15:04,417 - server - INFO - Performance optimization system initialized
+2026-05-18 16:15:04,417 - server - INFO - ✅ Cache cleanup background task started
+2026-05-18 16:15:04,417 - server - INFO - 🚀 NOWHERE Digital API started successfully with optimizations
+2026-05-18 16:15:04,417 - agent_orchestrator - INFO - Worker worker-0 started
+2026-05-18 16:15:04,417 - agent_orchestrator - INFO - Worker worker-1 started
+2026-05-18 16:15:04,417 - agent_orchestrator - INFO - Worker worker-2 started
+2026-05-18 16:15:04,417 - agent_orchestrator - INFO - Worker worker-3 started
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2026-05-18 16:15:07,223 - server - ERROR - Error tracking page view: 'MockDB' object has no attribute 'analytics'
+2026-05-18 16:15:07,224 - request_tracker - INFO - Request started
+2026-05-18 16:15:07,226 - request_tracker - INFO - Request completed
+2026-05-18 16:15:07,242 - server - INFO - GET /api/health - 200 - 0.019s
+INFO:     127.0.0.1:48248 - "GET /api/health HTTP/1.1" 200 OK
+2026-05-18 16:15:32,846 - server - ERROR - Error tracking page view: 'MockDB' object has no attribute 'analytics'
+2026-05-18 16:15:32,847 - request_tracker - INFO - Request started
+2026-05-18 16:15:32,848 - request_tracker - INFO - Request completed
+2026-05-18 16:15:32,849 - server - INFO - GET /api/health - 200 - 0.003s
+INFO:     127.0.0.1:46966 - "GET /api/health HTTP/1.1" 200 OK
+2026-05-18 16:16:47,204 - core.performance_optimizer - ERROR - Failed to store metric: 'MockDB' object has no attribute 'performance_metrics'
+2026-05-18 16:16:47,204 - core.performance_optimizer - ERROR - Failed to store metric: 'MockDB' object has no attribute 'performance_metrics'
+2026-05-18 16:20:34,741 - cache_manager - INFO - Cache cleanup: 0 expired entries removed
+2026-05-18 16:21:52,615 - core.performance_optimizer - ERROR - Failed to store metric: 'MockDB' object has no attribute 'performance_metrics'
+2026-05-18 16:21:52,615 - core.performance_optimizer - ERROR - Failed to store metric: 'MockDB' object has no attribute 'performance_metrics'
+2026-05-18 16:24:42,338 - core.performance_optimizer - ERROR - Failed to store metric: 'MockDB' object has no attribute 'performance_metrics'
+2026-05-18 16:24:42,338 - core.performance_optimizer - ERROR - Failed to store metric: 'MockDB' object has no attribute 'performance_metrics'
+2026-05-18 16:25:16,248 - core.performance_optimizer - ERROR - Failed to store metric: 'MockDB' object has no attribute 'performance_metrics'
+2026-05-18 16:25:16,248 - core.performance_optimizer - ERROR - Failed to store metric: 'MockDB' object has no attribute 'performance_metrics'
+2026-05-18 16:26:01,193 - cache_manager - INFO - Cache cleanup: 0 expired entries removed
+2026-05-18 16:26:24,170 - core.performance_optimizer - ERROR - Failed to store metric: 'MockDB' object has no attribute 'performance_metrics'
+2026-05-18 16:26:24,171 - core.performance_optimizer - ERROR - Failed to store metric: 'MockDB' object has no attribute 'performance_metrics'
+2026-05-18 16:26:46,652 - server - ERROR - Error tracking page view: 'MockDB' object has no attribute 'analytics'
+2026-05-18 16:26:46,654 - request_tracker - INFO - Request started
+2026-05-18 16:26:46,658 - request_tracker - INFO - Request completed
+2026-05-18 16:26:46,659 - server - INFO - GET /api/agency/status - 404 - 0.007s
+INFO:     127.0.0.1:46664 - "GET /api/agency/status HTTP/1.1" 404 Not Found
+2026-05-18 16:26:46,675 - request_tracker - INFO - Request started
+2026-05-18 16:26:46,676 - request_tracker - INFO - Request completed
+2026-05-18 16:26:46,676 - server - INFO - POST /api/agency/ghost - 404 - 0.002s
+INFO:     127.0.0.1:46670 - "POST /api/agency/ghost HTTP/1.1" 404 Not Found
+2026-05-18 16:26:52,331 - server - ERROR - Error tracking page view: 'MockDB' object has no attribute 'analytics'
+2026-05-18 16:26:52,332 - request_tracker - INFO - Request started
+2026-05-18 16:26:52,333 - request_tracker - INFO - Request completed
+2026-05-18 16:26:52,334 - server - INFO - GET / - 200 - 0.002s
+INFO:     127.0.0.1:46680 - "GET / HTTP/1.1" 200 OK
+2026-05-18 16:26:52,347 - server - ERROR - Error tracking page view: 'MockDB' object has no attribute 'analytics'
+2026-05-18 16:26:52,348 - request_tracker - INFO - Request started
+2026-05-18 16:26:52,348 - request_tracker - INFO - Request completed
+2026-05-18 16:26:52,349 - server - INFO - GET /docs - 200 - 0.002s
+INFO:     127.0.0.1:46692 - "GET /docs HTTP/1.1" 200 OK
+2026-05-18 16:27:09,661 - server - ERROR - Error tracking page view: 'MockDB' object has no attribute 'analytics'
+2026-05-18 16:27:09,661 - request_tracker - INFO - Request started
+2026-05-18 16:27:09,663 - request_tracker - INFO - Request completed
+2026-05-18 16:27:09,663 - server - INFO - GET /api/ - 404 - 0.003s
+INFO:     127.0.0.1:47804 - "GET /api/ HTTP/1.1" 404 Not Found
+2026-05-18 16:27:09,675 - server - ERROR - Error tracking page view: 'MockDB' object has no attribute 'analytics'
+2026-05-18 16:27:09,675 - request_tracker - INFO - Request started
+2026-05-18 16:27:09,676 - request_tracker - INFO - Request completed
+2026-05-18 16:27:09,676 - server - INFO - GET /api/v1/status - 404 - 0.001s
+INFO:     127.0.0.1:47818 - "GET /api/v1/status HTTP/1.1" 404 Not Found
+2026-05-18 16:27:26,544 - server - ERROR - Error tracking page view: 'MockDB' object has no attribute 'analytics'
+2026-05-18 16:27:26,545 - request_tracker - INFO - Request started
+2026-05-18 16:27:26,546 - request_tracker - INFO - Request completed
+2026-05-18 16:27:26,546 - server - INFO - GET /api/v1/agency/status - 404 - 0.003s
+INFO:     127.0.0.1:48480 - "GET /api/v1/agency/status HTTP/1.1" 404 Not Found
+2026-05-18 16:27:26,560 - server - ERROR - Error tracking page view: 'MockDB' object has no attribute 'analytics'
+2026-05-18 16:27:26,560 - request_tracker - INFO - Request started
+2026-05-18 16:27:26,560 - request_tracker - INFO - Request completed
+2026-05-18 16:27:26,561 - server - INFO - GET /api/agency/status - 404 - 0.001s
+INFO:     127.0.0.1:48492 - "GET /api/agency/status HTTP/1.1" 404 Not Found
+2026-05-18 16:28:16,043 - server - ERROR - Error tracking page view: 'MockDB' object has no attribute 'analytics'
+2026-05-18 16:28:16,044 - request_tracker - INFO - Request started
+2026-05-18 16:28:16,046 - request_tracker - INFO - Request completed
+2026-05-18 16:28:16,046 - server - INFO - GET /api/v1/status - 404 - 0.003s
+INFO:     127.0.0.1:46162 - "GET /api/v1/status HTTP/1.1" 404 Not Found
+2026-05-18 16:28:16,063 - server - ERROR - Error tracking page view: 'MockDB' object has no attribute 'analytics'
+2026-05-18 16:28:16,064 - request_tracker - INFO - Request started
+2026-05-18 16:28:16,065 - request_tracker - INFO - Request completed
+2026-05-18 16:28:16,065 - server - INFO - GET /api/v1/agency/status - 404 - 0.002s
+INFO:     127.0.0.1:46170 - "GET /api/v1/agency/status HTTP/1.1" 404 Not Found
+2026-05-18 16:28:48,194 - server - ERROR - Error tracking page view: 'MockDB' object has no attribute 'analytics'
+2026-05-18 16:28:48,195 - request_tracker - INFO - Request started
+2026-05-18 16:28:48,227 - request_tracker - INFO - Request completed
+2026-05-18 16:28:48,228 - server - INFO - GET /status - 200 - 0.034s
+INFO:     127.0.0.1:47022 - "GET /status HTTP/1.1" 200 OK
+2026-05-18 16:28:48,241 - server - ERROR - Error tracking page view: 'MockDB' object has no attribute 'analytics'
+2026-05-18 16:28:48,242 - request_tracker - INFO - Request started
+2026-05-18 16:28:48,242 - request_tracker - INFO - Request completed
+2026-05-18 16:28:48,243 - server - INFO - GET /agency/status - 404 - 0.002s
+INFO:     127.0.0.1:47036 - "GET /agency/status HTTP/1.1" 404 Not Found
+2026-05-18 16:28:48,257 - server - ERROR - Error tracking page view: 'MockDB' object has no attribute 'analytics'
+2026-05-18 16:28:48,257 - request_tracker - INFO - Request started
+2026-05-18 16:28:48,258 - request_tracker - INFO - Request completed
+2026-05-18 16:28:48,258 - server - INFO - GET /api/v1/agency/status - 404 - 0.002s
+INFO:     127.0.0.1:47038 - "GET /api/v1/agency/status HTTP/1.1" 404 Not Found
+                                                                                                                                                                                                                                                                                            2026-05-18 17:21:16,087 - server - INFO - ✅ All optimization modules loaded successfully
+2026-05-18 17:21:16,091 - error_handlers - INFO - ✅ Error handlers registered
+2026-05-18 17:21:16,091 - server - INFO - ✅ Error handlers registered
+2026-05-18 17:21:16,096 - server - INFO - ✅ Request ID tracking enabled
+2026-05-18 17:21:16,096 - server - INFO - ✅ Rate limiting enabled (60/min, 1000/hour)
+2026-05-18 17:21:16,096 - server - INFO - ✅ Security headers enabled
+2026-05-18 17:21:16,096 - server - INFO - ✅ Metrics tracking enabled
+2026-05-18 17:21:16,487 - services.ai_service_upgraded - INFO - 🚀 Upgraded AI Service initialized with latest 2025 models (API key configured: True)
+2026-05-18 17:21:16,520 - server - INFO - ✅ Advanced AI routes loaded successfully (GPT-4o, Claude 3.5, Gemini 2.0)
+2026-05-18 17:21:16,668 - server - INFO - ✅ Agency routes loaded successfully (real estate swarm)
+INFO:     Started server process [698]
+INFO:     Waiting for application startup.
+2026-05-18 17:21:16,670 - request_tracker - INFO - ✅ Request ID tracking initialized
+2026-05-18 17:21:16,670 - rate_limiter - INFO - ✅ Rate limiter initialized: 60/min, 1000/hour
+2026-05-18 17:21:16,670 - security_headers - INFO - ✅ Security headers middleware initialized
+2026-05-18 17:21:16,670 - metrics_middleware - INFO - ✅ Metrics middleware initialized
+2026-05-18 17:21:16,670 - database - INFO - Connected to Mock Database (MongoDB bypassed)
+2026-05-18 17:21:16,672 - database_indexes - INFO - ✅ Contacts collection indexes created
+2026-05-18 17:21:16,672 - database_indexes - INFO - ✅ Analytics collection indexes created
+2026-05-18 17:21:16,672 - database_indexes - INFO - ✅ Tenants collection indexes created
+2026-05-18 17:21:16,672 - database_indexes - INFO - ✅ Chat sessions collection indexes created
+2026-05-18 17:21:16,672 - database_indexes - INFO - ✅ Agent tasks collection indexes created
+2026-05-18 17:21:16,672 - database_indexes - INFO - ✅ Audit logs collection indexes created
+2026-05-18 17:21:16,672 - database_indexes - INFO - ✅ Performance metrics collection indexes created
+2026-05-18 17:21:16,672 - database_indexes - INFO - 🎉 All database indexes created successfully
+2026-05-18 17:21:16,672 - server - INFO - ✅ Database indexes created successfully
+2026-05-18 17:21:16,672 - agent_orchestrator - INFO - Initializing Agent Orchestrator...
+2026-05-18 17:21:16,673 - agent_orchestrator - INFO - Created sales agent: 789e885b-665e-4233-9513-89241269fac8
+2026-05-18 17:21:16,673 - agent_orchestrator - INFO - Created marketing agent: d30fbfc3-acb2-4033-a944-a4a3ab41ae26
+2026-05-18 17:21:16,673 - agent_orchestrator - INFO - Created content agent: f45ed46f-8079-48d1-a0c8-ff9c5f5d4ceb
+2026-05-18 17:21:16,673 - agent_orchestrator - INFO - Created analytics agent: a156d91e-cd54-4e8f-abc1-64f16800bd95
+2026-05-18 17:21:16,673 - agent_orchestrator - INFO - Created operations agent: 342cb065-4128-42e8-9ca8-4c98011e6883
+2026-05-18 17:21:16,673 - agent_orchestrator - INFO - Started 4 worker tasks
+2026-05-18 17:21:16,673 - agent_orchestrator - INFO - Agent Orchestrator initialized successfully
+2026-05-18 17:21:16,673 - server - INFO - Agent orchestrator initialized
+2026-05-18 17:21:16,673 - core.inter_agent_communication - INFO - Inter-Agent Communication system started
+2026-05-18 17:21:16,673 - server - INFO - Inter-agent communication system started
+2026-05-18 17:21:16,673 - core.performance_optimizer - INFO - Cache manager initialized (in-memory mode)
+2026-05-18 17:21:16,673 - core.performance_optimizer - INFO - Performance optimization system started
+2026-05-18 17:21:16,673 - server - INFO - Performance optimization system initialized
+2026-05-18 17:21:16,673 - server - INFO - ✅ Cache cleanup background task started
+2026-05-18 17:21:16,673 - server - INFO - 🚀 NOWHERE Digital API started successfully with optimizations
+2026-05-18 17:21:16,673 - agent_orchestrator - INFO - Worker worker-0 started
+2026-05-18 17:21:16,674 - agent_orchestrator - INFO - Worker worker-1 started
+2026-05-18 17:21:16,674 - agent_orchestrator - INFO - Worker worker-2 started
+2026-05-18 17:21:16,674 - agent_orchestrator - INFO - Worker worker-3 started
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2026-05-18 17:23:50,482 - server - INFO - ✅ All optimization modules loaded successfully
+2026-05-18 17:23:50,483 - error_handlers - INFO - ✅ Error handlers registered
+2026-05-18 17:23:50,483 - server - INFO - ✅ Error handlers registered
+2026-05-18 17:23:50,485 - server - INFO - ✅ Request ID tracking enabled
+2026-05-18 17:23:50,485 - server - INFO - ✅ Rate limiting enabled (60/min, 1000/hour)
+2026-05-18 17:23:50,485 - server - INFO - ✅ Security headers enabled
+2026-05-18 17:23:50,485 - server - INFO - ✅ Metrics tracking enabled
+2026-05-18 17:23:50,719 - services.ai_service_upgraded - INFO - 🚀 Upgraded AI Service initialized with latest 2025 models (API key configured: True)
+2026-05-18 17:23:50,739 - server - INFO - ✅ Advanced AI routes loaded successfully (GPT-4o, Claude 3.5, Gemini 2.0)
+2026-05-18 17:23:50,832 - server - INFO - ✅ Agency routes loaded successfully (real estate swarm)
+INFO:     Started server process [1474]
+INFO:     Waiting for application startup.
+2026-05-18 17:23:50,834 - request_tracker - INFO - ✅ Request ID tracking initialized
+2026-05-18 17:23:50,834 - rate_limiter - INFO - ✅ Rate limiter initialized: 60/min, 1000/hour
+2026-05-18 17:23:50,834 - security_headers - INFO - ✅ Security headers middleware initialized
+2026-05-18 17:23:50,834 - metrics_middleware - INFO - ✅ Metrics middleware initialized
+2026-05-18 17:23:50,834 - database - INFO - Connected to Mock Database (MongoDB bypassed)
+2026-05-18 17:23:50,835 - database_indexes - INFO - ✅ Contacts collection indexes created
+2026-05-18 17:23:50,835 - database_indexes - INFO - ✅ Analytics collection indexes created
+2026-05-18 17:23:50,835 - database_indexes - INFO - ✅ Tenants collection indexes created
+2026-05-18 17:23:50,835 - database_indexes - INFO - ✅ Chat sessions collection indexes created
+2026-05-18 17:23:50,835 - database_indexes - INFO - ✅ Agent tasks collection indexes created
+2026-05-18 17:23:50,835 - database_indexes - INFO - ✅ Audit logs collection indexes created
+2026-05-18 17:23:50,835 - database_indexes - INFO - ✅ Performance metrics collection indexes created
+2026-05-18 17:23:50,835 - database_indexes - INFO - 🎉 All database indexes created successfully
+2026-05-18 17:23:50,835 - server - INFO - ✅ Database indexes created successfully
+2026-05-18 17:23:50,835 - agent_orchestrator - INFO - Initializing Agent Orchestrator...
+2026-05-18 17:23:50,835 - agent_orchestrator - INFO - Created sales agent: d654a3af-7625-425c-ae85-7e933f66a998
+2026-05-18 17:23:50,835 - agent_orchestrator - INFO - Created marketing agent: 7983930b-811f-4d8c-8a26-e93d95c3afb2
+2026-05-18 17:23:50,835 - agent_orchestrator - INFO - Created content agent: aa5f53ac-b3b0-4632-bbf8-0bb9993215ac
+2026-05-18 17:23:50,835 - agent_orchestrator - INFO - Created analytics agent: ee4f5642-ff69-466f-a9e8-da2060c6ad46
+2026-05-18 17:23:50,835 - agent_orchestrator - INFO - Created operations agent: 02b70154-7577-4319-be15-4391e41046ec
+2026-05-18 17:23:50,835 - agent_orchestrator - INFO - Started 4 worker tasks
+2026-05-18 17:23:50,835 - agent_orchestrator - INFO - Agent Orchestrator initialized successfully
+2026-05-18 17:23:50,835 - server - INFO - Agent orchestrator initialized
+2026-05-18 17:23:50,835 - core.inter_agent_communication - INFO - Inter-Agent Communication system started
+2026-05-18 17:23:50,836 - server - INFO - Inter-agent communication system started
+2026-05-18 17:23:50,836 - core.performance_optimizer - INFO - Cache manager initialized (in-memory mode)
+2026-05-18 17:23:50,836 - core.performance_optimizer - INFO - Performance optimization system started
+2026-05-18 17:23:50,836 - server - INFO - Performance optimization system initialized
+2026-05-18 17:23:50,836 - server - INFO - ✅ Cache cleanup background task started
+2026-05-18 17:23:50,836 - server - INFO - 🚀 NOWHERE Digital API started successfully with optimizations
+2026-05-18 17:23:50,836 - agent_orchestrator - INFO - Worker worker-0 started
+2026-05-18 17:23:50,836 - agent_orchestrator - INFO - Worker worker-1 started
+2026-05-18 17:23:50,836 - agent_orchestrator - INFO - Worker worker-2 started
+2026-05-18 17:23:50,836 - agent_orchestrator - INFO - Worker worker-3 started
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
